@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1433C55529721CDF00FCE202 /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433C55429721CDF00FCE202 /* OnboardingPageView.swift */; };
+		1433C5572972203400FCE202 /* PaginationIndexDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433C5562972203400FCE202 /* PaginationIndexDisplay.swift */; };
 		14B160FA296E215F004D318B /* Space_Traveller_OnboardingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B160F9296E215F004D318B /* Space_Traveller_OnboardingApp.swift */; };
 		14B160FC296E215F004D318B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B160FB296E215F004D318B /* ContentView.swift */; };
 		14B160FE296E2161004D318B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B160FD296E2161004D318B /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1433C55429721CDF00FCE202 /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
+		1433C5562972203400FCE202 /* PaginationIndexDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationIndexDisplay.swift; sourceTree = "<group>"; };
 		14B160F6296E215F004D318B /* Space Traveller Onboarding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Traveller Onboarding.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B160F9296E215F004D318B /* Space_Traveller_OnboardingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space_Traveller_OnboardingApp.swift; sourceTree = "<group>"; };
 		14B160FB296E215F004D318B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,8 +85,8 @@
 		14B16108296E2606004D318B /* Onboarding View */ = {
 			isa = PBXGroup;
 			children = (
-				14B16109296E2616004D318B /* Components */,
 				14B1610A296F5DA9004D318B /* OnboardingView.swift */,
+				14B16109296E2616004D318B /* Components */,
 			);
 			path = "Onboarding View";
 			sourceTree = "<group>";
@@ -90,6 +94,8 @@
 		14B16109296E2616004D318B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				1433C55429721CDF00FCE202 /* OnboardingPageView.swift */,
+				1433C5562972203400FCE202 /* PaginationIndexDisplay.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -166,6 +172,8 @@
 			files = (
 				14B1610B296F5DA9004D318B /* OnboardingView.swift in Sources */,
 				14B160FC296E215F004D318B /* ContentView.swift in Sources */,
+				1433C55529721CDF00FCE202 /* OnboardingPageView.swift in Sources */,
+				1433C5572972203400FCE202 /* PaginationIndexDisplay.swift in Sources */,
 				14B160FA296E215F004D318B /* Space_Traveller_OnboardingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

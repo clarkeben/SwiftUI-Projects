@@ -65,13 +65,13 @@ struct OnboardingView: View {
                     .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 1), value: animateLogo)
                     
                     Spacer()
+                    
                 } else {
                     TabView(selection: $currentTabIndex) {
                         OnboardingPageView(currentIndex: $currentTabIndex,
                                            image: "Onboarding0",
                                            titleText: "The Team",
                                            subtitleText: "Find out about the team, and what they've been up to.").tag(0)
-                            
                         
                         OnboardingPageView(currentIndex: $currentTabIndex,
                                            image: "Onboarding1",
@@ -105,83 +105,6 @@ struct OnboardingView: View {
                 showLogo = false
             }
         }
-        .preferredColorScheme(.dark)
-    }
-}
-
-struct OnboardingPageView: View {
-    @State private var animateView = false
-    @Binding var currentIndex: Int
-    
-    let image: String
-    @State var titleText: String
-    let subtitleText: String
-    
-    var body: some View {
-            VStack(alignment: .leading) {
-                Image(image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 250, height: 250)
-                    .padding()
-                    .offset(y: animateView ? 0 : -100)
-                    .opacity(animateView ? 1.0 : 0.0)
-                    .animation(.easeInOut(duration: 0.8))
-                
-                Text(titleText)
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.white)
-                
-                Text(subtitleText)
-                    .font(.headline)
-                    .foregroundColor(Color("LightPurple"))
-            }
-            .padding()
-            .preferredColorScheme(.dark)
-            .onAppear() {
-                animateView = true
-            }
-    }
-}
-
-struct PaginationIndexDisplay: View {
-    @Binding var currentIndex: Int
-    
-    var buttonAction: () -> Void
-    
-    var body: some View {
-        HStack {
-            Capsule()
-                .foregroundColor(currentIndex == 0 ? Color("LightPurple") : .gray)
-                .frame(width: currentIndex == 0 ? 30 : 10, height: 10)
-                .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 1))
-            
-            Capsule()
-                .foregroundColor(currentIndex == 1 ? Color("LightPurple") : .gray)
-                .frame(width: currentIndex == 1 ? 30 : 10, height: 10)
-                .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 1))
-            
-            Capsule()
-                .foregroundColor(currentIndex == 2 ? Color("LightPurple") : .gray)
-                .frame(width: currentIndex == 2 ? 30 : 10, height: 10)
-                .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 1))
-            
-            Spacer()
-            
-            if currentIndex == 2 {
-                Button {
-                    buttonAction()
-                } label: {
-                    Text("Done")
-                        .foregroundColor(.black)
-                }
-                .frame(width: 60, height: 40)
-                .background(Color("LightPurple"))
-                .cornerRadius(10)
-            }
-        }
-        .padding()
         .preferredColorScheme(.dark)
     }
 }
