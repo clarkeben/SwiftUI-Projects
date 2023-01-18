@@ -9,13 +9,52 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        TabView {
+            LoginView().tabItem {
+                Text("Login")
+            }
+            SignupView().tabItem {
+                Text("Signup")
+            }
         }
-        .padding()
+    }
+}
+
+struct LoginView: View {
+    @State private var email = ""
+    @State private var password = ""
+    
+    var body: some View {
+        VStack {
+            TextField("Email", text: $email)
+            SecureField("Password", text: $password)
+            Button {
+                ///Action
+            } label: {
+                Text("Login")
+            }
+
+        }
+    }
+}
+
+struct SignupView: View {
+    @State private var name = ""
+    @State private var email = ""
+    @State private var password = ""
+    
+    var body: some View {
+        VStack {
+            TextField("Name", text: $name)
+            TextField("Email", text: $email)
+            SecureField("Password", text: $password)
+            Button {
+                ///Action
+            } label: {
+                Text("Login")
+            }
+
+        }
     }
 }
 
