@@ -39,7 +39,7 @@ struct LoginView: View {
             }.padding([.leading, .trailing], 20)
             
             HStack {
-                Image(systemName: "lock.fill")
+                Image(systemName: "envelope.fill")
                 TextField("Email", text: $email)
             }
             .padding(.vertical, 10)
@@ -83,20 +83,62 @@ struct LoginView: View {
 }
 
 struct SignupView: View {
+    let width = UIScreen.main.bounds.width
+
     @State private var name = ""
     @State private var email = ""
     @State private var password = ""
     
     var body: some View {
         VStack {
-            TextField("Name", text: $name)
-            TextField("Email", text: $email)
-            SecureField("Password", text: $password)
-            Button {
-                ///Action
-            } label: {
-                Text("Login")
+            
+            Image("sign-up2")
+                .resizable()
+                .frame(width: 150, height: 200)
+                
+            HStack {
+                Text("Register")
+                    .font(.title)
+                Spacer()
+            }.padding([.leading, .trailing], 20)
+            
+            HStack {
+                Image(systemName: "person.fill")
+                TextField("Name", text: $name)
             }
+            .padding(.vertical, 10)
+            .overlay(Rectangle().frame(height: 1).padding(.top, 35))
+            .foregroundColor(.gray)
+            .padding([.leading, .trailing], 20)
+            .padding(.bottom, 10)
+            
+            HStack {
+                Image(systemName: "envelope.fill")
+                TextField("Email", text: $email)
+            }
+            .padding(.vertical, 10)
+            .overlay(Rectangle().frame(height: 1).padding(.top, 35))
+            .foregroundColor(.gray)
+            .padding([.leading, .trailing], 20)
+            .padding(.bottom, 10)
+
+            HStack {
+                Image(systemName: "lock.fill")
+                SecureField("Password", text: $password)
+            }
+            .padding(.vertical, 10)
+            .overlay(Rectangle().frame(height: 1).padding(.top, 35))
+            .foregroundColor(.gray)
+            .padding([.leading, .trailing], 20)
+            .padding(.bottom, 10)
+            
+            Button("Register") {
+                   
+            }
+            .frame(width: width-60, height: 50)
+            .foregroundColor(.white)
+            .background(.blue)
+            .cornerRadius(10)
 
         }
     }
