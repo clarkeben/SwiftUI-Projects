@@ -5,6 +5,7 @@
 //  Created by Ben Clarke on 15/01/2023.
 //
 
+import AuthenticationServices
 import SwiftUI
 
 struct ContentView: View {
@@ -14,7 +15,7 @@ struct ContentView: View {
                 Text("Login")
             }
             SignupView().tabItem {
-                Text("Signup")
+                Text("Register")
             }
         }
     }
@@ -34,7 +35,8 @@ struct LoginView: View {
             
             HStack {
                 Text("Login")
-                    .font(.title)
+                    .font(.system(.largeTitle, design: .rounded))
+                    .foregroundColor(Color("darkBlue"))
                 Spacer()
             }.padding([.leading, .trailing], 20)
             
@@ -52,6 +54,7 @@ struct LoginView: View {
                 Image(systemName: "lock.fill")
                 SecureField("Password", text: $password)
                 Text("Forgot?").foregroundColor(.blue)
+                
             }
             .padding(.vertical, 10)
             .overlay(Rectangle().frame(height: 1).padding(.top, 35))
@@ -64,19 +67,31 @@ struct LoginView: View {
             }
             .frame(width: width-60, height: 50)
             .foregroundColor(.white)
+            .font(.system(size: 18, weight: .semibold))
             .background(.blue)
-            .cornerRadius(10)
+            .cornerRadius(5)
             
+            SignInWithAppleButton(.signIn) { request in
+                
+            } onCompletion: { result in
+                
+            }
+            .frame(width: width-60, height: 50)
+            .font(.system(size: 16))
             
             Text("Or, login with..")
                 .foregroundColor(.gray)
+                .font(.system(size: 12, design: .rounded))
                 .padding(40)
             
             HStack {
                 Text("New to the app?")
+                    .foregroundColor(Color("darkBlue"))
+                    .font(.system(size: 12, design: .rounded))
                 Button("Register"){
                     
                 }
+                .font(.system(size: 12, design: .rounded))
             }
         }
     }
@@ -98,7 +113,9 @@ struct SignupView: View {
                 
             HStack {
                 Text("Register")
-                    .font(.title)
+                    .font(.system(.largeTitle, design: .rounded))
+                    .foregroundColor(Color("darkBlue"))
+                
                 Spacer()
             }.padding([.leading, .trailing], 20)
             
@@ -137,9 +154,48 @@ struct SignupView: View {
             }
             .frame(width: width-60, height: 50)
             .foregroundColor(.white)
+            .font(.system(size: 18, weight: .semibold))
             .background(.blue)
-            .cornerRadius(10)
+            .cornerRadius(5)
+            
+            SignInWithAppleButton(.signUp) { request in
+                
+            } onCompletion: { result in
+                
+            }
+            .frame(width: width-60, height: 50)
+            .font(.system(size: 16))
 
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Image(systemName: "lock.fill")
+                            .foregroundColor(.gray)
+                        Text("Your password needs..")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 12, design: .rounded))
+                    }
+                    
+                    Text("✅ Include both lower and upper case characters")
+                        .foregroundColor(.green)
+                        .font(.system(size: 12, design: .rounded))
+                        .padding(.top, 5)
+                    
+                    Text("✅ include at least one number or symbol")
+                        .foregroundColor(.green)
+                        .font(.system(size: 12, design: .rounded))
+                        .padding(.top, 5)
+                    
+                    
+                    Text("✅ be atleast 8 characters long")
+                        .foregroundColor(.green)
+                        .font(.system(size: 12, design: .rounded))
+                        .padding(.top, 5)
+                    
+                    
+                }.padding()
+                Spacer()
+            }
         }
     }
 }
