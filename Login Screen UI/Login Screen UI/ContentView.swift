@@ -99,18 +99,19 @@ struct LoginView: View {
 
 struct SignupView: View {
     let width = UIScreen.main.bounds.width
-
+    
     @State private var name = ""
     @State private var email = ""
     @State private var password = ""
+    @State private var passwordIsValid = false
     
     var body: some View {
         VStack {
             
             Image("sign-up2")
                 .resizable()
-                .frame(width: 150, height: 200)
-                
+                .frame(width: 150, height: 250)
+            
             HStack {
                 Text("Register")
                     .font(.system(.largeTitle, design: .rounded))
@@ -138,10 +139,13 @@ struct SignupView: View {
             .foregroundColor(.gray)
             .padding([.leading, .trailing], 20)
             .padding(.bottom, 10)
-
+            
             HStack {
                 Image(systemName: "lock.fill")
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $password).onSubmit {
+                    passwordIsValid = isPasswordValidation()
+                    print(passwordIsValid)
+                }
             }
             .padding(.vertical, 10)
             .overlay(Rectangle().frame(height: 1).padding(.top, 35))
@@ -150,7 +154,7 @@ struct SignupView: View {
             .padding(.bottom, 10)
             
             Button("Register") {
-                   
+                
             }
             .frame(width: width-60, height: 50)
             .foregroundColor(.white)
@@ -165,7 +169,7 @@ struct SignupView: View {
             }
             .frame(width: width-60, height: 50)
             .font(.system(size: 16))
-
+            
             HStack {
                 VStack(alignment: .leading) {
                     HStack {
@@ -193,11 +197,19 @@ struct SignupView: View {
                         .padding(.top, 5)
                     
                     
-                }.padding()
+                }.padding(5)
                 Spacer()
             }
         }
     }
+    
+    private func isPasswordValidation() -> Bool {
+        let password = password.trimmingCharacters(in: CharacterSet.whitespaces)
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$"
+        let passwordCheck = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        return passwordCheck.evaluate(with: password)
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
