@@ -9,6 +9,7 @@ import AuthenticationServices
 import SwiftUI
 
 struct RegisterView: View {
+    //MARK: - Properties
     let width = UIScreen.main.bounds.width
     
     @State private var name = ""
@@ -16,6 +17,7 @@ struct RegisterView: View {
     @State private var password = ""
     @State private var passwordIsValid = false
     
+    //MARK: - Views
     var body: some View {
         VStack {
             
@@ -61,32 +63,16 @@ struct RegisterView: View {
             .padding(.bottom, 10)
             
             Button("Register") {
-                
+                //TODO: - Register User
             }
             .blueButton()
             
-            SignInWithAppleButton(.signUp) { request in
-                
-            } onCompletion: { result in
-                
-            }
+            //TODO: - Handle signup with Apple
+            SignInWithAppleButton(.signUp) { request in } onCompletion: { result in }
             .frame(width: width-60, height: 50)
             .font(.system(size: 16))
-            
-
         }
     }
-    
-    /*private func isPasswordValidation() -> Bool {
-        if password == "" {
-            return true
-        }
-        
-        let password = password.trimmingCharacters(in: CharacterSet.whitespaces)
-        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$"
-        let passwordCheck = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        return passwordCheck.evaluate(with: password)
-    }*/
 }
 
 struct RegisterView_Previews: PreviewProvider {

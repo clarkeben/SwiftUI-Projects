@@ -34,10 +34,12 @@ struct BlueButtonOnboarding: ViewModifier {
 
 // MARK: -  View Extensions
 extension View {
+    /// Large text modifier with a rounded design and a dark blue colour
     func largeTitle() -> some View {
         modifier(LargeOnboardingTitleModifier())
     }
     
+    /// Rounded blue button modifier with white text and a slight corner radius
     func blueButton() -> some View {
         modifier(BlueButtonOnboarding())
     }

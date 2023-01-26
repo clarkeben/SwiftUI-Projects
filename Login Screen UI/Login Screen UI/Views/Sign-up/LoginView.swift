@@ -9,11 +9,14 @@ import AuthenticationServices
 import SwiftUI
 
 struct LoginView: View {
+    
+    // MARK: - Properties
     private let width = UIScreen.main.bounds.width
         
     @State private var email = ""
     @State private var password = ""
     
+    // MARK: - Views
     var body: some View {
         VStack {
             
@@ -39,7 +42,10 @@ struct LoginView: View {
             HStack {
                 Image(systemName: "lock.fill")
                 SecureField("Password", text: $password)
-                Text("Forgot?").foregroundColor(.blue)
+                Button("Forgot?"){
+                    //TODO: - Send password reminder
+                }
+                .foregroundColor(.blue)
             }
             .padding(.vertical, 10)
             .overlay(Rectangle().frame(height: 1).padding(.top, 35))
@@ -48,15 +54,12 @@ struct LoginView: View {
             .padding(.bottom, 20)
             
             Button("Login") {
-                ///Action
+                //TODO: - Login
             }
             .blueButton()
             
-            SignInWithAppleButton(.signIn) { request in
-                
-            } onCompletion: { result in
-                
-            }
+            //TODO: - Handle signin with Apple
+            SignInWithAppleButton(.signIn) { request in } onCompletion: { result in }
             .frame(width: width-60, height: 50)
             .font(.system(size: 16))
             
@@ -65,7 +68,7 @@ struct LoginView: View {
                     .foregroundColor(Color("darkBlue"))
                     .font(.system(size: 12, design: .rounded))
                 Button("Register") {
-                    
+                    //TODO: - Register
                 }
                 .font(.system(size: 12, design: .rounded))
             }.padding()
