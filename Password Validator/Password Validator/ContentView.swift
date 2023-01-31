@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
-    @State private var passwordText = ""
+    @ObservedObject private var viewModel = PasswordValidatorViewModel()
     
     var body: some View {
         NavigationView {
@@ -22,15 +22,25 @@ struct ContentView: View {
                     .foregroundColor(.gray)
                 
                 HStack {
-                    TextField("Password", text: $passwordText)
+                    if viewModel.showPassword {
+                        TextField("Password", text: $viewModel.passwordText)
+                    } else {
+                        SecureField("Password", text: $viewModel.passwordText)
+                    }
                     Spacer()
-                    Image(systemName: "eye")
-                        .foregroundColor(.gray)
+                    Button {
+                        withAnimation(.easeInOut) {
+                            viewModel.showPassword.toggle()
+                        }
+                    } label: {
+                        Image(systemName: viewModel.showPassword ? "eye" : "eye.slash.fill")
+                            .foregroundColor(.gray)
+                    }
                 }
                 .padding(10)
                 .border(.gray)
                 .cornerRadius(2)
-
+                
                 Spacer()
                 
                 HStack {
@@ -42,7 +52,7 @@ struct ContentView: View {
                         Image(systemName: "chevron.right")
                             .resizable()
                             .foregroundColor(.white)
-                            .frame(width: 40)
+                            .frame(width: 20, height: 30)
                     }
                     .frame(width: 60, height: 60)
                     .background(.purple)
@@ -61,7 +71,10 @@ class PasswordValidatorViewModel: ObservableObject {
     @Published var passwordText = ""
     @Published var showPassword = false
     
-    
+    @Published var isOver12Chars = false
+    @Published var containsCapLetters = false
+    @Published var containNumbers = false
+    @Published var containsSpecChars = false
     
     // Methods
     /// Check that the password is over 12 characters long
@@ -75,21 +88,23 @@ class PasswordValidatorViewModel: ObservableObject {
     
     /// Check that the password contains one capital letter
     private func containsCapitalLetter() -> Bool {
-         
-        return false
+        let capitalLetterRegex = ".*[A-Z]+.*"
+        return NSPredicate(format: "SELF MATCHES %@", capitalLetterRegex).evaluate(with: self)
     }
     
     /// Check that the password contains one number
     private func containsNumbers() -> Bool {
-        
-        return false
+        let numberRegex = ".*[0-9]+.*"
+        return NSPredicate(format: "SELF MATCHES %@", numberRegex).evaluate(with: self)
     }
     
     /// Check that the password contains a special character
     private func containsSpecialCharacters() -> Bool {
-        
-        return false
+        let specialCharRegex = ".*[^A-Za-z0-9].*"
+        return NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: self)
     }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
