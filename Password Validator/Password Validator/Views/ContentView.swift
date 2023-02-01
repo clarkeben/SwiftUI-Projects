@@ -37,7 +37,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button {
-                        withAnimation(.easeInOut) {
+                        withAnimation() {
                             viewModel.showPassword.toggle()
                         }
                     } label: {
