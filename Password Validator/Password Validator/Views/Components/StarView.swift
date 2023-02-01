@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct StarView: View {
+    //MARK: - Properties
     let randomSize = Int.random(in: 5...30)
     let randomColour = [Color.yellow, Color.orange ,Color.red, Color.blue, Color.pink, Color.purple, Color.indigo, Color.mint].randomElement()
     
+    //MARK: - Body
     var body: some View {
         Image(systemName: "star.fill")
             .resizable()

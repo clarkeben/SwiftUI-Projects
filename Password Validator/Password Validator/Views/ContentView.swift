@@ -19,12 +19,12 @@ struct ContentView: View {
         
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                Text("Register")
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Create your password")
                     .font(.title)
                     .padding(5)
                 
-                Text("Please create a secure password including the following criteria below")
+                Text("Please create a secure password using the following criteria listed below")
                     .font(.system(size: 12))
                     .foregroundColor(.gray)
                     .padding(5)
@@ -63,7 +63,7 @@ struct ContentView: View {
                     Spacer()
                     
                     Button {
-                        
+                        //Handle button pressed
                     } label: {
                         Image(systemName: "chevron.right")
                             .resizable()
@@ -73,11 +73,15 @@ struct ContentView: View {
                     .frame(width: 60, height: 60)
                     .background(.purple)
                     .clipShape(Circle())
+                    .opacity(viewModel.passwordIsValid ? 1.0 : 0.0)
+                    .offset(x: viewModel.passwordIsValid ? 0 : 100)
+                    .animation(.interpolatingSpring(stiffness: 200, damping: 20), value: viewModel.passwordIsValid)
                 }
             }
             .padding(10)
             .navigationTitle("Register")
-            .onChange(of: viewModel.passwordText) { newValue in
+            .navigationBarTitleDisplayMode(.inline)
+            .onChange(of: viewModel.passwordText) { _ in
                 viewModel.validatePassword()
             }
         }
@@ -96,6 +100,8 @@ class PasswordValidatorViewModel: ObservableObject {
     @Published var containsSpecChars = false
     @Published var containsDash = false
     
+    @Published var passwordIsValid = false
+    
     // Methods
     func validatePassword() {
         isOver12Chars = passIsOver12Characters(passwordText)
@@ -103,6 +109,7 @@ class PasswordValidatorViewModel: ObservableObject {
         containsNumbers = passContainsNumbers(passwordText)
         containsSpecChars = passContainsSpecialCharacters(passwordText)
         containsDash = passContainsDash(passwordText)
+        passwordIsValid = checkPasswordMeetsAllCriteria()
     }
     
     /// Check that the password is over 12 characters long
@@ -132,9 +139,19 @@ class PasswordValidatorViewModel: ObservableObject {
         return NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: password)
     }
     
+    /// Check that the password contains a dash
     private func passContainsDash(_ password: String) -> Bool {
         let dashRegex = ".*[-].*"
         return NSPredicate(format: "SELF MATCHES %@", dashRegex).evaluate(with: password)
+    }
+    
+    /// Check that the password meets all of the specified criteria
+    private func checkPasswordMeetsAllCriteria() -> Bool {
+        if isOver12Chars && containsCapLetters && containsNumbers && containsSpecChars && containsDash {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
