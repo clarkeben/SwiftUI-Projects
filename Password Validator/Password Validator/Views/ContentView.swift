@@ -11,15 +11,23 @@ struct ContentView: View {
     // MARK: - Properties
     @ObservedObject private var viewModel = PasswordValidatorViewModel()
     
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+        
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 Text("Register")
                     .font(.title)
+                    .padding(5)
                 
                 Text("Please create a secure password including the following criteria below")
                     .font(.system(size: 12))
                     .foregroundColor(.gray)
+                    .padding(5)
                 
                 HStack {
                     if viewModel.showPassword {
@@ -41,8 +49,13 @@ struct ContentView: View {
                 .border(.gray)
                 .cornerRadius(2)
                 
-                
-                //TODO: - Add password validation fields
+                LazyVGrid(columns: columns, spacing: 10) {
+                    PasswordGridItem(itemName: "12 Chars", isValidated: $viewModel.isOver12Chars)
+                    PasswordGridItem(itemName: "1 Capital", isValidated: $viewModel.containsCapLetters)
+                    PasswordGridItem(itemName: "1 Number", isValidated: $viewModel.containsNumbers)
+                    PasswordGridItem(itemName: "1 Special Char", isValidated: $viewModel.containsSpecChars)
+                    PasswordGridItem(itemName: "1 Dash", isValidated: $viewModel.containsDash)
+                }.padding(5)
                 
                 Spacer()
                 
@@ -81,6 +94,7 @@ class PasswordValidatorViewModel: ObservableObject {
     @Published var containsCapLetters = false
     @Published var containsNumbers = false
     @Published var containsSpecChars = false
+    @Published var containsDash = false
     
     // Methods
     func validatePassword() {
@@ -88,6 +102,7 @@ class PasswordValidatorViewModel: ObservableObject {
         containsCapLetters = passContainsCapitalLetter(passwordText)
         containsNumbers = passContainsNumbers(passwordText)
         containsSpecChars = passContainsSpecialCharacters(passwordText)
+        containsDash = passContainsDash(passwordText)
     }
     
     /// Check that the password is over 12 characters long
@@ -115,6 +130,11 @@ class PasswordValidatorViewModel: ObservableObject {
     private func passContainsSpecialCharacters(_ password: String) -> Bool {
         let specialCharRegex = ".*[^A-Za-z0-9].*"
         return NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: password)
+    }
+    
+    private func passContainsDash(_ password: String) -> Bool {
+        let dashRegex = ".*[-].*"
+        return NSPredicate(format: "SELF MATCHES %@", dashRegex).evaluate(with: password)
     }
 }
 

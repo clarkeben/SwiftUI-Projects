@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14558859298B00600091B3BF /* PasswordGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14558858298B00600091B3BF /* PasswordGridItem.swift */; };
 		14CBA134298493B100B93EA8 /* Password_ValidatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CBA133298493B100B93EA8 /* Password_ValidatorApp.swift */; };
 		14CBA136298493B100B93EA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CBA135298493B100B93EA8 /* ContentView.swift */; };
 		14CBA138298493B200B93EA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14CBA137298493B200B93EA8 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14558858298B00600091B3BF /* PasswordGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGridItem.swift; sourceTree = "<group>"; };
 		14CBA130298493B100B93EA8 /* Password Validator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Password Validator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CBA133298493B100B93EA8 /* Password_ValidatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password_ValidatorApp.swift; sourceTree = "<group>"; };
 		14CBA135298493B100B93EA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +34,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14558857298B00060091B3BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14CBA135298493B100B93EA8 /* ContentView.swift */,
+				14558858298B00600091B3BF /* PasswordGridItem.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		14CBA127298493B100B93EA8 = {
 			isa = PBXGroup;
 			children = (
@@ -52,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				14CBA133298493B100B93EA8 /* Password_ValidatorApp.swift */,
-				14CBA135298493B100B93EA8 /* ContentView.swift */,
+				14558857298B00060091B3BF /* Views */,
 				14CBA137298493B200B93EA8 /* Assets.xcassets */,
 				14CBA139298493B200B93EA8 /* Preview Content */,
 			);
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14CBA136298493B100B93EA8 /* ContentView.swift in Sources */,
+				14558859298B00600091B3BF /* PasswordGridItem.swift in Sources */,
 				14CBA134298493B100B93EA8 /* Password_ValidatorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
