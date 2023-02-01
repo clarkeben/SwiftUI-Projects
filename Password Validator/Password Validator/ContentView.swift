@@ -41,6 +41,9 @@ struct ContentView: View {
                 .border(.gray)
                 .cornerRadius(2)
                 
+                
+                //TODO: - Add password validation fields
+                
                 Spacer()
                 
                 HStack {
@@ -61,6 +64,9 @@ struct ContentView: View {
             }
             .padding(10)
             .navigationTitle("Register")
+            .onChange(of: viewModel.passwordText) { newValue in
+                viewModel.validatePassword()
+            }
         }
     }
 }
@@ -73,12 +79,19 @@ class PasswordValidatorViewModel: ObservableObject {
     
     @Published var isOver12Chars = false
     @Published var containsCapLetters = false
-    @Published var containNumbers = false
+    @Published var containsNumbers = false
     @Published var containsSpecChars = false
     
     // Methods
+    func validatePassword() {
+        isOver12Chars = passIsOver12Characters(passwordText)
+        containsCapLetters = passContainsCapitalLetter(passwordText)
+        containsNumbers = passContainsNumbers(passwordText)
+        containsSpecChars = passContainsSpecialCharacters(passwordText)
+    }
+    
     /// Check that the password is over 12 characters long
-    private func isOver12Characters(_ password: String) -> Bool {
+    private func passIsOver12Characters(_ password: String) -> Bool {
         if password.count >= 12 {
             return true
         } else {
@@ -87,24 +100,22 @@ class PasswordValidatorViewModel: ObservableObject {
     }
     
     /// Check that the password contains one capital letter
-    private func containsCapitalLetter() -> Bool {
+    private func passContainsCapitalLetter(_ password: String) -> Bool {
         let capitalLetterRegex = ".*[A-Z]+.*"
-        return NSPredicate(format: "SELF MATCHES %@", capitalLetterRegex).evaluate(with: self)
+        return NSPredicate(format: "SELF MATCHES %@", capitalLetterRegex).evaluate(with: password)
     }
     
     /// Check that the password contains one number
-    private func containsNumbers() -> Bool {
+    private func passContainsNumbers(_ password: String) -> Bool {
         let numberRegex = ".*[0-9]+.*"
-        return NSPredicate(format: "SELF MATCHES %@", numberRegex).evaluate(with: self)
+        return NSPredicate(format: "SELF MATCHES %@", numberRegex).evaluate(with: password)
     }
     
     /// Check that the password contains a special character
-    private func containsSpecialCharacters() -> Bool {
+    private func passContainsSpecialCharacters(_ password: String) -> Bool {
         let specialCharRegex = ".*[^A-Za-z0-9].*"
-        return NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: self)
+        return NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: password)
     }
-    
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
