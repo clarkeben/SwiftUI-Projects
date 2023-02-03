@@ -12,17 +12,17 @@
 		14ABAD3C298C72F300101679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14ABAD3B298C72F300101679 /* Assets.xcassets */; };
 		14ABAD3F298C72F300101679 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14ABAD3E298C72F300101679 /* Preview Assets.xcassets */; };
 		14ABAD46298C76EE00101679 /* HeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD45298C76EE00101679 /* HeartButton.swift */; };
-		14ABAD49298C7D0200101679 /* RedHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD48298C7D0200101679 /* RedHeartView.swift */; };
+		14ABAD49298C7D0200101679 /* HeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD48298C7D0200101679 /* HeartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14ABAD34298C72F100101679 /* Heart Buttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heart Buttons.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		14ABAD34298C72F100101679 /* Heart Button.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heart Button.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14ABAD37298C72F100101679 /* Heart_ButtonsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart_ButtonsApp.swift; sourceTree = "<group>"; };
 		14ABAD39298C72F100101679 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		14ABAD3B298C72F300101679 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14ABAD3E298C72F300101679 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		14ABAD45298C76EE00101679 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
-		14ABAD48298C7D0200101679 /* RedHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHeartView.swift; sourceTree = "<group>"; };
+		14ABAD48298C7D0200101679 /* HeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 		14ABAD35298C72F100101679 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14ABAD34298C72F100101679 /* Heart Buttons.app */,
+				14ABAD34298C72F100101679 /* Heart Button.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				14ABAD39298C72F100101679 /* ContentView.swift */,
-				14ABAD45298C76EE00101679 /* HeartButton.swift */,
 				14ABAD4A298C7F2C00101679 /* Components */,
 			);
 			path = Views;
@@ -84,7 +83,8 @@
 		14ABAD4A298C7F2C00101679 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				14ABAD48298C7D0200101679 /* RedHeartView.swift */,
+				14ABAD45298C76EE00101679 /* HeartButton.swift */,
+				14ABAD48298C7D0200101679 /* HeartView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		14ABAD33298C72F100101679 /* Heart Buttons */ = {
+		14ABAD33298C72F100101679 /* Heart Button */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14ABAD42298C72F300101679 /* Build configuration list for PBXNativeTarget "Heart Buttons" */;
+			buildConfigurationList = 14ABAD42298C72F300101679 /* Build configuration list for PBXNativeTarget "Heart Button" */;
 			buildPhases = (
 				14ABAD30298C72F100101679 /* Sources */,
 				14ABAD31298C72F100101679 /* Frameworks */,
@@ -104,9 +104,9 @@
 			);
 			dependencies = (
 			);
-			name = "Heart Buttons";
+			name = "Heart Button";
 			productName = "Heart Buttons";
-			productReference = 14ABAD34298C72F100101679 /* Heart Buttons.app */;
+			productReference = 14ABAD34298C72F100101679 /* Heart Button.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 14ABAD2F298C72F100101679 /* Build configuration list for PBXProject "Heart Buttons" */;
+			buildConfigurationList = 14ABAD2F298C72F100101679 /* Build configuration list for PBXProject "Heart Button" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -137,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				14ABAD33298C72F100101679 /* Heart Buttons */,
+				14ABAD33298C72F100101679 /* Heart Button */,
 			);
 		};
 /* End PBXProject section */
@@ -160,7 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14ABAD3A298C72F100101679 /* ContentView.swift in Sources */,
-				14ABAD49298C7D0200101679 /* RedHeartView.swift in Sources */,
+				14ABAD49298C7D0200101679 /* HeartView.swift in Sources */,
 				14ABAD38298C72F100101679 /* Heart_ButtonsApp.swift in Sources */,
 				14ABAD46298C76EE00101679 /* HeartButton.swift in Sources */,
 			);
@@ -342,7 +342,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		14ABAD2F298C72F100101679 /* Build configuration list for PBXProject "Heart Buttons" */ = {
+		14ABAD2F298C72F100101679 /* Build configuration list for PBXProject "Heart Button" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14ABAD40298C72F300101679 /* Debug */,
@@ -351,7 +351,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		14ABAD42298C72F300101679 /* Build configuration list for PBXNativeTarget "Heart Buttons" */ = {
+		14ABAD42298C72F300101679 /* Build configuration list for PBXNativeTarget "Heart Button" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14ABAD43298C72F300101679 /* Debug */,

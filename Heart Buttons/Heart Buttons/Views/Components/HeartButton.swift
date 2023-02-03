@@ -25,7 +25,7 @@ struct HeartButton: View {
                     .foregroundColor(.red)
                 
                 ForEach(0..<10) { index in
-                    RedHeartView()
+                    HeartView()
                         .offset(x: CGFloat.random(in: -30...30),
                             y: animateButton ? -CGFloat(index * 20) : 0)
                         .foregroundColor(animateButton ? .red : .clear)

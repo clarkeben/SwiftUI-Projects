@@ -9,30 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
-    @State private var tagSelection = 0
     
     // MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
-                Picker("Heart Buttons", selection: $tagSelection) {
-                    Text("Ascending Button").tag(0)
-                    Text("Ascending Button").tag(0)
-                }.pickerStyle(.segmented)
-                
                 Spacer()
                 
-                if tagSelection == 0 {
-                    HeartButton {
-                        
-                    }
-                } else {
-                    
+                HeartButton {
+                    // Button pressed
                 }
+                
                 Spacer()
             }
-            .padding()
-            .navigationTitle("Heart Buttons")
+            .navigationTitle("Heart Button")
         }
     }
 }

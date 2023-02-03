@@ -1,5 +1,5 @@
 //
-//  AnimatableHeartView.swift
+//  RedHeartView.swift
 //  Heart Buttons
 //
 //  Created by Ben Clarke on 02/02/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RedHeartView: View {
+struct HeartView: View {
     //MARK: - Properties
     let randomSize = CGFloat.random(in: 5...40)
     
@@ -19,8 +19,8 @@ struct RedHeartView: View {
     }
 }
 
-struct AnimatableHeartView_Previews: PreviewProvider {
+struct HeartView_Previews: PreviewProvider {
     static var previews: some View {
-        RedHeartView()
+        HeartView()
     }
 }
