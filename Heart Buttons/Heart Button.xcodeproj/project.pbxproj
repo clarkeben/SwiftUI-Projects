@@ -11,8 +11,10 @@
 		14ABAD3A298C72F100101679 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD39298C72F100101679 /* ContentView.swift */; };
 		14ABAD3C298C72F300101679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14ABAD3B298C72F300101679 /* Assets.xcassets */; };
 		14ABAD3F298C72F300101679 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14ABAD3E298C72F300101679 /* Preview Assets.xcassets */; };
-		14ABAD46298C76EE00101679 /* HeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD45298C76EE00101679 /* HeartButton.swift */; };
-		14ABAD49298C7D0200101679 /* HeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD48298C7D0200101679 /* HeartView.swift */; };
+		14ABAD46298C76EE00101679 /* RedHeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD45298C76EE00101679 /* RedHeartButton.swift */; };
+		14ABAD49298C7D0200101679 /* RedHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABAD48298C7D0200101679 /* RedHeartView.swift */; };
+		14EB17BB298C936C00022E65 /* GreenHeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB17BA298C936C00022E65 /* GreenHeartButton.swift */; };
+		14EB17BD298C93F100022E65 /* GreenHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB17BC298C93F100022E65 /* GreenHeartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,8 +23,10 @@
 		14ABAD39298C72F100101679 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		14ABAD3B298C72F300101679 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14ABAD3E298C72F300101679 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		14ABAD45298C76EE00101679 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
-		14ABAD48298C7D0200101679 /* HeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartView.swift; sourceTree = "<group>"; };
+		14ABAD45298C76EE00101679 /* RedHeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHeartButton.swift; sourceTree = "<group>"; };
+		14ABAD48298C7D0200101679 /* RedHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedHeartView.swift; sourceTree = "<group>"; };
+		14EB17BA298C936C00022E65 /* GreenHeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenHeartButton.swift; sourceTree = "<group>"; };
+		14EB17BC298C93F100022E65 /* GreenHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenHeartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +87,10 @@
 		14ABAD4A298C7F2C00101679 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				14ABAD45298C76EE00101679 /* HeartButton.swift */,
-				14ABAD48298C7D0200101679 /* HeartView.swift */,
+				14ABAD45298C76EE00101679 /* RedHeartButton.swift */,
+				14EB17BA298C936C00022E65 /* GreenHeartButton.swift */,
+				14ABAD48298C7D0200101679 /* RedHeartView.swift */,
+				14EB17BC298C93F100022E65 /* GreenHeartView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -160,9 +166,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				14ABAD3A298C72F100101679 /* ContentView.swift in Sources */,
-				14ABAD49298C7D0200101679 /* HeartView.swift in Sources */,
+				14EB17BB298C936C00022E65 /* GreenHeartButton.swift in Sources */,
+				14ABAD49298C7D0200101679 /* RedHeartView.swift in Sources */,
 				14ABAD38298C72F100101679 /* Heart_ButtonsApp.swift in Sources */,
-				14ABAD46298C76EE00101679 /* HeartButton.swift in Sources */,
+				14ABAD46298C76EE00101679 /* RedHeartButton.swift in Sources */,
+				14EB17BD298C93F100022E65 /* GreenHeartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

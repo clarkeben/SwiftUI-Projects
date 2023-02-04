@@ -1,5 +1,5 @@
 //
-//  HeartButton.swift
+//  RedHeartButton.swift
 //  Heart Buttons
 //
 //  Created by Ben Clarke on 02/02/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HeartButton: View {
+struct RedHeartButton: View {
     // MARK: - Properties
     @State private var animateButton = false
     var callback: () -> Void
@@ -25,7 +25,7 @@ struct HeartButton: View {
                     .foregroundColor(.red)
                 
                 ForEach(0..<10) { index in
-                    HeartView()
+                    RedHeartView()
                         .offset(x: CGFloat.random(in: -30...30),
                             y: animateButton ? -CGFloat(index * 20) : 0)
                         .foregroundColor(animateButton ? .red : .clear)
@@ -52,6 +52,6 @@ struct HeartButton: View {
 
 struct HeartButton_Previews: PreviewProvider {
     static var previews: some View {
-        HeartButton() { }
+        RedHeartButton() { }
     }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HeartView: View {
+struct RedHeartView: View {
     //MARK: - Properties
     let randomSize = CGFloat.random(in: 5...40)
     
@@ -19,8 +19,8 @@ struct HeartView: View {
     }
 }
 
-struct HeartView_Previews: PreviewProvider {
+struct RedHeartView_Previews: PreviewProvider {
     static var previews: some View {
-        HeartView()
+        RedHeartView()
     }
 }

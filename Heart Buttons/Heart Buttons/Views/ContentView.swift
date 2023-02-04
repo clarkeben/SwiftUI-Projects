@@ -9,19 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
+    @State private var selectedTag = 0
     
     // MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
+                Picker("Select button", selection: $selectedTag) {
+                    Text("Red Button").tag(0)
+                    Text("Green Button").tag(1)
+                }.pickerStyle(.segmented)
+                
                 Spacer()
                 
-                HeartButton {
-                    // Button pressed
+                if selectedTag == 0 {
+                    RedHeartButton {
+                        // Button pressed
+                    }
+                } else {
+                    GreenHeartButton {
+                        // Button pressed
+                    }
                 }
                 
                 Spacer()
             }
+            .padding()
             .navigationTitle("Heart Button")
         }
     }
