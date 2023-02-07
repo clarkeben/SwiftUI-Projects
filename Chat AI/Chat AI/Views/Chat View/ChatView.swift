@@ -28,46 +28,26 @@ struct ChatView: View {
                 HStack {
                     TextField("Ask a question?", text: $userQuery, axis: .vertical)
                     Spacer()
-                    Button {
-                        // USER PRESSED SEND
-                    } label: {
-                        Image(systemName: "paperplane")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.black)
+                    
+                    IconButton(imageName: "paperplane") {
+                        
                     }
                 }
-                .padding()
-                .background(.white)
-                .cornerRadius(16)
-                .clipped()
-                .shadow(color: .gray, radius: 7)
+                .dropShadowRoundView()
             }
             .padding(10)
             .navigationTitle("Chat")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading, content: {
-                    Button {
+                    IconButton(imageName: "rectangle.on.rectangle") {
                         
-                    } label: {
-                        //TODO: - Create a viewmodifier for this
-                        Image(systemName: "rectangle.on.rectangle")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.black)
                     }
                 })
                 
                 ToolbarItem(placement: .navigationBarTrailing, content: {
-                    Button {
+                    IconButton(imageName: "gear.badge") {
                         
-                    } label: {
-                        //TODO: - Create a viewmodifier for this
-                        Image(systemName: "sparkle.magnifyingglass")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.black)
                     }
                 })
             }
