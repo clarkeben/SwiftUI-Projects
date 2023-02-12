@@ -55,6 +55,11 @@ struct ChatView: View {
     }
 }
 
+// MARK: - ChatViewModel
+class ChatViewModel: ObservableObject {
+    
+}
+
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView()
