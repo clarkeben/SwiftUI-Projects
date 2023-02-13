@@ -14,6 +14,7 @@
 		1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB7C2991AD5200F5BB73 /* ChatView.swift */; };
 		1449CB8029928A1C00F5BB73 /* ChatModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB7F29928A1C00F5BB73 /* ChatModifiers.swift */; };
 		1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB8129928B1300F5BB73 /* IconButton.swift */; };
+		14A5A6AB299AE85D0081FCBA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6AA299AE85D0081FCBA /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		1449CB7C2991AD5200F5BB73 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1449CB7F29928A1C00F5BB73 /* ChatModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModifiers.swift; sourceTree = "<group>"; };
 		1449CB8129928B1300F5BB73 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		14A5A6AA299AE85D0081FCBA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				140C948629906FD000C955FB /* ContentView.swift */,
+				14A5A6A9299AE8440081FCBA /* Onboarding View */,
 				1449CB7B2991AD3300F5BB73 /* Chat View */,
 			);
 			path = Views;
@@ -106,6 +109,14 @@
 			children = (
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		14A5A6A9299AE8440081FCBA /* Onboarding View */ = {
+			isa = PBXGroup;
+			children = (
+				14A5A6AA299AE85D0081FCBA /* OnboardingView.swift */,
+			);
+			path = "Onboarding View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +192,7 @@
 				1449CB8029928A1C00F5BB73 /* ChatModifiers.swift in Sources */,
 				140C948729906FD000C955FB /* ContentView.swift in Sources */,
 				1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */,
+				14A5A6AB299AE85D0081FCBA /* OnboardingView.swift in Sources */,
 				1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */,
 				140C948529906FD000C955FB /* Chat_AIApp.swift in Sources */,
 			);
