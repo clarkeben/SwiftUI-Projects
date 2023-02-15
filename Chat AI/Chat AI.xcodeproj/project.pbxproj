@@ -18,6 +18,7 @@
 		14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6AC299B8C650081FCBA /* Constants.swift */; };
 		14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6AF299BC4610081FCBA /* KeychainWrapper.swift */; };
 		14A5A6B2299BC4610081FCBA /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6B0299BC4610081FCBA /* KeychainItemAccessibility.swift */; };
+		14A5A6B4299D7E320081FCBA /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6B3299D7E320081FCBA /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		14A5A6AC299B8C650081FCBA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		14A5A6AF299BC4610081FCBA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		14A5A6B0299BC4610081FCBA /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		14A5A6B3299D7E320081FCBA /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				140C948629906FD000C955FB /* ContentView.swift */,
 				14A5A6A9299AE8440081FCBA /* Onboarding View */,
 				1449CB7B2991AD3300F5BB73 /* Chat View */,
+				14A5A6B3299D7E320081FCBA /* ViewModifiers.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */,
 				14A5A6AB299AE85D0081FCBA /* OnboardingView.swift in Sources */,
 				14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */,
+				14A5A6B4299D7E320081FCBA /* ViewModifiers.swift in Sources */,
 				14A5A6B2299BC4610081FCBA /* KeychainItemAccessibility.swift in Sources */,
 				14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */,
 				1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */,
