@@ -10,8 +10,9 @@ import SwiftUI
 
 struct OnboardingView: View {
     //MARK: - Properties
-    @State private var apiKey = ""
-    @State private var animateView = false
+    @Binding var showOnboarding: Bool
+    
+    @StateObject var viewModel = OnboardingViewModel()
     
     private let screenHeight = UIScreen.main.bounds.height
     
@@ -21,35 +22,35 @@ struct OnboardingView: View {
             Spacer()
             Image("robot-logo2")
                 .resizable()
-                .frame(height: 200)
+                .frame(width: 200, height: 180)
                 .aspectRatio(contentMode: .fit)
                 .shadow(radius: 4)
-                .opacity(animateView ? 1 : 0)
-                .offset(y: animateView ? 0 : -100)
-                .animation(.easeInOut(duration: 1.0).delay(0.2), value: animateView)
+                .opacity(viewModel.animateView ? 1 : 0)
+                .offset(y: viewModel.animateView ? 0 : -100)
+                .animation(.easeInOut(duration: 1.0).delay(0.2), value: viewModel.animateView)
             
             Text("Welcome to Chat AI")
                 .font(.largeTitle)
                 .padding(.bottom, 5)
                 .foregroundColor(.gray)
                 .bold()
-                .opacity(animateView ? 1 : 0)
-                .offset(y: animateView ? 0 : -80)
-                .animation(.easeInOut(duration: 1.0).delay(0.4), value: animateView)
+                .opacity(viewModel.animateView ? 1 : 0)
+                .offset(y: viewModel.animateView ? 0 : -80)
+                .animation(.easeInOut(duration: 1.0).delay(0.4), value: viewModel.animateView)
             
             Text("Powered by GPT-3 API, engaging natural conversations with our AI chatbot.")
                 .font(.subheadline)
                 .padding(.horizontal, 10)
-                .opacity(animateView ? 1 : 0)
-                .offset(y: animateView ? 0 : -60)
-                .animation(.easeInOut(duration: 1.0).delay(0.6), value: animateView)
+                .opacity(viewModel.animateView ? 1 : 0)
+                .offset(y: viewModel.animateView ? 0 : -60)
+                .animation(.easeInOut(duration: 1.0).delay(0.6), value: viewModel.animateView)
             
             Spacer()
             
             Text("Enter API Key:")
                 .font(.subheadline)
             
-            TextField("Enter API Key", text: $apiKey)
+            TextField("Enter API Key", text: $viewModel.apiKey)
                 .dropShadowRoundView()
                 .padding(10)
             
@@ -63,7 +64,7 @@ struct OnboardingView: View {
                 .padding(.vertical, 10)
         }
         .onAppear() {
-            animateView = true
+            viewModel.animateView = true
         }
     }
 }
@@ -72,6 +73,7 @@ struct OnboardingView: View {
 class OnboardingViewModel: ObservableObject {
     // Properties
     @Published var apiKey = ""
+    @Published var animateView = false
     
     // Methods
     private func saveAPIKey() {
@@ -83,6 +85,6 @@ class OnboardingViewModel: ObservableObject {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView()
+        OnboardingView(showOnboarding: .constant(true))
     }
 }

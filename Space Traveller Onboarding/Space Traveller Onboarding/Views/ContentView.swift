@@ -12,7 +12,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showOnboarding = false
+    //TODO: - Persist using userdefaults 
+    @State private var showOnboarding = true
     
     var body: some View {
         NavigationView {
@@ -23,7 +24,7 @@ struct ContentView: View {
         }
         .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $showOnboarding) {
-            // Onboarding View
+            OnboardingView(showOnboardingView: $showOnboarding)
         }
     }
 }

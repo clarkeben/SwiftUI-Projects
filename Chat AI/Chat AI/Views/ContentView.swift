@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    // MARK: - Properties
+    @State var showOnboarding = true
+    
+    // MARK: - Body
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -15,7 +20,9 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
         }
-        .padding()
+        .fullScreenCover(isPresented: $showOnboarding) {
+            OnboardingView(showOnboarding: $showOnboarding)
+        }
     }
 }
 
