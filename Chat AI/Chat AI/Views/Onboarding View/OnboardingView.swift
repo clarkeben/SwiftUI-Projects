@@ -14,8 +14,6 @@ struct OnboardingView: View {
     
     @StateObject var viewModel = OnboardingViewModel()
     
-    private let screenHeight = UIScreen.main.bounds.height
-    
     //MARK: - Body
     var body: some View {
         VStack {
@@ -55,7 +53,9 @@ struct OnboardingView: View {
                 .padding(10)
             
             Button("Submit") {
-                
+                //TODO: - Handle error message!
+                // CHECK
+                showOnboarding = viewModel.saveAPIKey()
             }.roundedButton()
             
             Link("Click to generate API Key", destination: URL(string: "https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key")!)
@@ -76,9 +76,12 @@ class OnboardingViewModel: ObservableObject {
     @Published var animateView = false
     
     // Methods
-    private func saveAPIKey() {
+    func saveAPIKey() -> Bool {
         if apiKey != "" {
             KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
+            return true
+        } else {
+            return false
         }
     }
 }

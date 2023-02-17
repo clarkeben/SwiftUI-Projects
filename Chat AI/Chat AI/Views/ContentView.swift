@@ -14,15 +14,28 @@ struct ContentView: View {
     
     // MARK: - Body
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            ChatView()
+                .navigationTitle("Chat")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading, content: {
+                        IconButton(imageName: "rectangle.on.rectangle") {
+                            //TODO: - Persist previous chats
+                        }
+                    })
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                        IconButton(imageName: "gear.badge") {
+                            //TODO: - setup settings screen
+                        }
+                    })
+                }
         }
         .fullScreenCover(isPresented: $showOnboarding) {
             OnboardingView(showOnboarding: $showOnboarding)
         }
+        .transition(.scale)
+        .animation(.easeInOut)
     }
 }
 
