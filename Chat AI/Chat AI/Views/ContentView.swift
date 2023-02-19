@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     // MARK: - Properties
-    @State var showOnboarding = true
+    @AppStorage("showOnboarding") private var showOnboarding = true
     
     // MARK: - Body
     var body: some View {
@@ -32,7 +32,7 @@ struct ContentView: View {
                 }
         }
         .fullScreenCover(isPresented: $showOnboarding) {
-            OnboardingView(showOnboarding: $showOnboarding)
+            OnboardingView()
         }
         .transition(.scale)
         .animation(.easeInOut)

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ChatView: View {
-    
+    //MARK: - Properties
     @StateObject var viewModel = ChatViewModel()
     
     private let screenWidth = UIScreen.main.bounds.width
     
+    // MARK: - Body
     var body: some View {
+        //TODO: - Update the existing view based 
         VStack {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
@@ -28,7 +30,7 @@ struct ChatView: View {
                 Spacer()
                 
                 IconButton(imageName: "paperplane") {
-                    
+                    viewModel.sendRequest()
                 }
             }
             .dropShadowRoundView()
@@ -55,6 +57,9 @@ class ChatViewModel: ObservableObject {
                 self.userQuery = ""
             }
         }
+        
+        print(userQuery)
+        print(chat)
     }
 }
 

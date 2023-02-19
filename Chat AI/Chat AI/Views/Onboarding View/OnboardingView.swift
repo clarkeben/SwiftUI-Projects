@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     //MARK: - Properties
-    @Binding var showOnboarding: Bool
+    //@Binding var showOnboarding: Bool
     
     @StateObject var viewModel = OnboardingViewModel()
     
@@ -54,8 +54,7 @@ struct OnboardingView: View {
             
             Button("Submit") {
                 //TODO: - Handle error message!
-                // CHECK
-                showOnboarding = viewModel.saveAPIKey()
+                viewModel.showOnboarding = viewModel.saveAPIKey()
             }.roundedButton()
             
             Link("Click to generate API Key", destination: URL(string: "https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key")!)
@@ -75,19 +74,21 @@ class OnboardingViewModel: ObservableObject {
     @Published var apiKey = ""
     @Published var animateView = false
     
+    @AppStorage("showOnboarding") var showOnboarding = true
+    
     // Methods
     func saveAPIKey() -> Bool {
         if apiKey != "" {
             KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
-            return true
-        } else {
             return false
+        } else {
+            return true
         }
     }
 }
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(showOnboarding: .constant(true))
+        OnboardingView()
     }
 }
