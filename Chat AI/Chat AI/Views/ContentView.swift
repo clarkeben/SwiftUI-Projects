@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     // MARK: - Properties
-    @AppStorage("showOnboarding") private var showOnboarding = true
+    @AppStorage(K.userDefaultKeys.showOnboarding) private var showOnboarding = true
     
     // MARK: - Body
     var body: some View {
@@ -25,9 +25,9 @@ struct ContentView: View {
                         }
                     })
                     ToolbarItem(placement: .navigationBarTrailing, content: {
-                        IconButton(imageName: "gear.badge") {
-                            //TODO: - setup settings screen
-                        }
+                        NavigationLink(destination: SettingsView()) {
+                            NavigationIconLinkButton(imageName: "gear.badge")
+                        }.buttonStyle(PlainButtonStyle())
                     })
                 }
         }
@@ -36,6 +36,7 @@ struct ContentView: View {
         }
         .transition(.scale)
         .animation(.easeInOut)
+        .accentColor(.black)
     }
 }
 

@@ -10,8 +10,6 @@ import SwiftUI
 
 struct OnboardingView: View {
     //MARK: - Properties
-    //@Binding var showOnboarding: Bool
-    
     @StateObject var viewModel = OnboardingViewModel()
     
     //MARK: - Body
@@ -74,7 +72,7 @@ class OnboardingViewModel: ObservableObject {
     @Published var apiKey = ""
     @Published var animateView = false
     
-    @AppStorage("showOnboarding") var showOnboarding = true
+    @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
     
     // Methods
     func saveAPIKey() -> Bool {

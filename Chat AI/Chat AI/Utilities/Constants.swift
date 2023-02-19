@@ -11,4 +11,8 @@ enum K {
     enum Keychain {
         static let apiKey = "APIKey"
     }
+    
+    enum userDefaultKeys {
+     static let showOnboarding = "showOnboarding"
+    }
 }
