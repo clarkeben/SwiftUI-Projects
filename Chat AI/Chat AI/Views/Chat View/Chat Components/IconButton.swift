@@ -11,10 +11,11 @@ struct IconButton: View {
     
     //MARK: - Properties
     let imageName: String
-    var callback: () -> Void
     
     var width = 20
     var height = 20
+    
+    var callback: () -> Void
     
     //MARK: - Body
     var body: some View {

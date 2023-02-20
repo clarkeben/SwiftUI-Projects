@@ -42,13 +42,15 @@ final class ChatNetworkManager {
     
     private var client: OpenAISwift?
     
-    init() {
-       setUpNetworkManager()
-    }
-    
     var apiKey: String {
         guard let apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) else { return "" }
         return apiKey
+    }
+    
+    var maxTokens = 500
+    
+    init() {
+       setUpNetworkManager()
     }
     
     // MARK: - Methods
@@ -59,8 +61,8 @@ final class ChatNetworkManager {
     func request(_ text: String, completion: @escaping (String) -> Void) {
         client?.sendCompletion(with: text, maxTokens: 500, completionHandler: { result in
             switch result {
-            case .success(let model):
-                let modelOutput = model.choices.first?.text ?? ""
+            case .success(let success):
+                let modelOutput = success.choices.first?.text ?? ""
                 completion(modelOutput)
             case .failure(let error):
                 let error = error.localizedDescription

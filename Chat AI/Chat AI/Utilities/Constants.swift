@@ -13,6 +13,16 @@ enum K {
     }
     
     enum userDefaultKeys {
-     static let showOnboarding = "showOnboarding"
+        static let showOnboarding = "showOnboarding"
+        
+        enum settings {
+            static let maxToken = "maxTokens"
+            static let model = "model"
+        }
+    }
+    
+    enum URLs {
+        static let findAPIKey = "https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key"
+        static let github = "https://github.com/clarkeben"
     }
 }

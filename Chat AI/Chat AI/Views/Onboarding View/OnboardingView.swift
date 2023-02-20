@@ -55,7 +55,7 @@ struct OnboardingView: View {
                 viewModel.showOnboarding = viewModel.saveAPIKey()
             }.roundedButton()
             
-            Link("Click to generate API Key", destination: URL(string: "https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key")!)
+            Link("Click to generate API Key", destination: URL(string: K.URLs.findAPIKey)!)
                 .font(.subheadline)
                 .foregroundColor(.black)
                 .padding(.vertical, 10)
