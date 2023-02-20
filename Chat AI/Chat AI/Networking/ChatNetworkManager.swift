@@ -42,12 +42,21 @@ final class ChatNetworkManager {
     
     private var client: OpenAISwift?
     
+    private let userDefaults = UserDefaults.standard
+    
     var apiKey: String {
         guard let apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) else { return "" }
         return apiKey
     }
     
-    var maxTokens = 500
+    var maxTokens: Int {
+        let maxTokens = UserDefaults.standard.integer(forKey: K.userDefaultKeys.settings.maxToken)
+        if maxTokens == 0 {
+            return 500
+        } else {
+            return maxTokens
+        }
+    }
     
     init() {
        setUpNetworkManager()
@@ -59,12 +68,13 @@ final class ChatNetworkManager {
     }
     
     func request(_ text: String, completion: @escaping (String) -> Void) {
-        client?.sendCompletion(with: text, maxTokens: 500, completionHandler: { result in
+        client?.sendCompletion(with: text, maxTokens: maxTokens, completionHandler: { result in
             switch result {
             case .success(let success):
                 let modelOutput = success.choices.first?.text ?? ""
                 completion(modelOutput)
             case .failure(let error):
+                //TODO: - Handle error
                 let error = error.localizedDescription
             }
         })

@@ -108,9 +108,11 @@ class SettingsViewModel: ObservableObject {
     var models = ["ada", "davinci", "curie", "babbage"].sorted()
     
     init() {
+        let defaults = UserDefaults.standard
+        
         apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) ?? ""
-        maxTokens = UserDefaults.standard.integer(forKey: K.userDefaultKeys.settings.maxToken)
-        model = UserDefaults.standard.string(forKey: K.userDefaultKeys.settings.model) ?? "ada"
+        maxTokens = defaults.integer(forKey: K.userDefaultKeys.settings.maxToken)
+        model = defaults.string(forKey: K.userDefaultKeys.settings.model) ?? "ada"
 
         if maxTokens == 0 {
             maxTokens = 500
