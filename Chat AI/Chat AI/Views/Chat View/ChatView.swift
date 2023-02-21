@@ -31,18 +31,18 @@ struct ChatView: View {
                 if viewModel.chat.isEmpty {
                     VStack {
                         Text("Need some inspiration?")
-                            .font(.system(size: 12))
+                            .font(.largeTitle)
+                            .foregroundColor(.gray)
+                            .bold()
                             .padding()
     
-                        ForEach(0...5, id: \.self) {
-                            Button(viewModel.dummyQuestions[$0]) {
-                                //viewModel.inspirationRequest($0)
+                        ForEach(0...4, id: \.self) { index in
+                            Button(viewModel.dummyQuestions[index]) {
+                                viewModel.inspirationRequest(viewModel.dummyQuestions[index])
                             }
-                            .shadow(radius: 5)
                             .roundedButton()
                             .padding()
                         }
-                        
                     }
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
@@ -108,6 +108,8 @@ class ChatViewModel: ObservableObject {
                 self.userQuery = ""
             }
         }
+        print(userQuery)
+        print(chat)
     }
 }
 

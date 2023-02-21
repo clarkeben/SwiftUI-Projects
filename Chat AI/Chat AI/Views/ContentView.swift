@@ -21,7 +21,7 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
                         IconButton(imageName: "rectangle.on.rectangle") {
-                            //TODO: - Persist previous chats
+                            //TODO: - Show previously previous chats
                         }
                     })
                     ToolbarItem(placement: .navigationBarTrailing, content: {
@@ -35,7 +35,7 @@ struct ContentView: View {
             OnboardingView()
         }
         .transition(.scale)
-        .animation(.easeInOut)
+        .animation(.easeInOut, value: showOnboarding)
         .accentColor(.black)
     }
 }

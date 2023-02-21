@@ -8,55 +8,12 @@
 import Foundation
 import OpenAISwift
 
-//class ChatNetworkManager {
-//
-//    // MARK: - Properties
-//    let openAIURL = URL(string: "")
-//    var apiKey: String {
-//        guard let apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) else { return "" }
-//        return apiKey
-//    }
-//
-//    func request(request: URLRequest, withSessConfig sessionConfig: URLSessionConfiguration?) -> Data? {
-//        let session: URLSession
-//        var requestData: Data?
-//
-//        let task = session.dataTask(with: request as URLRequest) { Data?, URLResponse?, Error? in
-//            <#code#>
-//        }
-//    }
-//
-//}
-
-struct UserPreferences {
-    var apiKey: String {
-        guard let apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) else { return "" }
-        return apiKey
-    }
-    var maxTokens: Int
-}
-
+// MARK: - ChatNetworkManager
 final class ChatNetworkManager {
     // MARK: - Properties
-    static let shared = ChatNetworkManager()
-    
     private var client: OpenAISwift?
     
-    private let userDefaults = UserDefaults.standard
-    
-    var apiKey: String {
-        guard let apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) else { return "" }
-        return apiKey
-    }
-    
-    var maxTokens: Int {
-        let maxTokens = UserDefaults.standard.integer(forKey: K.userDefaultKeys.settings.maxToken)
-        if maxTokens == 0 {
-            return 500
-        } else {
-            return maxTokens
-        }
-    }
+    let userPreferences = UserPreferences.shared
     
     init() {
        setUpNetworkManager()
@@ -64,11 +21,11 @@ final class ChatNetworkManager {
     
     // MARK: - Methods
     func setUpNetworkManager() {
-        client = OpenAISwift(authToken: apiKey)
+        client = OpenAISwift(authToken: userPreferences.apiKey)
     }
     
     func request(_ text: String, completion: @escaping (String) -> Void) {
-        client?.sendCompletion(with: text, maxTokens: maxTokens, completionHandler: { result in
+        client?.sendCompletion(with: text, maxTokens: userPreferences.maxTokens, completionHandler: { result in
             switch result {
             case .success(let success):
                 let modelOutput = success.choices.first?.text ?? ""

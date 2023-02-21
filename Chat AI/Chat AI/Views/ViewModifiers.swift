@@ -18,6 +18,11 @@ struct RoundedButtonViewModifier: ViewModifier {
             .font(.system(size: 12, weight: .semibold))
             .background(.black)
             .cornerRadius(10)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.black)
+                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
+            )
     }
 }
 
