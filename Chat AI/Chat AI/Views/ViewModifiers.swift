@@ -26,9 +26,24 @@ struct RoundedButtonViewModifier: ViewModifier {
     }
 }
 
+struct TextfieldShadowModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .background(.white)
+            .cornerRadius(16)
+            .clipped()
+            .shadow(color: .gray, radius: 4)
+    }
+}
+
 // MARK: -  View Extensions
 extension View {
     func roundedButton() -> some View {
         modifier(RoundedButtonViewModifier())
+    }
+    
+    func dropShadowRoundView() -> some View {
+        modifier(TextfieldShadowModifier())
     }
 }

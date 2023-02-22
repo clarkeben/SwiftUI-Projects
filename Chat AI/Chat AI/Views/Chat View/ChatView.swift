@@ -16,6 +16,7 @@ struct ChatModel: Identifiable {
     let id = UUID().uuidString
     let responder: Response
     let message: String
+    let date: Date
 }
 
 struct ChatView: View {
@@ -47,7 +48,7 @@ struct ChatView: View {
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
                         ForEach(viewModel.chat) { chat in
-                            Text(chat.message)
+                            ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
                         }
                         .padding([.top], 5)
                     }
@@ -103,8 +104,8 @@ class ChatViewModel: ObservableObject {
         
         networkManager.request(userQuery) { response in
             DispatchQueue.main.async {
-                self.chat.append(ChatModel(responder: .user, message: self.userQuery))
-                self.chat.append(ChatModel(responder: .aiBot, message: response))
+                self.chat.append(ChatModel(responder: .user, message: self.userQuery, date: Date.now))
+                self.chat.append(ChatModel(responder: .aiBot, message: response, date: Date.now))
                 self.userQuery = ""
             }
         }
