@@ -13,12 +13,14 @@ struct ChatCell: View {
     let message: String
     let date: Date
     
+    private let userSettings = UserPreferences.shared
+    
     //MARK: - Body
     var body: some View {
         switch sender {
         case .user:
             HStack(alignment: .top) {
-                Text("👨🏽").font(.largeTitle)
+                Text(userSettings.userIcon).font(.largeTitle)
                     .frame(width: 50, height: 50)
                     .background(
                         RoundedRectangle(cornerRadius: 10)

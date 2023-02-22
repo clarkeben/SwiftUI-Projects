@@ -44,7 +44,6 @@ struct SettingsView: View {
                                     viewModel.maxTokens = Int(sliderValue)
                                 }
                             Text("2000").font(.system(size: 10))
-
                         }
                         
                     }
@@ -58,6 +57,18 @@ struct SettingsView: View {
                                 Text($0)
                             }
                         }.labelsHidden()
+                    }
+                    
+                    HStack {
+                        Text("User Icon:")
+                            .font(.system(size: 14))
+                        Spacer()
+                        Picker("Select emoji icon", selection: $viewModel.userIcon) {
+                            ForEach(viewModel.emojiIcons, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .labelsHidden()
                     }
                 }
                 
@@ -104,23 +115,33 @@ class SettingsViewModel: ObservableObject {
     @Published var showAPIKey = false
     @Published var maxTokens = 500
     @Published var model = "ada"
+    @Published var userIcon = ""
     
-    var models = ["ada", "davinci", "curie", "babbage"].sorted()
+    var models = ["davinci", "curie", "babbage", "ada"]
+    var emojiIcons = [String]()
     
     init() {
-        let defaults = UserDefaults.standard
+        // Userdefaults
+        let userSettings = UserPreferences.shared
+        apiKey = userSettings.apiKey
+        maxTokens = userSettings.maxTokens
+        model = userSettings.model
+        userIcon = userSettings.userIcon
         
-        apiKey = KeychainWrapper.standard.string(forKey: K.Keychain.apiKey) ?? ""
-        maxTokens = defaults.integer(forKey: K.userDefaultKeys.settings.maxToken)
-        model = defaults.string(forKey: K.userDefaultKeys.settings.model) ?? "ada"
-
-        if maxTokens == 0 {
-            maxTokens = 500
+        // Emoji Setup
+        let emojiRange = 0x1F600...0x1F64F
+        for i in emojiRange {
+            let emoji = String(UnicodeScalar(i)!)
+            emojiIcons.append(emoji)
         }
     }
     
     func persistSettings() {
+        let defaults = UserDefaults.standard
         KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
+        defaults.set(maxTokens, forKey: K.userDefaultKeys.settings.maxToken)
+        defaults.set(model, forKey: K.userDefaultKeys.settings.model)
+        defaults.set(userIcon, forKey: K.userDefaultKeys.settings.userIcon)
     }
 }
 

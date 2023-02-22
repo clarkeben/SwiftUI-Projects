@@ -18,6 +18,7 @@ enum K {
         enum settings {
             static let maxToken = "maxTokens"
             static let model = "model"
+            static let userIcon = "userIcon"
         }
     }
     

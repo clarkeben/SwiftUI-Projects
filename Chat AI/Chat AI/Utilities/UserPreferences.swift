@@ -21,6 +21,11 @@ struct UserPreferences {
         return apiKey
     }
     
+    var model: String {
+        guard let model = userDefaults.string(forKey: K.userDefaultKeys.settings.model) else { return "davinci" }
+        return model
+    }
+        
     var maxTokens: Int {
         let maxTokens = userDefaults.integer(forKey: K.userDefaultKeys.settings.maxToken)
         if maxTokens == 0 {
@@ -28,5 +33,10 @@ struct UserPreferences {
         } else {
             return maxTokens
         }
+    }
+    
+    var userIcon: String {
+        guard let userIcon = userDefaults.string(forKey: K.userDefaultKeys.settings.userIcon) else { return "😎" }
+        return userIcon
     }
 }
