@@ -15,6 +15,8 @@ struct ChatCell: View {
     
     private let userSettings = UserPreferences.shared
     
+    @State private var animateView = false
+    
     //MARK: - Body
     var body: some View {
         switch sender {
@@ -29,6 +31,8 @@ struct ChatCell: View {
                             .opacity(0.4)
                     )
                     .padding(5)
+                    .opacity(animateView ? 1 : 0)
+                    .offset(x: animateView ? 0 : -120)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -49,6 +53,13 @@ struct ChatCell: View {
                     Text(date, style: .date)
                         .font(.system(size: 10))
                         .padding(.leading, 5)
+                }
+                .opacity(animateView ? 1 : 0)
+                .offset(x: animateView ? 0 : -100)
+            }
+            .onAppear() {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    animateView = true
                 }
             }
             
@@ -74,6 +85,8 @@ struct ChatCell: View {
                         .font(.system(size: 10))
                         .padding(.leading, 5)
                 }
+                .opacity(animateView ? 1 : 0)
+                .offset(x: animateView ? 0 : 100)
                 
                 Image("robot-logo2")
                     .resizable()
@@ -85,6 +98,13 @@ struct ChatCell: View {
                             .opacity(0.7)
                     )
                     .padding(5)
+                    .opacity(animateView ? 1 : 0)
+                    .offset(x: animateView ? 0 : 120)
+            }
+            .onAppear() {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    animateView = true
+                }
             }
         }
     }

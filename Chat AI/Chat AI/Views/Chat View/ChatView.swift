@@ -28,7 +28,7 @@ struct ChatView: View {
     // MARK: - Body
     var body: some View {
         VStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 if viewModel.chat.isEmpty {
                     VStack {
                         Text("Need some inspiration?")
@@ -36,7 +36,7 @@ struct ChatView: View {
                             .foregroundColor(.gray)
                             .bold()
                             .padding()
-    
+                        
                         ForEach(0...4, id: \.self) { index in
                             Button(viewModel.dummyQuestions[index]) {
                                 viewModel.inspirationRequest(viewModel.dummyQuestions[index])
@@ -52,6 +52,13 @@ struct ChatView: View {
                         }
                         .padding([.top], 5)
                     }
+                }
+            }
+            
+            if viewModel.fetchingData {
+                HStack {
+                    TypingTextView(text: "Fetching Data....")
+                    Spacer()
                 }
             }
             
@@ -74,6 +81,9 @@ class ChatViewModel: ObservableObject {
     // Properties
     @Published var userQuery = ""
     @Published var chat = [ChatModel]()
+    @Published var showLoadingAnimation = false
+    @Published var fetchingData = false
+    @Published var animateFetchData = false
     @Published var dummyQuestions: [String] = [
         "What is your name?",
         "What is your earliest memory?",
@@ -102,16 +112,24 @@ class ChatViewModel: ObservableObject {
             return
         }
         
+        fetchingData = true
+        animateFetchData = true
+        
+        print("Fetching data, animation set")
+        
+        chat.append(ChatModel(responder: .user, message: userQuery, date: Date.now))
+        
         networkManager.request(userQuery) { response in
             DispatchQueue.main.async {
-                self.chat.append(ChatModel(responder: .user, message: self.userQuery, date: Date.now))
                 self.chat.append(ChatModel(responder: .aiBot, message: response, date: Date.now))
                 self.userQuery = ""
+                
+                self.fetchingData = false
+                self.animateFetchData = false
             }
         }
-        print(userQuery)
-        print(chat)
     }
+    
 }
 
 struct ChatView_Previews: PreviewProvider {
