@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-enum Response: String, CaseIterable {
-    case user = "You"
-    case aiBot = "AI Bot"
-}
-
-struct ChatModel: Identifiable {
-    let id = UUID().uuidString
-    let responder: Response
-    let message: String
-    let date: Date
-}
-
 struct ChatView: View {
     //MARK: - Properties
     @StateObject var viewModel = ChatViewModel()
@@ -68,6 +56,7 @@ struct ChatView: View {
                 
                 IconButton(imageName: "paperplane") {
                     viewModel.sendRequest()
+                    endEditing()
                 }
             }
             .dropShadowRoundView()
@@ -81,9 +70,7 @@ class ChatViewModel: ObservableObject {
     // Properties
     @Published var userQuery = ""
     @Published var chat = [ChatModel]()
-    @Published var showLoadingAnimation = false
     @Published var fetchingData = false
-    @Published var animateFetchData = false
     @Published var dummyQuestions: [String] = [
         "What is your name?",
         "What is your earliest memory?",
@@ -113,10 +100,7 @@ class ChatViewModel: ObservableObject {
         }
         
         fetchingData = true
-        animateFetchData = true
-        
-        print("Fetching data, animation set")
-        
+                
         chat.append(ChatModel(responder: .user, message: userQuery, date: Date.now))
         
         networkManager.request(userQuery) { response in
@@ -125,11 +109,9 @@ class ChatViewModel: ObservableObject {
                 self.userQuery = ""
                 
                 self.fetchingData = false
-                self.animateFetchData = false
             }
         }
     }
-    
 }
 
 struct ChatView_Previews: PreviewProvider {

@@ -28,7 +28,7 @@ struct ChatCell: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.gray)
                             .shadow(radius: 3)
-                            .opacity(0.4)
+                            .opacity(0.2)
                     )
                     .padding(5)
                     .opacity(animateView ? 1 : 0)
@@ -48,7 +48,7 @@ struct ChatCell: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.gray)
                             .shadow(radius: 2)
-                            .opacity(0.2)
+                            .opacity(0.1)
                     )
                     Text(date, style: .date)
                         .font(.system(size: 10))
@@ -112,6 +112,6 @@ struct ChatCell: View {
 
 struct ChatCell_Previews: PreviewProvider {
     static var previews: some View {
-        ChatCell(sender: .aiBot, message: "Testing whether the string truncates ..... blah blah blah test message here", date: Date.now)
+        ChatCell(sender: .user, message: "Testing whether the string truncates ..... blah blah blah test message here", date: Date.now)
     }
 }
