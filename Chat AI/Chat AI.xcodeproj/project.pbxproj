@@ -14,6 +14,8 @@
 		1444891829A78CB900B800EC /* TypingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444891729A78CB900B800EC /* TypingTextView.swift */; };
 		1444891B29A8EB0600B800EC /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444891A29A8EB0600B800EC /* ChatModel.swift */; };
 		1444891E29A8EB4700B800EC /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444891D29A8EB4700B800EC /* ViewExtensions.swift */; };
+		1444892029A8F4AF00B800EC /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444891F29A8F4AF00B800EC /* SideMenuView.swift */; };
+		1444892329A90CA800B800EC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444892229A90CA800B800EC /* MenuItems.swift */; };
 		1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB7C2991AD5200F5BB73 /* ChatView.swift */; };
 		1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB8129928B1300F5BB73 /* IconButton.swift */; };
 		1498DDD4299E6642003C328D /* ChatNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD3299E6642003C328D /* ChatNetworkManager.swift */; };
@@ -37,6 +39,8 @@
 		1444891729A78CB900B800EC /* TypingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextView.swift; sourceTree = "<group>"; };
 		1444891A29A8EB0600B800EC /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		1444891D29A8EB4700B800EC /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		1444891F29A8F4AF00B800EC /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		1444892229A90CA800B800EC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		1449CB7C2991AD5200F5BB73 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1449CB8129928B1300F5BB73 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		1498DDD3299E6642003C328D /* ChatNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNetworkManager.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				1444891A29A8EB0600B800EC /* ChatModel.swift */,
+				1444892229A90CA800B800EC /* MenuItems.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,13 +122,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		1444892129A8F4B300B800EC /* Side Menu View */ = {
+			isa = PBXGroup;
+			children = (
+				1444891F29A8F4AF00B800EC /* SideMenuView.swift */,
+			);
+			path = "Side Menu View";
+			sourceTree = "<group>";
+		};
 		1449CB7A2991AD2A00F5BB73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				140C948629906FD000C955FB /* ContentView.swift */,
 				14A5A6A9299AE8440081FCBA /* Onboarding View */,
 				1449CB7B2991AD3300F5BB73 /* Chat View */,
-				1498DDD829A294F9003C328D /* SettingsView */,
+				1498DDD829A294F9003C328D /* Settings View */,
+				1444892129A8F4B300B800EC /* Side Menu View */,
 				14A5A6B3299D7E320081FCBA /* ViewModifiers.swift */,
 			);
 			path = Views;
@@ -156,12 +170,12 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		1498DDD829A294F9003C328D /* SettingsView */ = {
+		1498DDD829A294F9003C328D /* Settings View */ = {
 			isa = PBXGroup;
 			children = (
 				1498DDD929A2950A003C328D /* SettingsView.swift */,
 			);
-			path = SettingsView;
+			path = "Settings View";
 			sourceTree = "<group>";
 		};
 		14A5A6A9299AE8440081FCBA /* Onboarding View */ = {
@@ -260,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1444891829A78CB900B800EC /* TypingTextView.swift in Sources */,
+				1444892029A8F4AF00B800EC /* SideMenuView.swift in Sources */,
 				1498DDD4299E6642003C328D /* ChatNetworkManager.swift in Sources */,
 				140C948729906FD000C955FB /* ContentView.swift in Sources */,
 				1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */,
@@ -275,6 +290,7 @@
 				149E581129A4F9AA00D8705E /* ChatCell.swift in Sources */,
 				1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */,
 				140C948529906FD000C955FB /* Chat_AIApp.swift in Sources */,
+				1444892329A90CA800B800EC /* MenuItems.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
