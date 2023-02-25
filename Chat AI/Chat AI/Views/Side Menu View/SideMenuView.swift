@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// MARK: - SideMenuView
 struct SideMenuView: View {
-    
     let width: CGFloat
     let menuClicked: Bool
     let toggleMenu: () -> Void
@@ -34,13 +34,12 @@ struct SideMenuView: View {
                 
                 Spacer()
             }
-            
         }
     }
 }
 
+// MARK: - MenuContentView
 struct MenuContentsView: View {
-    
     let menuItems: [MenuItem] = [
         MenuItem(name: "Testing chat length ... test test test, Testing chat length ... test test test, Testing chat length ... test test test", date: .now),
         MenuItem(name: "Testing chat length ... test test test", date: .now),

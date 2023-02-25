@@ -18,6 +18,8 @@
 		1444892329A90CA800B800EC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444892229A90CA800B800EC /* MenuItems.swift */; };
 		1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB7C2991AD5200F5BB73 /* ChatView.swift */; };
 		1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB8129928B1300F5BB73 /* IconButton.swift */; };
+		145E676029AA06A60045C47F /* Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 145E675E29AA06A60045C47F /* Chat.xcdatamodeld */; };
+		145E676329AA071B0045C47F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E676229AA071B0045C47F /* PersistenceController.swift */; };
 		1498DDD4299E6642003C328D /* ChatNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD3299E6642003C328D /* ChatNetworkManager.swift */; };
 		1498DDD7299F801D003C328D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1498DDD6299F801D003C328D /* OpenAISwift */; };
 		1498DDDA29A2950A003C328D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD929A2950A003C328D /* SettingsView.swift */; };
@@ -43,6 +45,8 @@
 		1444892229A90CA800B800EC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		1449CB7C2991AD5200F5BB73 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1449CB8129928B1300F5BB73 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		145E675F29AA06A60045C47F /* Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chat.xcdatamodel; sourceTree = "<group>"; };
+		145E676229AA071B0045C47F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		1498DDD3299E6642003C328D /* ChatNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNetworkManager.swift; sourceTree = "<group>"; };
 		1498DDD929A2950A003C328D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		149E580E29A4CADA00D8705E /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 				1444891929A8EADB00B800EC /* Models */,
 				1449CB7A2991AD2A00F5BB73 /* Views */,
 				147FC1912999631800D3C13A /* Networking */,
+				145E676129AA06AB0045C47F /* CoreData */,
 				140C948829906FD100C955FB /* Assets.xcassets */,
 				1444891C29A8EB2000B800EC /* Extensions */,
 				14A5A6AE299BC4510081FCBA /* Utilities */,
@@ -160,6 +165,15 @@
 				1444891729A78CB900B800EC /* TypingTextView.swift */,
 			);
 			path = "Chat Components";
+			sourceTree = "<group>";
+		};
+		145E676129AA06AB0045C47F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				145E676229AA071B0045C47F /* PersistenceController.swift */,
+				145E675E29AA06A60045C47F /* Chat.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		147FC1912999631800D3C13A /* Networking */ = {
@@ -282,6 +296,8 @@
 				1444891B29A8EB0600B800EC /* ChatModel.swift in Sources */,
 				14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */,
 				14A5A6B4299D7E320081FCBA /* ViewModifiers.swift in Sources */,
+				145E676329AA071B0045C47F /* PersistenceController.swift in Sources */,
+				145E676029AA06A60045C47F /* Chat.xcdatamodeld in Sources */,
 				14A5A6B2299BC4610081FCBA /* KeychainItemAccessibility.swift in Sources */,
 				14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */,
 				1444891E29A8EB4700B800EC /* ViewExtensions.swift in Sources */,
@@ -508,6 +524,19 @@
 			productName = OpenAISwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		145E675E29AA06A60045C47F /* Chat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				145E675F29AA06A60045C47F /* Chat.xcdatamodel */,
+			);
+			currentVersion = 145E675F29AA06A60045C47F /* Chat.xcdatamodel */;
+			path = Chat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 140C947929906FD000C955FB /* Project object */;
 }
