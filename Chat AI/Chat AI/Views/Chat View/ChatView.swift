@@ -44,10 +44,11 @@ struct ChatView: View {
                             Divider().padding(.horizontal, 5)
                             
                             ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
-                                
+                                viewModel.saveChat()
                             }
                             
                             ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
+                                viewModel.shareChat()
                             }
                             
                             ActionButton(systemIcon: "xmark", title: "Clear Chat") {
@@ -130,6 +131,21 @@ class ChatViewModel: ObservableObject {
     
     func clearChat() {
         chat = [ChatModel]()
+    }
+    
+    func saveChat() {
+        
+    }
+    
+    func shareChat() {
+        var messages = [String]()
+        
+        for convo in chat {
+            messages.append(convo.message)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: messages, applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
 }
 
