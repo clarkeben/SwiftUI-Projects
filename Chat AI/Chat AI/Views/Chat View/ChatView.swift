@@ -39,6 +39,21 @@ struct ChatView: View {
                             ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
                         }
                         .padding([.top], 5)
+                        
+                        if viewModel.chat.count >= 2 {
+                            Divider().padding(.horizontal, 5)
+                            
+                            ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
+                                
+                            }
+                            
+                            ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
+                            }
+                            
+                            ActionButton(systemIcon: "xmark", title: "Clear Chat") {
+                                viewModel.clearChat()
+                            }
+                        }
                     }
                 }
             }
@@ -100,7 +115,7 @@ class ChatViewModel: ObservableObject {
         }
         
         fetchingData = true
-                
+        
         chat.append(ChatModel(responder: .user, message: userQuery, date: Date.now))
         
         networkManager.request(userQuery) { response in
@@ -111,6 +126,10 @@ class ChatViewModel: ObservableObject {
                 self.fetchingData = false
             }
         }
+    }
+    
+    func clearChat() {
+        chat = [ChatModel]()
     }
 }
 

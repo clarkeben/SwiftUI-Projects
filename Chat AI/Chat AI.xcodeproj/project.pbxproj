@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1407F78729AEA6090027D32D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1407F78629AEA6090027D32D /* ActionButton.swift */; };
 		140C948529906FD000C955FB /* Chat_AIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140C948429906FD000C955FB /* Chat_AIApp.swift */; };
 		140C948729906FD000C955FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140C948629906FD000C955FB /* ContentView.swift */; };
 		140C948929906FD100C955FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140C948829906FD100C955FB /* Assets.xcassets */; };
@@ -18,7 +19,7 @@
 		1444892329A90CA800B800EC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444892229A90CA800B800EC /* MenuItems.swift */; };
 		1449CB7D2991AD5200F5BB73 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB7C2991AD5200F5BB73 /* ChatView.swift */; };
 		1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB8129928B1300F5BB73 /* IconButton.swift */; };
-		145E676029AA06A60045C47F /* Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 145E675E29AA06A60045C47F /* Chat.xcdatamodeld */; };
+		145E676029AA06A60045C47F /* MessageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 145E675E29AA06A60045C47F /* MessageDataModel.xcdatamodeld */; };
 		145E676329AA071B0045C47F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E676229AA071B0045C47F /* PersistenceController.swift */; };
 		1498DDD4299E6642003C328D /* ChatNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD3299E6642003C328D /* ChatNetworkManager.swift */; };
 		1498DDD7299F801D003C328D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1498DDD6299F801D003C328D /* OpenAISwift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1407F78629AEA6090027D32D /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		140C948129906FD000C955FB /* Chat AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		140C948429906FD000C955FB /* Chat_AIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat_AIApp.swift; sourceTree = "<group>"; };
 		140C948629906FD000C955FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				1449CB8129928B1300F5BB73 /* IconButton.swift */,
 				149E581029A4F9AA00D8705E /* ChatCell.swift */,
 				1444891729A78CB900B800EC /* TypingTextView.swift */,
+				1407F78629AEA6090027D32D /* ActionButton.swift */,
 			);
 			path = "Chat Components";
 			sourceTree = "<group>";
@@ -171,7 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				145E676229AA071B0045C47F /* PersistenceController.swift */,
-				145E675E29AA06A60045C47F /* Chat.xcdatamodeld */,
+				145E675E29AA06A60045C47F /* MessageDataModel.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -297,7 +300,7 @@
 				14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */,
 				14A5A6B4299D7E320081FCBA /* ViewModifiers.swift in Sources */,
 				145E676329AA071B0045C47F /* PersistenceController.swift in Sources */,
-				145E676029AA06A60045C47F /* Chat.xcdatamodeld in Sources */,
+				145E676029AA06A60045C47F /* MessageDataModel.xcdatamodeld in Sources */,
 				14A5A6B2299BC4610081FCBA /* KeychainItemAccessibility.swift in Sources */,
 				14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */,
 				1444891E29A8EB4700B800EC /* ViewExtensions.swift in Sources */,
@@ -307,6 +310,7 @@
 				1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */,
 				140C948529906FD000C955FB /* Chat_AIApp.swift in Sources */,
 				1444892329A90CA800B800EC /* MenuItems.swift in Sources */,
+				1407F78729AEA6090027D32D /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,13 +530,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		145E675E29AA06A60045C47F /* Chat.xcdatamodeld */ = {
+		145E675E29AA06A60045C47F /* MessageDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				145E675F29AA06A60045C47F /* Chat.xcdatamodel */,
 			);
 			currentVersion = 145E675F29AA06A60045C47F /* Chat.xcdatamodel */;
-			path = Chat.xcdatamodeld;
+			path = MessageDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

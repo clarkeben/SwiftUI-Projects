@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Chat_AIApp: App {
+    let persistenceController = PersistenceController.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, persistenceController.viewContext)
         }
     }
 }

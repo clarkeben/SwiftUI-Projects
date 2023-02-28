@@ -12,7 +12,7 @@ struct PersistenceController {
     
     static let shared = PersistenceController()
     
-    /// Convenience - CRUD from View
+    /// Convenience
     var viewContext: NSManagedObjectContext {
         return container.viewContext
     }
@@ -27,7 +27,7 @@ struct PersistenceController {
     
     // Init CoreData to use in memory storage
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "Chat")
+        container = NSPersistentContainer(name: "MessageDataModel")
         
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
@@ -38,8 +38,6 @@ struct PersistenceController {
                 fatalError("Error: \(error.localizedDescription)")
             }
         }
-        
-        
     }
     
     // Save CoreData

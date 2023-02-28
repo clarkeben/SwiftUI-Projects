@@ -11,6 +11,7 @@ struct ContentView: View {
     
     // MARK: - Properties
     @AppStorage(K.userDefaultKeys.showOnboarding) private var showOnboarding = true
+    @Environment(\.managedObjectContext) private var viewContext
     
     @State private var width = UIScreen.main.bounds.width
     
