@@ -84,6 +84,8 @@ struct ChatView: View {
 // MARK: - ChatViewModel
 class ChatViewModel: ObservableObject {
     // Properties
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @Published var userQuery = ""
     @Published var chat = [ChatModel]()
     @Published var fetchingData = false
@@ -130,11 +132,16 @@ class ChatViewModel: ObservableObject {
     }
     
     func clearChat() {
-        chat = [ChatModel]()
+        chat.removeAll()
+        chat.append(ChatModel(responder: .aiBot, message: "You've started a new conversation, please ask me something...", date: Date()))
     }
-    
-    func saveChat() {
         
+    func saveChat() {
+        /*
+        let newMessage = Message(context: viewContext)
+        newMessage.message = chat[0].message
+        PersistenceController.shared.save()
+         */
     }
     
     func shareChat() {
