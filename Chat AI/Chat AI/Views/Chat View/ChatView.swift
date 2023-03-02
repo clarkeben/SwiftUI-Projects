@@ -137,18 +137,21 @@ class ChatViewModel: ObservableObject {
     }
         
     func saveChat() {
-        /*
+        var message = "Question: \(chat[0].message) \n Answer: \(chat[1].message)"
+        
         let newMessage = Message(context: viewContext)
-        newMessage.message = chat[0].message
+        newMessage.message = message
         PersistenceController.shared.save()
-         */
     }
     
     func shareChat() {
         var messages = [String]()
         
         for convo in chat {
-            messages.append(convo.message)
+            switch convo.responder {
+            case .user: messages.append("Question: \n\(convo.message)")
+            case .aiBot: messages.append("Answer: \n\(convo.message)")
+            }
         }
         
         let activityVC = UIActivityViewController(activityItems: messages, applicationActivities: nil)

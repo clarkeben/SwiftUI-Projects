@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     // MARK: - Properties
-    @AppStorage(K.userDefaultKeys.showOnboarding) private var showOnboarding = true
-    @Environment(\.managedObjectContext) private var viewContext
-    
+    //TODO: - Create a ViewModel for the contentView 
     @State private var width = UIScreen.main.bounds.width
     
+    @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Message.message, ascending: true)], animation: .easeInOut)
+     var messages: FetchedResults<Message>
+        
     @State private var title = "Chat"
     @State private var menuClicked = false
+    @State private var menuItems = [MenuItem]()
     
     // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
                 ChatView()
+                    .environment(\.managedObjectContext, viewContext)
                     .navigationTitle(title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -43,7 +49,7 @@ struct ContentView: View {
                             }.buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(width: width/1.8, menuClicked: menuClicked, toggleMenu: toggleMenu)
+                SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, toggleMenu: toggleMenu)
             }
             .fullScreenCover(isPresented: $showOnboarding) {
                 OnboardingView()
@@ -51,11 +57,14 @@ struct ContentView: View {
             .transition(.scale)
             .animation(.easeInOut, value: showOnboarding)
             .accentColor(.black)
+            .onAppear() {
+                loadMenuItems()
+            }
         }
     }
     
     //MARK: - Methods
-    private func toggleMenu() {
+     func toggleMenu() {
         menuClicked.toggle()
     
         if menuClicked {
@@ -66,6 +75,13 @@ struct ContentView: View {
             }
         }
     }
+    
+    func loadMenuItems() {
+        for message in messages {
+            menuItems.append(MenuItem(name: message.message ?? "", date: Date()))
+        }
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

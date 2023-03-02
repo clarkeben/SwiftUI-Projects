@@ -9,8 +9,10 @@ import SwiftUI
 
 // MARK: - SideMenuView
 struct SideMenuView: View {
+        
     let width: CGFloat
     let menuClicked: Bool
+    @Binding var menuItems: [MenuItem]
     let toggleMenu: () -> Void
     
     var body: some View {
@@ -27,37 +29,22 @@ struct SideMenuView: View {
             }
             
             HStack {
-                MenuContentsView()
+                MenuContentsView(menuItems: menuItems)
                     .frame(width: width)
                     .offset(x: menuClicked ? 0 : -width)
                     .animation(.default, value: menuClicked)
                 
                 Spacer()
             }
+        }.onAppear(){
+            print(menuItems.count)
         }
     }
 }
 
 // MARK: - MenuContentView
 struct MenuContentsView: View {
-    let menuItems: [MenuItem] = [
-        MenuItem(name: "Testing chat length ... test test test, Testing chat length ... test test test, Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test, Testing chat length ... test test test, Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now),
-        MenuItem(name: "Testing chat length ... test test test", date: .now)
-    ]
+    var menuItems = [MenuItem]()
     
     var body: some View {
         ZStack {
@@ -93,7 +80,9 @@ struct MenuContentsView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(width: 320, menuClicked: true, toggleMenu: {
+        let items = Binding.constant([MenuItem(name: "Test 12345", date: Date())])
+
+        SideMenuView(width: 320, menuClicked: true, menuItems: items, toggleMenu: {
             print("Menu toggled")
         })
     }
