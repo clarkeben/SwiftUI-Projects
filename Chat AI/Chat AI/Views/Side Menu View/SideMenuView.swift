@@ -53,14 +53,15 @@ struct SideMenuView: View {
                                         .foregroundColor(.black)
                                         .multilineTextAlignment(.leading)
                                     Spacer()
-                                }.padding(10)
+                                }
+                                .padding(10)
                             }
                             .onDelete { indexSet in
                                 menuItems.remove(atOffsets: indexSet)
                                 itemToDelete = indexSet
                             }
                         }
-                        .listStyle(.grouped)
+                        .listStyle(.plain)
                         Spacer()
                     }
                 }
