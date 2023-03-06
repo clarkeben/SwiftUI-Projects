@@ -9,10 +9,13 @@ import SwiftUI
 
 // MARK: - SideMenuView
 struct SideMenuView: View {
-        
+    
     let width: CGFloat
     let menuClicked: Bool
+    
     @Binding var menuItems: [MenuItem]
+    @Binding var itemToDelete: IndexSet
+    
     let toggleMenu: () -> Void
     
     var body: some View {
@@ -29,15 +32,44 @@ struct SideMenuView: View {
             }
             
             HStack {
-                MenuContentsView(menuItems: menuItems)
-                    .frame(width: width)
-                    .offset(x: menuClicked ? 0 : -width)
-                    .animation(.default, value: menuClicked)
+                ZStack {
+                    Color.white.edgesIgnoringSafeArea(.all)
+                    
+                    VStack {
+                        Text("Chat History")
+                            .bold()
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                        
+                        Divider()
+                            
+                        List {
+                            ForEach(menuItems) { menuItem in
+                                HStack {
+                                    Image(systemName: "message")
+                                    Text(menuItem.name)
+                                        .font(.system(size: 12))
+                                        .lineLimit(2)
+                                        .foregroundColor(.black)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                }.padding(10)
+                            }
+                            .onDelete { indexSet in
+                                menuItems.remove(atOffsets: indexSet)
+                                itemToDelete = indexSet
+                            }
+                        }
+                        .listStyle(.grouped)
+                        Spacer()
+                    }
+                }
+                .frame(width: width)
+                .offset(x: menuClicked ? 0 : -width)
+                .animation(.default, value: menuClicked)
                 
                 Spacer()
             }
-        }.onAppear(){
-            print(menuItems.count)
         }
     }
 }
@@ -69,6 +101,9 @@ struct MenuContentsView: View {
                                 .multilineTextAlignment(.leading)
                             Spacer()
                         }.padding(10)
+                    }.onDelete { indexSet in
+                        print(indexSet)
+                        //menuItems.remove(atOffsets: indexSet)
                     }
                 }
                 Spacer()
@@ -81,8 +116,9 @@ struct MenuContentsView: View {
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
         let items = Binding.constant([MenuItem(name: "Test 12345", date: Date())])
-
-        SideMenuView(width: 320, menuClicked: true, menuItems: items, toggleMenu: {
+        let indexSet = Binding.constant(IndexSet(integer: 1))
+        
+        SideMenuView(width: 320, menuClicked: true, menuItems: items, itemToDelete: indexSet, toggleMenu: {
             print("Menu toggled")
         })
     }

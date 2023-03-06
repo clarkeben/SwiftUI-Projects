@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var title = "Chat"
     @State private var menuClicked = false
     @State private var menuItems = [MenuItem]()
+    @State var itemToDelete: IndexSet = IndexSet()
     
     // MARK: - Body
     var body: some View {
@@ -49,7 +50,7 @@ struct ContentView: View {
                             }.buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, toggleMenu: toggleMenu)
+                SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, itemToDelete: $itemToDelete, toggleMenu: toggleMenu)
             }
             .fullScreenCover(isPresented: $showOnboarding) {
                 OnboardingView()
@@ -57,6 +58,9 @@ struct ContentView: View {
             .transition(.scale)
             .animation(.easeInOut, value: showOnboarding)
             .accentColor(.black)
+            .onChange(of: itemToDelete) { _ in
+                deleteMessage(offsets: itemToDelete)
+            }
             .onAppear() {
                 loadMenuItems()
             }
@@ -79,6 +83,13 @@ struct ContentView: View {
     func loadMenuItems() {
         for message in messages {
             menuItems.append(MenuItem(name: message.message ?? "", date: Date()))
+        }
+    }
+    
+    private func deleteMessage(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { messages[$0] }.forEach(viewContext.delete)
+            PersistenceController.shared.save()
         }
     }
     
