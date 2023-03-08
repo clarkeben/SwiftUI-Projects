@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ChatView: View {
     //MARK: - Properties
-    @StateObject var viewModel = ChatViewModel()
+    @StateObject var viewModel: ChatViewModel
     
     private let screenWidth = UIScreen.main.bounds.width
     
@@ -84,7 +85,7 @@ struct ChatView: View {
 // MARK: - ChatViewModel
 class ChatViewModel: ObservableObject {
     // Properties
-    @Environment(\.managedObjectContext) private var viewContext
+    private let context: NSManagedObjectContext
     
     @Published var userQuery = ""
     @Published var chat = [ChatModel]()
@@ -105,6 +106,10 @@ class ChatViewModel: ObservableObject {
     ].shuffled()
     
     let networkManager: ChatNetworkManager = ChatNetworkManager()
+    
+    init(context: NSManagedObjectContext) {
+        self.context = context
+    }
     
     // Methods
     func inspirationRequest(_ question: String) {
@@ -135,12 +140,12 @@ class ChatViewModel: ObservableObject {
         chat.removeAll()
         chat.append(ChatModel(responder: .aiBot, message: "You've started a new conversation, please ask me something...", date: Date()))
     }
-        
+    
     func saveChat() {
-        var message = "Question: \(chat[0].message) \n Answer: \(chat[1].message)"
-        
-        let newMessage = Message(context: viewContext)
+        let message = "Question: \(chat[0].message) \n Answer: \(chat[1].message)"
+        let newMessage = Message(context: context)
         newMessage.message = message
+        newMessage.date = chat[0].date
         PersistenceController.shared.save()
     }
     
@@ -161,6 +166,8 @@ class ChatViewModel: ObservableObject {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView()
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        let viewModel = ChatViewModel(context: context)
+        return ChatView(viewModel: viewModel)
     }
 }

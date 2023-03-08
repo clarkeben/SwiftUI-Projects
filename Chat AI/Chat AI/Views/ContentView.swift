@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
-    //TODO: - Create a ViewModel for the contentView 
     @State private var width = UIScreen.main.bounds.width
     
     @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
@@ -17,8 +16,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Message.message, ascending: true)], animation: .easeInOut)
-     var messages: FetchedResults<Message>
-        
+    var messages: FetchedResults<Message>
+    
     @State private var title = "Chat"
     @State private var menuClicked = false
     @State private var menuItems = [MenuItem]()
@@ -28,7 +27,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ChatView()
+                ChatView(viewModel: ChatViewModel(context: viewContext))
                     .environment(\.managedObjectContext, viewContext)
                     .navigationTitle(title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -61,6 +60,9 @@ struct ContentView: View {
             .onChange(of: itemToDelete) { _ in
                 deleteMessage(offsets: itemToDelete)
             }
+            .onChange(of: menuClicked) { _ in
+                loadMenuItems()
+            }
             .onAppear() {
                 loadMenuItems()
             }
@@ -68,9 +70,9 @@ struct ContentView: View {
     }
     
     //MARK: - Methods
-     func toggleMenu() {
+    func toggleMenu() {
         menuClicked.toggle()
-    
+        
         if menuClicked {
             title = ""
         } else {
