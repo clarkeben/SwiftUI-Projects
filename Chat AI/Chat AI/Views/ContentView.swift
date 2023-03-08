@@ -83,8 +83,10 @@ struct ContentView: View {
     }
     
     func loadMenuItems() {
+        menuItems.removeAll()
+        
         for message in messages {
-            menuItems.append(MenuItem(name: message.message ?? "", date: Date()))
+            menuItems.append(MenuItem(name: message.message ?? "", date: message.date ?? Date()))
         }
     }
     

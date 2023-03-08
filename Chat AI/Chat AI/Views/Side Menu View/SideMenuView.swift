@@ -45,16 +45,21 @@ struct SideMenuView: View {
                             
                         List {
                             ForEach(menuItems) { menuItem in
-                                HStack {
-                                    Image(systemName: "message")
-                                    Text(menuItem.name)
-                                        .font(.system(size: 12))
-                                        .lineLimit(2)
-                                        .foregroundColor(.black)
-                                        .multilineTextAlignment(.leading)
-                                    Spacer()
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Image(systemName: "message")
+                                        Text(menuItem.name)
+                                            .font(.system(size: 12))
+                                            .lineLimit(2)
+                                            .foregroundColor(.black)
+                                            .multilineTextAlignment(.leading)
+                                        Spacer()
+                                    }
+                                    .padding(10)
+                                    Text(menuItem.date, style: .date)
+                                        .font(.system(size: 10))
+                                        .padding(.leading, 10)
                                 }
-                                .padding(10)
                             }
                             .onDelete { indexSet in
                                 menuItems.remove(atOffsets: indexSet)
