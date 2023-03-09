@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ActionButton: View {
     //MARK: - Properties
+    var width: CGFloat = 150
     var systemIcon: String
     var title: String
     var action: () -> Void
@@ -26,7 +27,7 @@ struct ActionButton: View {
                     .foregroundColor(.black)
                     .padding(10)
             }
-            .frame(width: 150, height: 40)
+            .frame(width: width, height: 40)
             .background(Color.white)
             .cornerRadius(10)
             .overlay(

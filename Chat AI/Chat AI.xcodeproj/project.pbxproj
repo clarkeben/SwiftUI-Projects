@@ -145,6 +145,7 @@
 				1449CB7B2991AD3300F5BB73 /* Chat View */,
 				1498DDD829A294F9003C328D /* Settings View */,
 				1444892129A8F4B300B800EC /* Side Menu View */,
+				1449CB7E29928A0A00F5BB73 /* Components */,
 				14A5A6B3299D7E320081FCBA /* ViewModifiers.swift */,
 			);
 			path = Views;
@@ -154,12 +155,11 @@
 			isa = PBXGroup;
 			children = (
 				1449CB7C2991AD5200F5BB73 /* ChatView.swift */,
-				1449CB7E29928A0A00F5BB73 /* Chat Components */,
 			);
 			path = "Chat View";
 			sourceTree = "<group>";
 		};
-		1449CB7E29928A0A00F5BB73 /* Chat Components */ = {
+		1449CB7E29928A0A00F5BB73 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				1449CB8129928B1300F5BB73 /* IconButton.swift */,
@@ -167,7 +167,7 @@
 				1444891729A78CB900B800EC /* TypingTextView.swift */,
 				1407F78629AEA6090027D32D /* ActionButton.swift */,
 			);
-			path = "Chat Components";
+			path = Components;
 			sourceTree = "<group>";
 		};
 		145E676129AA06AB0045C47F /* CoreData */ = {

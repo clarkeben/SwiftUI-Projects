@@ -23,6 +23,8 @@ struct ContentView: View {
     @State private var menuItems = [MenuItem]()
     @State var itemToDelete: IndexSet = IndexSet()
     
+    @State private var showAlert = false
+    
     // MARK: - Body
     var body: some View {
         NavigationView {
@@ -49,7 +51,9 @@ struct ContentView: View {
                             }.buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, itemToDelete: $itemToDelete, toggleMenu: toggleMenu)
+                SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, itemToDelete: $itemToDelete, toggleMenu: toggleMenu, deleteBtnClicked: {
+                    showAlert.toggle()
+                })
             }
             .fullScreenCover(isPresented: $showOnboarding) {
                 OnboardingView()
@@ -66,11 +70,16 @@ struct ContentView: View {
             .onAppear() {
                 loadMenuItems()
             }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Delete all"),
+                      message: Text("Would you like to delete all saved conversations, doing this is irreversible"), primaryButton: .cancel(),
+                      secondaryButton: .default(Text("Yes!"), action:                     deleteAllSavedConvos))
+            }
         }
     }
     
     //MARK: - Methods
-    func toggleMenu() {
+    private func toggleMenu() {
         menuClicked.toggle()
         
         if menuClicked {
@@ -82,7 +91,7 @@ struct ContentView: View {
         }
     }
     
-    func loadMenuItems() {
+    private func loadMenuItems() {
         menuItems.removeAll()
         
         for message in messages {
@@ -95,6 +104,14 @@ struct ContentView: View {
             offsets.map { messages[$0] }.forEach(viewContext.delete)
             PersistenceController.shared.save()
         }
+    }
+    
+    private func deleteAllSavedConvos() {
+        for message in messages {
+            viewContext.delete(message)
+        }
+        PersistenceController.shared.save()
+        toggleMenu()
     }
     
 }

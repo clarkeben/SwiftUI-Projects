@@ -17,6 +17,7 @@ struct SideMenuView: View {
     @Binding var itemToDelete: IndexSet
     
     let toggleMenu: () -> Void
+    var deleteBtnClicked: () -> Void
     
     var body: some View {
         ZStack {
@@ -68,6 +69,10 @@ struct SideMenuView: View {
                         }
                         .listStyle(.plain)
                         Spacer()
+                        
+                        ActionButton(width: width-40, systemIcon: "trash", title: "Clear All Message") {
+                            deleteBtnClicked()
+                        }
                     }
                 }
                 .frame(width: width)
@@ -126,6 +131,8 @@ struct SideMenuView_Previews: PreviewProvider {
         
         SideMenuView(width: 320, menuClicked: true, menuItems: items, itemToDelete: indexSet, toggleMenu: {
             print("Menu toggled")
+        }, deleteBtnClicked: {
+            print("Delete all")
         })
     }
 }
