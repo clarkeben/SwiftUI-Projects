@@ -43,31 +43,38 @@ struct SideMenuView: View {
                             .foregroundColor(.gray)
                         
                         Divider()
-                            
-                        List {
-                            ForEach(menuItems) { menuItem in
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Image(systemName: "message")
-                                        Text(menuItem.name)
-                                            .font(.system(size: 12))
-                                            .lineLimit(2)
-                                            .foregroundColor(.black)
-                                            .multilineTextAlignment(.leading)
-                                        Spacer()
+                        
+                        if menuItems.isEmpty {
+                            Text("No conversations have been saved!")
+                                .font(.system(size: 12))
+                                .padding(10)
+                        } else {
+                            List {
+                                ForEach(menuItems) { menuItem in
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            Image(systemName: "message")
+                                            Text(menuItem.name)
+                                                .font(.system(size: 12))
+                                                .lineLimit(2)
+                                                .foregroundColor(.black)
+                                                .multilineTextAlignment(.leading)
+                                            Spacer()
+                                        }
+                                        .padding(10)
+                                        Text(menuItem.date, style: .date)
+                                            .font(.system(size: 10))
+                                            .padding(.leading, 10)
                                     }
-                                    .padding(10)
-                                    Text(menuItem.date, style: .date)
-                                        .font(.system(size: 10))
-                                        .padding(.leading, 10)
+                                }
+                                .onDelete { indexSet in
+                                    menuItems.remove(atOffsets: indexSet)
+                                    itemToDelete = indexSet
                                 }
                             }
-                            .onDelete { indexSet in
-                                menuItems.remove(atOffsets: indexSet)
-                                itemToDelete = indexSet
-                            }
+                            .listStyle(.plain)
                         }
-                        .listStyle(.plain)
+
                         Spacer()
                         
                         ActionButton(width: width-40, systemIcon: "trash", title: "Clear All Message") {
