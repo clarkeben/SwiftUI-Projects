@@ -86,14 +86,11 @@ struct SettingsView: View {
                 }
                 
                 //TODO: - Update with other links
-                Section("Other") {
-                    HStack {
-                        VStack {
-                            //Image
-                            //App name
-                        }
-                        //Download button
-                    }
+                Section("About") {
+                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.")
+                    LinkSettingsView(title: "OpenAI", urlTitle: "openai.com", url: "https://openai.com/")
+                    LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction")
+                    LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat")
                 }
             }
             
@@ -105,6 +102,24 @@ struct SettingsView: View {
         .navigationTitle("Chat AI Settings")
         .onAppear() {
             sliderValue = Double(viewModel.maxTokens)
+        }
+    }
+}
+
+//MARK: - LinkSettingsView
+struct LinkSettingsView: View {
+    let title: String
+    let urlTitle: String
+    let url: String
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(title)
+            }
+            Spacer()
+            Link(urlTitle, destination: (URL(string: url) ?? URL(string: "https://openai.com/"))!)
+                .foregroundColor(.black)
         }
     }
 }
