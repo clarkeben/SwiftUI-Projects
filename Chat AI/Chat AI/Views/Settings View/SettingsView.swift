@@ -19,7 +19,7 @@ struct SettingsView: View {
             Form {
                 Section("Chat Settings") {
                     VStack(alignment: .leading) {
-                        Text("API Key:")
+                        Text("API Key")
                             .font(.system(size: 14))
                         HStack {
                             if viewModel.showAPIKey {
@@ -49,7 +49,7 @@ struct SettingsView: View {
                     }
                     
                     HStack {
-                        Text("Model:")
+                        Text("Model")
                             .font(.system(size: 14))
                         Spacer()
                         Picker("Select Model", selection: $viewModel.model) {
@@ -60,7 +60,7 @@ struct SettingsView: View {
                     }
                     
                     HStack {
-                        Text("User Icon:")
+                        Text("User Icon")
                             .font(.system(size: 14))
                         Spacer()
                         Picker("Select emoji icon", selection: $viewModel.userIcon) {
@@ -72,25 +72,29 @@ struct SettingsView: View {
                     }
                 }
                 
+                // About
+                Section("About") {
+                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: 14))
+                    LinkSettingsView(title: "OpenAI Website", urlTitle: "openai.com", url: "https://openai.com/")
+                    LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction")
+                    LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat")
+                }
+                
+                // Credits
                 Section("Credits") {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Ben Clarke")
+                                .font(.system(size: 14))
                             Text("👨🏼‍💻 Developer")
                                 .font(.system(size: 10))
                         }
                         Spacer()
                         Link("Github", destination: URL(string: K.URLs.github)!)
                             .foregroundColor(.black)
+                            .font(.system(size: 14))
+
                     }
-                }
-                
-                //TODO: - Update with other links
-                Section("About") {
-                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.")
-                    LinkSettingsView(title: "OpenAI", urlTitle: "openai.com", url: "https://openai.com/")
-                    LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction")
-                    LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat")
                 }
             }
             
@@ -116,10 +120,12 @@ struct LinkSettingsView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(title)
+                    .font(.system(size: 14))
             }
             Spacer()
             Link(urlTitle, destination: (URL(string: url) ?? URL(string: "https://openai.com/"))!)
                 .foregroundColor(.black)
+                .font(.system(size: 14))
         }
     }
 }
