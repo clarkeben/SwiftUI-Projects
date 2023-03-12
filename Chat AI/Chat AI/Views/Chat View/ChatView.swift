@@ -13,9 +13,7 @@ struct ChatView: View {
     @StateObject var viewModel: ChatViewModel
     
     private let screenWidth = UIScreen.main.bounds.width
-    
-    @State private var presentAlert = false
-        
+            
     // MARK: - Body
     var body: some View {
         VStack {

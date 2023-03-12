@@ -150,10 +150,19 @@ class SettingsViewModel: ObservableObject {
         userIcon = userSettings.userIcon
         
         // Emoji Setup
-        let emojiRange = 0x1F600...0x1F64F
-        for i in emojiRange {
-            let emoji = String(UnicodeScalar(i)!)
-            emojiIcons.append(emoji)
+        let emojiRanges = [
+            0x1F601...0x1F64F,
+            0x1F680...0x1F6FF,
+            0x1F900...0x1F9FF,
+            0x1F1E6...0x1F1FF
+        ]
+        
+        for range in emojiRanges {
+            for i in range {
+                guard let scalar = UnicodeScalar(i) else { continue }
+                let emoji = String(scalar)
+                emojiIcons.append(emoji)
+            }
         }
     }
     
