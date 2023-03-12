@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
+    //TODO: - Create a viewModel for contentview
     @State private var width = UIScreen.main.bounds.width
     
     @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
@@ -48,7 +49,8 @@ struct ContentView: View {
                         ToolbarItem(placement: .navigationBarTrailing, content: {
                             NavigationLink(destination: SettingsView()) {
                                 NavigationIconLinkButton(imageName: "gear.badge")
-                            }.buttonStyle(PlainButtonStyle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         })
                     }
                 SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, itemToDelete: $itemToDelete, toggleMenu: toggleMenu, deleteBtnClicked: {
@@ -60,7 +62,6 @@ struct ContentView: View {
             }
             .transition(.scale)
             .animation(.easeInOut, value: showOnboarding)
-            .accentColor(.black)
             .onChange(of: itemToDelete) { _ in
                 deleteMessage(offsets: itemToDelete)
             }
@@ -73,9 +74,9 @@ struct ContentView: View {
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Delete all"),
                       message: Text("Would you like to delete all saved conversations, doing this is irreversible"), primaryButton: .cancel(),
-                      secondaryButton: .default(Text("Yes!"), action:                     deleteAllSavedConvos))
+                      secondaryButton: .default(Text("Yes!"), action: deleteAllSavedConvos))
             }
-        }
+        }.accentColor(.black)
     }
     
     //MARK: - Methods
