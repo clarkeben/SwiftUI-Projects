@@ -33,15 +33,14 @@ final class ChatNetworkManager {
         }
     }
     
-    func request(_ text: String, completion: @escaping (String) -> Void) {
+    func request(_ text: String, completion: @escaping (Result<String, Error>) -> Void) {
         client?.sendCompletion(with: text, model: .gpt3(selectedModel), maxTokens: userPreferences.maxTokens, completionHandler: { result in
             switch result {
             case .success(let success):
                 let modelOutput = success.choices.first?.text ?? ""
-                completion(modelOutput)
+                completion(.success(modelOutput))
             case .failure(let error):
-                //TODO: - Handle error
-                let error = error.localizedDescription
+                completion(.failure(error))
             }
         })
     }

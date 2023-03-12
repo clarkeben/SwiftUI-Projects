@@ -14,6 +14,8 @@ struct ChatView: View {
     
     private let screenWidth = UIScreen.main.bounds.width
     
+    @State private var presentAlert = false
+        
     // MARK: - Body
     var body: some View {
         VStack {
@@ -79,6 +81,11 @@ struct ChatView: View {
             .dropShadowRoundView()
         }
         .padding(10)
+        .alert("Error fetching data", isPresented: $viewModel.showErrorAlert, actions: {
+            Button("OK", role: .cancel, action: {})
+        }, message: {
+            Text(viewModel.errorMessage)
+        })
     }
 }
 
@@ -105,6 +112,9 @@ class ChatViewModel: ObservableObject {
         "Where are cricket’s ears located?"
     ].shuffled()
     
+    @Published var showErrorAlert = false
+    @Published var errorMessage = ""
+    
     let networkManager: ChatNetworkManager = ChatNetworkManager()
     
     init(context: NSManagedObjectContext) {
@@ -126,12 +136,23 @@ class ChatViewModel: ObservableObject {
         
         chat.append(ChatModel(responder: .user, message: userQuery, date: Date.now))
         
-        networkManager.request(userQuery) { response in
+        networkManager.request(userQuery) { [weak self] result in
+            guard let self = self else { return }
+            
             DispatchQueue.main.async {
-                self.chat.append(ChatModel(responder: .aiBot, message: response, date: Date.now))
-                self.userQuery = ""
+                defer {
+                    self.userQuery = ""
+                    self.fetchingData = false
+                }
                 
-                self.fetchingData = false
+                switch result {
+                case .success(let response):
+                    self.chat.append(ChatModel(responder: .aiBot, message: response, date: Date.now))
+                case .failure(let error):
+                    self.showErrorAlert = true
+                    self.errorMessage = "Please check your network connection, if that does not work please try generating a new API key. 🤖"
+                    print(error.localizedDescription, "⚡️⚡️⚡️")
+                }
             }
         }
     }
