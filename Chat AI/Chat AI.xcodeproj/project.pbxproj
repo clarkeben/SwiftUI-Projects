@@ -26,6 +26,10 @@
 		1498DDDA29A2950A003C328D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD929A2950A003C328D /* SettingsView.swift */; };
 		149E580F29A4CADA00D8705E /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E580E29A4CADA00D8705E /* UserPreferences.swift */; };
 		149E581129A4F9AA00D8705E /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E581029A4F9AA00D8705E /* ChatCell.swift */; };
+		14A1085229BFD3E400367EC7 /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1084E29BFD3E400367EC7 /* Message+CoreDataClass.swift */; };
+		14A1085329BFD3E400367EC7 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1084F29BFD3E400367EC7 /* Message+CoreDataProperties.swift */; };
+		14A1085429BFD3E400367EC7 /* Chat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1085029BFD3E400367EC7 /* Chat+CoreDataClass.swift */; };
+		14A1085529BFD3E400367EC7 /* Chat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1085129BFD3E400367EC7 /* Chat+CoreDataProperties.swift */; };
 		14A5A6AB299AE85D0081FCBA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6AA299AE85D0081FCBA /* OnboardingView.swift */; };
 		14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6AC299B8C650081FCBA /* Constants.swift */; };
 		14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5A6AF299BC4610081FCBA /* KeychainWrapper.swift */; };
@@ -54,6 +58,10 @@
 		1498DDD929A2950A003C328D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		149E580E29A4CADA00D8705E /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		149E581029A4F9AA00D8705E /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		14A1084E29BFD3E400367EC7 /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataClass.swift"; sourceTree = "<group>"; };
+		14A1084F29BFD3E400367EC7 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		14A1085029BFD3E400367EC7 /* Chat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataClass.swift"; sourceTree = "<group>"; };
+		14A1085129BFD3E400367EC7 /* Chat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		14A5A6AA299AE85D0081FCBA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		14A5A6AC299B8C650081FCBA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		14A5A6AF299BC4610081FCBA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
@@ -176,6 +184,10 @@
 			isa = PBXGroup;
 			children = (
 				145E676229AA071B0045C47F /* PersistenceController.swift */,
+				14A1084E29BFD3E400367EC7 /* Message+CoreDataClass.swift */,
+				14A1084F29BFD3E400367EC7 /* Message+CoreDataProperties.swift */,
+				14A1085029BFD3E400367EC7 /* Chat+CoreDataClass.swift */,
+				14A1085129BFD3E400367EC7 /* Chat+CoreDataProperties.swift */,
 				145E675E29AA06A60045C47F /* MessageDataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -301,17 +313,21 @@
 				1444891B29A8EB0600B800EC /* ChatModel.swift in Sources */,
 				14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */,
 				14A5A6B4299D7E320081FCBA /* ViewModifiers.swift in Sources */,
+				14A1085229BFD3E400367EC7 /* Message+CoreDataClass.swift in Sources */,
 				145E676329AA071B0045C47F /* PersistenceController.swift in Sources */,
 				145E676029AA06A60045C47F /* MessageDataModel.xcdatamodeld in Sources */,
 				14A5A6B2299BC4610081FCBA /* KeychainItemAccessibility.swift in Sources */,
 				14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */,
 				1444891E29A8EB4700B800EC /* ViewExtensions.swift in Sources */,
+				14A1085429BFD3E400367EC7 /* Chat+CoreDataClass.swift in Sources */,
 				149E580F29A4CADA00D8705E /* UserPreferences.swift in Sources */,
 				1498DDDA29A2950A003C328D /* SettingsView.swift in Sources */,
 				149E581129A4F9AA00D8705E /* ChatCell.swift in Sources */,
 				1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */,
 				140C948529906FD000C955FB /* Chat_AIApp.swift in Sources */,
 				1444892329A90CA800B800EC /* MenuItems.swift in Sources */,
+				14A1085529BFD3E400367EC7 /* Chat+CoreDataProperties.swift in Sources */,
+				14A1085329BFD3E400367EC7 /* Message+CoreDataProperties.swift in Sources */,
 				1407F78729AEA6090027D32D /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
