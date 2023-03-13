@@ -66,6 +66,9 @@ struct SideMenuView: View {
                                             .font(.system(size: 10))
                                             .padding(.leading, 10)
                                     }
+                                    .onTapGesture {
+                                        //TODO: - Handle item being tapped
+                                    }
                                 }
                                 .onDelete { indexSet in
                                     menuItems.remove(atOffsets: indexSet)

@@ -20,6 +20,15 @@ struct PersistenceController {
     // MARK: - Test Configuration
     static var preview: PersistenceController = {
         let controller = PersistenceController(inMemory: true)
+        let viewContext = controller.container.viewContext
+        
+        // Save newMessage 
+        let newMessage = Message(context: viewContext)
+        newMessage.message = "Test message, testing 12345678910"
+        newMessage.date = Date()
+        newMessage.sender = "User"
+        
+        shared.save()
         
         return controller
     }()
