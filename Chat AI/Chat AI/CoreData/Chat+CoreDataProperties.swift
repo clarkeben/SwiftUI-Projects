@@ -19,6 +19,24 @@ extension Chat {
     @NSManaged public var title: String?
     @NSManaged public var date: Date?
     @NSManaged public var message: NSSet?
+    
+    public var unwrappedTitle: String {
+        title ?? "Unkown title"
+    }
+    
+    public var unwrappedDate: Date {
+        date ?? Date()
+    }
+    
+    public var messageArray: [Message] {
+        var messageArray = [Message]()
+        
+        for message in message ?? [] {
+            messageArray.append(message as! Message)
+        }
+        
+        return messageArray
+    }
 
 }
 
