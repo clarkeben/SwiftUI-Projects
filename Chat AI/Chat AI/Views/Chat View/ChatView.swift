@@ -161,10 +161,19 @@ class ChatViewModel: ObservableObject {
     }
     
     func saveChat() {
-        let message = "Question: \(chat[0].message) \n Answer: \(chat[1].message)"
-        let newMessage = Message(context: context)
-        newMessage.message = message
-        newMessage.date = chat[0].date
+        //TODO: - Utilise AI to summarise conversation
+        let conversation = Chat(context: context)
+        conversation.title = chat[0].message
+        conversation.date = chat[0].date
+        
+        for i in 0..<chat.count {
+            let newMessage = Message(context: context)
+            newMessage.message = chat[i].message
+            newMessage.sender = chat[i].responder.rawValue
+            newMessage.date = chat[i].date
+            
+            conversation.addToMessage(newMessage)
+        }
         PersistenceController.shared.save()
     }
     

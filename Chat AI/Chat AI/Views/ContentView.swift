@@ -16,8 +16,8 @@ struct ContentView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Message.message, ascending: true)], animation: .easeInOut)
-    var messages: FetchedResults<Message>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Chat.title, ascending: true)], animation: .easeInOut)
+    var chat: FetchedResults<Chat>
     
     @State private var title = "Chat"
     @State private var menuClicked = false
@@ -95,21 +95,21 @@ struct ContentView: View {
     private func loadMenuItems() {
         menuItems.removeAll()
         
-        for message in messages {
-            menuItems.append(MenuItem(name: message.message ?? "", date: message.date ?? Date()))
+        for convos in chat {
+            menuItems.append(MenuItem(name: convos.unwrappedTitle, date: convos.unwrappedDate))
         }
     }
     
     private func deleteMessage(offsets: IndexSet) {
         withAnimation {
-            offsets.map { messages[$0] }.forEach(viewContext.delete)
+            offsets.map { chat[$0] }.forEach(viewContext.delete)
             PersistenceController.shared.save()
         }
     }
     
     private func deleteAllSavedConvos() {
-        for message in messages {
-            viewContext.delete(message)
+        for convo in chat {
+            viewContext.delete(convo)
         }
         PersistenceController.shared.save()
         toggleMenu()
