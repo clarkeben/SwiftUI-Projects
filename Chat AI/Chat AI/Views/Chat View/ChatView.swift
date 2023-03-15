@@ -13,72 +13,79 @@ struct ChatView: View {
     @StateObject var viewModel: ChatViewModel
     
     private let screenWidth = UIScreen.main.bounds.width
-            
+    
     // MARK: - Body
     var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
-                if viewModel.chat.isEmpty {
-                    VStack {
-                        Text("Need some inspiration?")
-                            .font(.largeTitle)
-                            .foregroundColor(.gray)
-                            .bold()
-                            .padding()
-                        
-                        ForEach(0...4, id: \.self) { index in
-                            Button(viewModel.dummyQuestions[index]) {
-                                viewModel.inspirationRequest(viewModel.dummyQuestions[index])
+        ZStack {
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    if viewModel.chat.isEmpty {
+                        VStack {
+                            Text("Need some inspiration?")
+                                .font(.largeTitle)
+                                .foregroundColor(.gray)
+                                .bold()
+                                .padding()
+                            
+                            ForEach(0...4, id: \.self) { index in
+                                Button(viewModel.dummyQuestions[index]) {
+                                    viewModel.inspirationRequest(viewModel.dummyQuestions[index])
+                                }
+                                .roundedButton()
+                                .padding()
                             }
-                            .roundedButton()
-                            .padding()
                         }
-                    }
-                } else {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
-                        ForEach(viewModel.chat) { chat in
-                            ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
-                        }
-                        .padding([.top], 5)
-                        
-                        if viewModel.chat.count >= 2 {
-                            Divider().padding(.horizontal, 5)
-                            
-                            ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
-                                viewModel.saveChat()
+                    } else {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
+                            ForEach(viewModel.chat) { chat in
+                                ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
                             }
+                            .padding([.top], 5)
                             
-                            ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
-                                viewModel.shareChat()
-                            }
-                            
-                            ActionButton(systemIcon: "xmark", title: "Clear Chat") {
-                                viewModel.clearChat()
+                            if viewModel.chat.count >= 2 {
+                                Divider().padding(.horizontal, 5)
+                                
+                                ActionButton(systemIcon: "square.and.arrow.down", title: viewModel.convoSaved ? "Resave Chat" : "Save Chat") {
+                                    viewModel.saveChat()
+                                }
+                                
+                                ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
+                                    viewModel.shareChat()
+                                }
+                                
+                                ActionButton(systemIcon: "xmark", title: "Clear Chat") {
+                                    viewModel.clearChat()
+                                }
                             }
                         }
                     }
                 }
-            }
-            
-            if viewModel.fetchingData {
-                HStack {
-                    TypingTextView(text: "Fetching Data....")
-                    Spacer()
-                }
-            }
-            
-            HStack {
-                TextField("Ask a question?", text: $viewModel.userQuery, axis: .vertical)
-                Spacer()
                 
-                IconButton(imageName: "paperplane") {
-                    viewModel.sendRequest()
-                    endEditing()
+                if viewModel.fetchingData {
+                    HStack {
+                        TypingTextView(text: "Fetching Data....")
+                        Spacer()
+                    }
                 }
+                
+                HStack {
+                    TextField("Ask a question?", text: $viewModel.userQuery, axis: .vertical)
+                    Spacer()
+                    
+                    IconButton(imageName: "paperplane") {
+                        viewModel.sendRequest()
+                        endEditing()
+                    }
+                }
+                .dropShadowRoundView()
             }
-            .dropShadowRoundView()
+            .padding(10)
+            
+            if viewModel.showSavedModal {
+                CustomModalPopup(icon: "checkmark.circle.fill", iconColour: .green, title: "Saved", isShowing: $viewModel.showSavedModal)
+            }
+            
         }
-        .padding(10)
         .alert("Error fetching data", isPresented: $viewModel.showErrorAlert, actions: {
             Button("OK", role: .cancel, action: {})
         }, message: {
@@ -112,6 +119,10 @@ class ChatViewModel: ObservableObject {
     
     @Published var showErrorAlert = false
     @Published var errorMessage = ""
+    
+    @Published var showSavedModal = false
+    @Published var convoSaved = false
+    @Published var chatConvo: Chat?
     
     let networkManager: ChatNetworkManager = ChatNetworkManager()
     
@@ -161,10 +172,36 @@ class ChatViewModel: ObservableObject {
     }
     
     func saveChat() {
-        //TODO: - Utilise AI to summarise conversation
-        let conversation = Chat(context: context)
-        conversation.title = chat[0].message
-        conversation.date = chat[0].date
+        // Check if conversation is already saved
+        if convoSaved {
+            updateSavedChat()
+        } else {
+            let conversation = Chat(context: context)
+            conversation.title = chat[0].message
+            conversation.date = chat[0].date
+            
+            for i in 0..<chat.count {
+                let newMessage = Message(context: context)
+                newMessage.message = chat[i].message
+                newMessage.sender = chat[i].responder.rawValue
+                newMessage.date = chat[i].date
+                
+                conversation.addToMessage(newMessage)
+            }
+            PersistenceController.shared.save()
+            chatConvo = conversation
+        }
+        
+        showSavedModal = true
+        convoSaved = true
+    }
+    
+    private func updateSavedChat() {
+        guard let conversation = chatConvo else {
+            return
+        }
+        
+        conversation.message = []
         
         for i in 0..<chat.count {
             let newMessage = Message(context: context)
@@ -174,6 +211,7 @@ class ChatViewModel: ObservableObject {
             
             conversation.addToMessage(newMessage)
         }
+        
         PersistenceController.shared.save()
     }
     
