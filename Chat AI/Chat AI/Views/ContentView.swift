@@ -9,22 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
-    //TODO: - Create a viewModel for contentview
-    @State private var width = UIScreen.main.bounds.width
+    //@State private var width = UIScreen.main.bounds.width
     
-    @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
+    //@AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
     
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Chat.title, ascending: true)], animation: .easeInOut)
     var chat: FetchedResults<Chat>
     
-    @State private var title = "Chat"
-    @State private var menuClicked = false
-    @State private var menuItems = [MenuItem]()
+    @StateObject private var viewModel = ContentViewModal()
+    
+    /*@State var title = "Chat"
+    @State var menuClicked = false
+    @State var menuItems = [MenuItem]()
     @State var itemToDelete: IndexSet = IndexSet()
     
-    @State private var showAlert = false
+    @State private var showAlert = false*/
     
     // MARK: - Body
     var body: some View {
@@ -32,17 +33,17 @@ struct ContentView: View {
             ZStack {
                 ChatView(viewModel: ChatViewModel(context: viewContext))
                     .environment(\.managedObjectContext, viewContext)
-                    .navigationTitle(title)
+                    .navigationTitle(viewModel.title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
-                            if !menuClicked {
+                            if !viewModel.menuClicked {
                                 IconButton(imageName: "rectangle.on.rectangle") {
-                                    toggleMenu()
+                                    viewModel.toggleMenu()
                                 }
                             } else {
                                 IconButton(imageName: "xmark") {
-                                    toggleMenu()
+                                    viewModel.toggleMenu()
                                 }
                             }
                         })
@@ -53,25 +54,29 @@ struct ContentView: View {
                             .buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(width: width/1.8, menuClicked: menuClicked, menuItems: $menuItems, itemToDelete: $itemToDelete, toggleMenu: toggleMenu, deleteBtnClicked: {
-                    showAlert.toggle()
+                SideMenuView(width: viewModel.width/1.8, menuClicked: viewModel.menuClicked, menuItems: $viewModel.menuItems, itemToDelete: $viewModel.itemToDelete, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
+                    viewModel.showAlert.toggle()
                 })
+                
+                if viewModel.itemDeleted {
+                    CustomModalPopup(icon: "checkmark.circle.fill", iconColour: .green, title: "Deleted", isShowing: $viewModel.itemDeleted)
+                }
             }
-            .fullScreenCover(isPresented: $showOnboarding) {
+            .fullScreenCover(isPresented: $viewModel.showOnboarding) {
                 OnboardingView()
             }
             .transition(.scale)
-            .animation(.easeInOut, value: showOnboarding)
-            .onChange(of: itemToDelete) { _ in
-                deleteMessage(offsets: itemToDelete)
+            .animation(.easeInOut, value: viewModel.showOnboarding)
+            .onChange(of: viewModel.itemToDelete) { _ in
+                deleteMessage(offsets: viewModel.itemToDelete)
             }
-            .onChange(of: menuClicked) { _ in
-                loadMenuItems()
+            .onChange(of: viewModel.menuClicked) { _ in
+                viewModel.loadMenuItems(chat: chat)
             }
             .onAppear() {
-                loadMenuItems()
+                viewModel.loadMenuItems(chat: chat)
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $viewModel.showAlert) {
                 Alert(title: Text("Delete all"),
                       message: Text("Would you like to delete all saved conversations, doing this is irreversible"), primaryButton: .cancel(),
                       secondaryButton: .default(Text("Yes!"), action: deleteAllSavedConvos))
@@ -80,7 +85,44 @@ struct ContentView: View {
     }
     
     //MARK: - Methods
-    private func toggleMenu() {
+    private func deleteMessage(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { chat[$0] }.forEach(viewContext.delete)
+            PersistenceController.shared.save()
+            viewModel.itemDeleted = true
+        }
+    }
+    
+    private func deleteAllSavedConvos() {
+        for convo in chat {
+            viewContext.delete(convo)
+        }
+        PersistenceController.shared.save()
+        viewModel.toggleMenu()
+    }
+    
+}
+
+//MARK: - ContentViewModal
+class ContentViewModal: ObservableObject {
+    // MARK: - Properties
+    @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Chat.title, ascending: true)], animation: .easeInOut)
+    var chat: FetchedResults<Chat>
+    
+    @Published var width = UIScreen.main.bounds.width
+    
+    @Published var title = "Chat"
+    @Published var menuClicked = false
+    @Published var menuItems = [MenuItem]()
+    @Published var itemToDelete: IndexSet = IndexSet()
+    @Published var showAlert = false
+    @Published var itemDeleted = false
+    
+    //MARK: - Methods
+     func toggleMenu() {
         menuClicked.toggle()
         
         if menuClicked {
@@ -92,29 +134,13 @@ struct ContentView: View {
         }
     }
     
-    private func loadMenuItems() {
+    func loadMenuItems(chat: FetchedResults<Chat>) {
         menuItems.removeAll()
         
         for convos in chat {
             menuItems.append(MenuItem(name: convos.unwrappedTitle, date: convos.unwrappedDate))
         }
     }
-    
-    private func deleteMessage(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { chat[$0] }.forEach(viewContext.delete)
-            PersistenceController.shared.save()
-        }
-    }
-    
-    private func deleteAllSavedConvos() {
-        for convo in chat {
-            viewContext.delete(convo)
-        }
-        PersistenceController.shared.save()
-        toggleMenu()
-    }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
