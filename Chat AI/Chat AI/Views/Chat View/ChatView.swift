@@ -45,7 +45,7 @@ struct ChatView: View {
                             if viewModel.chat.count >= 2 {
                                 Divider().padding(.horizontal, 5)
                                 
-                                ActionButton(systemIcon: "square.and.arrow.down", title: viewModel.convoSaved ? "Resave Chat" : "Save Chat") {
+                                ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
                                     viewModel.saveChat()
                                 }
                                 

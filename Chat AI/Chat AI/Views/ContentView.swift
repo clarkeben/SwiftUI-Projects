@@ -9,23 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - Properties
-    //@State private var width = UIScreen.main.bounds.width
-    
-    //@AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
-    
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Chat.title, ascending: true)], animation: .easeInOut)
     var chat: FetchedResults<Chat>
     
     @StateObject private var viewModel = ContentViewModal()
-    
-    /*@State var title = "Chat"
-    @State var menuClicked = false
-    @State var menuItems = [MenuItem]()
-    @State var itemToDelete: IndexSet = IndexSet()
-    
-    @State private var showAlert = false*/
     
     // MARK: - Body
     var body: some View {
@@ -100,7 +89,6 @@ struct ContentView: View {
         PersistenceController.shared.save()
         viewModel.toggleMenu()
     }
-    
 }
 
 //MARK: - ContentViewModal
@@ -108,12 +96,7 @@ class ContentViewModal: ObservableObject {
     // MARK: - Properties
     @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
     
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Chat.title, ascending: true)], animation: .easeInOut)
-    var chat: FetchedResults<Chat>
-    
     @Published var width = UIScreen.main.bounds.width
-    
     @Published var title = "Chat"
     @Published var menuClicked = false
     @Published var menuItems = [MenuItem]()
