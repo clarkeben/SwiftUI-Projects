@@ -14,6 +14,9 @@ struct ChatView: View {
     
     private let screenWidth = UIScreen.main.bounds.width
     
+    //TODO: - Update view if there are conversations saved
+    // Consider breaking viewModel into two seperate vms - one for core data
+    
     // MARK: - Body
     var body: some View {
         ZStack {
