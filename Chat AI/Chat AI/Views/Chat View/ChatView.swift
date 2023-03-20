@@ -14,6 +14,8 @@ struct ChatView: View {
     
     private let screenWidth = UIScreen.main.bounds.width
     
+    @State var savedChat: Chat? = nil
+    
     //TODO: - Update view if there are conversations saved
     // Consider breaking viewModel into two seperate vms - one for core data
     
@@ -39,25 +41,35 @@ struct ChatView: View {
                             }
                         }
                     } else {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
-                            ForEach(viewModel.chat) { chat in
-                                ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
+                        // TODO: - The current logic is incorrect please update
+                        // ViewModel Chat Array needs to be updated rather than checking if there is an item
+                        if let chat = savedChat {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
+                                ForEach(chat.messageArray) { message in
+                                    Text("\(message)")
+                                }
                             }
-                            .padding([.top], 5)
-                            
-                            if viewModel.chat.count >= 2 {
-                                Divider().padding(.horizontal, 5)
-                                
-                                ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
-                                    viewModel.saveChat()
+                        } else {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
+                                ForEach(viewModel.chat) { chat in
+                                    ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
                                 }
+                                .padding([.top], 5)
                                 
-                                ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
-                                    viewModel.shareChat()
-                                }
-                                
-                                ActionButton(systemIcon: "xmark", title: "Clear Chat") {
-                                    viewModel.clearChat()
+                                if viewModel.chat.count >= 2 {
+                                    Divider().padding(.horizontal, 5)
+                                    
+                                    ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
+                                        viewModel.saveChat()
+                                    }
+                                    
+                                    ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
+                                        viewModel.shareChat()
+                                    }
+                                    
+                                    ActionButton(systemIcon: "xmark", title: "Clear Chat") {
+                                        viewModel.clearChat()
+                                    }
                                 }
                             }
                         }

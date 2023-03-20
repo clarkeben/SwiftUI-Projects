@@ -16,11 +16,14 @@ struct ContentView: View {
     
     @StateObject private var viewModel = ContentViewModal()
     
+    @State var selectedMenuItem: MenuItem? = nil //TODO: - MOVE TO VIEWMODEL AND USE CHAT ARRAY INSTEAD
+    @State var selectedChat: Chat? = nil
+    
     // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
-                ChatView(viewModel: ChatViewModel(context: viewContext))
+                ChatView(viewModel: ChatViewModel(context: viewContext), savedChat: selectedChat)
                     .environment(\.managedObjectContext, viewContext)
                     .navigationTitle(viewModel.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -43,7 +46,7 @@ struct ContentView: View {
                             .buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(width: viewModel.width/1.8, menuClicked: viewModel.menuClicked, menuItems: $viewModel.menuItems, itemToDelete: $viewModel.itemToDelete, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
+                SideMenuView(width: viewModel.width/1.8, menuClicked: viewModel.menuClicked, menuItems: $viewModel.menuItems, itemToDelete: $viewModel.itemToDelete, selectedMenuItem: $selectedMenuItem, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
                     viewModel.showAlert.toggle()
                 })
                 
@@ -61,6 +64,17 @@ struct ContentView: View {
             }
             .onChange(of: viewModel.menuClicked) { _ in
                 viewModel.loadMenuItems(chat: chat)
+            }
+            .onChange(of: selectedMenuItem) { _ in
+                guard let menuItem = selectedMenuItem else { return }
+                viewModel.toggleMenu()
+                
+                for convo in chat {
+                    if menuItem.name == convo.title {
+                        selectedChat = convo
+                        print(selectedChat)
+                    }
+                }
             }
             .onAppear() {
                 viewModel.loadMenuItems(chat: chat)

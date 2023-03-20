@@ -12,7 +12,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = SettingsViewModel()
     @State var sliderValue : Double = 500
-    
+        
     //MARK: - Body
     var body: some View {
         VStack {

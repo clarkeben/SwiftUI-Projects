@@ -13,8 +13,9 @@ struct SideMenuView: View {
     let width: CGFloat
     let menuClicked: Bool
     
-    @Binding var menuItems: [MenuItem]
+    @Binding var menuItems: [MenuItem] //TODO: - Switch over to Chat array 
     @Binding var itemToDelete: IndexSet
+    @Binding var selectedMenuItem: MenuItem?
     
     let toggleMenu: () -> Void
     var deleteBtnClicked: () -> Void
@@ -67,7 +68,7 @@ struct SideMenuView: View {
                                             .padding(.leading, 10)
                                     }
                                     .onTapGesture {
-                                        //TODO: - Handle item being tapped
+                                        selectedMenuItem = menuItem
                                     }
                                 }
                                 .onDelete { indexSet in
@@ -139,7 +140,7 @@ struct SideMenuView_Previews: PreviewProvider {
         let items = Binding.constant([MenuItem(name: "Test 12345", date: Date())])
         let indexSet = Binding.constant(IndexSet(integer: 1))
         
-        SideMenuView(width: 320, menuClicked: true, menuItems: items, itemToDelete: indexSet, toggleMenu: {
+        SideMenuView(width: 320, menuClicked: true, menuItems: items, itemToDelete: indexSet, selectedMenuItem: .constant(MenuItem(name: "Test", date: Date())), toggleMenu: {
             print("Menu toggled")
         }, deleteBtnClicked: {
             print("Delete all")
