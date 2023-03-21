@@ -5,17 +5,19 @@
 //  Created by Ben Clarke on 24/02/2023.
 //
 
+import CoreData
 import SwiftUI
 
 // MARK: - SideMenuView
 struct SideMenuView: View {
+    let context: NSManagedObjectContext
+    var chatConvos: FetchedResults<Chat>
     
     let width: CGFloat
     let menuClicked: Bool
-    
-    @Binding var menuItems: [MenuItem] //TODO: - Switch over to Chat array 
-    @Binding var itemToDelete: IndexSet
-    @Binding var selectedMenuItem: MenuItem?
+        
+    @Binding var selectedConversation: Chat?
+    @Binding var messageDeleted: Bool
     
     let toggleMenu: () -> Void
     var deleteBtnClicked: () -> Void
@@ -45,17 +47,17 @@ struct SideMenuView: View {
                         
                         Divider()
                         
-                        if menuItems.isEmpty {
+                        if chatConvos.isEmpty {
                             Text("No conversations have been saved!")
                                 .font(.system(size: 12))
                                 .padding(10)
                         } else {
                             List {
-                                ForEach(menuItems) { menuItem in
+                                ForEach(chatConvos) { menuItem in
                                     VStack(alignment: .leading) {
                                         HStack {
                                             Image(systemName: "message")
-                                            Text(menuItem.name)
+                                            Text(menuItem.unwrappedTitle)
                                                 .font(.system(size: 12))
                                                 .lineLimit(2)
                                                 .foregroundColor(.black)
@@ -63,17 +65,16 @@ struct SideMenuView: View {
                                             Spacer()
                                         }
                                         .padding(10)
-                                        Text(menuItem.date, style: .date)
+                                        Text(menuItem.unwrappedDate, style: .date)
                                             .font(.system(size: 10))
                                             .padding(.leading, 10)
                                     }
                                     .onTapGesture {
-                                        selectedMenuItem = menuItem
+                                        selectedConversation = menuItem
                                     }
                                 }
                                 .onDelete { indexSet in
-                                    menuItems.remove(atOffsets: indexSet)
-                                    itemToDelete = indexSet
+                                   deleteMessage(offsets: indexSet)
                                 }
                             }
                             .listStyle(.plain)
@@ -92,6 +93,14 @@ struct SideMenuView: View {
                 
                 Spacer()
             }
+        }
+    }
+    
+    private func deleteMessage(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { chatConvos[$0] }.forEach(context.delete)
+            PersistenceController.shared.save()
+            messageDeleted = true
         }
     }
 }
@@ -135,15 +144,16 @@ struct MenuContentsView: View {
 }
 
 
-struct SideMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        let items = Binding.constant([MenuItem(name: "Test 12345", date: Date())])
-        let indexSet = Binding.constant(IndexSet(integer: 1))
-        
-        SideMenuView(width: 320, menuClicked: true, menuItems: items, itemToDelete: indexSet, selectedMenuItem: .constant(MenuItem(name: "Test", date: Date())), toggleMenu: {
-            print("Menu toggled")
-        }, deleteBtnClicked: {
-            print("Delete all")
-        })
-    }
-}
+//struct SideMenuView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let items = Binding.constant([MenuItem(name: "Test 12345", date: Date())])
+//        let indexSet = Binding.constant(IndexSet(integer: 1))
+//        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+//
+//        SideMenuView(context: context, chatConvos: <#FetchedResults<Chat>#>, width: 320, menuClicked: true, menuItems: items, itemToDelete: indexSet, selectedMenuItem: .constant(MenuItem(name: "Test", date: Date())), toggleMenu: {
+//            print("Menu toggled")
+//        }, deleteBtnClicked: {
+//            print("Delete all")
+//        })
+//    }
+//}

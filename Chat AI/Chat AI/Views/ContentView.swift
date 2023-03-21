@@ -15,15 +15,12 @@ struct ContentView: View {
     var chat: FetchedResults<Chat>
     
     @StateObject private var viewModel = ContentViewModal()
-    
-    @State var selectedMenuItem: MenuItem? = nil //TODO: - MOVE TO VIEWMODEL AND USE CHAT ARRAY INSTEAD
-    @State var selectedChat: Chat? = nil
-    
+        
     // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
-                ChatView(viewModel: ChatViewModel(context: viewContext), savedChat: selectedChat)
+                ChatView(viewModel: ChatViewModel(context: viewContext), savedChat: viewModel.selectedConversation)
                     .environment(\.managedObjectContext, viewContext)
                     .navigationTitle(viewModel.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -46,7 +43,7 @@ struct ContentView: View {
                             .buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(width: viewModel.width/1.8, menuClicked: viewModel.menuClicked, menuItems: $viewModel.menuItems, itemToDelete: $viewModel.itemToDelete, selectedMenuItem: $selectedMenuItem, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
+                SideMenuView(context: viewContext, chatConvos: chat, width: viewModel.width/1.8, menuClicked: viewModel.menuClicked,  selectedConversation: $viewModel.selectedConversation, messageDeleted: $viewModel.itemDeleted, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
                     viewModel.showAlert.toggle()
                 })
                 
@@ -59,26 +56,17 @@ struct ContentView: View {
             }
             .transition(.scale)
             .animation(.easeInOut, value: viewModel.showOnboarding)
-            .onChange(of: viewModel.itemToDelete) { _ in
-                deleteMessage(offsets: viewModel.itemToDelete)
-            }
-            .onChange(of: viewModel.menuClicked) { _ in
-                viewModel.loadMenuItems(chat: chat)
-            }
-            .onChange(of: selectedMenuItem) { _ in
-                guard let menuItem = selectedMenuItem else { return }
-                viewModel.toggleMenu()
-                
-                for convo in chat {
-                    if menuItem.name == convo.title {
-                        selectedChat = convo
-                        print(selectedChat)
-                    }
-                }
-            }
-            .onAppear() {
-                viewModel.loadMenuItems(chat: chat)
-            }
+//            .onChange(of: selectedMenuItem) { _ in
+//                guard let menuItem = selectedMenuItem else { return }
+//                viewModel.toggleMenu()
+//
+//                for convo in chat {
+//                    if menuItem.name == convo.title {
+//                        selectedChat = convo
+//                        print(selectedChat)
+//                    }
+//                }
+//            }
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(title: Text("Delete all"),
                       message: Text("Would you like to delete all saved conversations, doing this is irreversible"), primaryButton: .cancel(),
@@ -88,14 +76,6 @@ struct ContentView: View {
     }
     
     //MARK: - Methods
-    private func deleteMessage(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { chat[$0] }.forEach(viewContext.delete)
-            PersistenceController.shared.save()
-            viewModel.itemDeleted = true
-        }
-    }
-    
     private func deleteAllSavedConvos() {
         for convo in chat {
             viewContext.delete(convo)
@@ -113,10 +93,9 @@ class ContentViewModal: ObservableObject {
     @Published var width = UIScreen.main.bounds.width
     @Published var title = "Chat"
     @Published var menuClicked = false
-    @Published var menuItems = [MenuItem]()
-    @Published var itemToDelete: IndexSet = IndexSet()
     @Published var showAlert = false
     @Published var itemDeleted = false
+    @Published var selectedConversation: Chat? = nil
     
     //MARK: - Methods
      func toggleMenu() {
@@ -128,14 +107,6 @@ class ContentViewModal: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.title = "Chat"
             }
-        }
-    }
-    
-    func loadMenuItems(chat: FetchedResults<Chat>) {
-        menuItems.removeAll()
-        
-        for convos in chat {
-            menuItems.append(MenuItem(name: convos.unwrappedTitle, date: convos.unwrappedDate))
         }
     }
 }
