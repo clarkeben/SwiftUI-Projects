@@ -129,6 +129,8 @@ class ChatViewModel: ObservableObject {
     @Published var convoSaved = false
     @Published var chatConvo: Chat?
     
+    private let newMessageText = "You've started a new conversation, please ask me something..."
+    
     let networkManager: ChatNetworkManager = ChatNetworkManager()
     
     init(context: NSManagedObjectContext) {
@@ -174,10 +176,17 @@ class ChatViewModel: ObservableObject {
     
     func clearChat() {
         chat.removeAll()
-        chat.append(ChatModel(responder: .aiBot, message: "You've started a new conversation, please ask me something...", date: Date()))
+        chat.append(ChatModel(responder: .aiBot, message: newMessageText, date: Date()))
+        
+        convoSaved = false
+        chatConvo = nil
     }
     
     func saveChat() {
+        if chat[0].message == newMessageText {
+            chat.removeFirst()
+        }
+        
         // Check if conversation is already saved
         if convoSaved {
             updateSavedChat()
