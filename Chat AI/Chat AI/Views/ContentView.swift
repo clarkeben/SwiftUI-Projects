@@ -59,7 +59,6 @@ struct ContentView: View {
             .transition(.scale)
             .animation(.easeInOut, value: viewModel.showOnboarding)
             .onChange(of: selectedConversation) { _ in
-                print(selectedConversation, "Change function called ⚡️")
                 viewModel.toggleMenu()
             }
             .alert(isPresented: $viewModel.showAlert) {
@@ -90,7 +89,6 @@ class ContentViewModal: ObservableObject {
     @Published var menuClicked = false
     @Published var showAlert = false
     @Published var itemDeleted = false
-    //@Published var selectedConversation: Chat? = nil
     
     //MARK: - Methods
      func toggleMenu() {

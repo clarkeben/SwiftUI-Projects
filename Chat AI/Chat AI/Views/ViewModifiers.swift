@@ -38,6 +38,7 @@ struct TextfieldShadowModifier: ViewModifier {
 }
 
 // MARK: -  View Extensions
+//TODO: - Add markup for the viewModifiers explaining the styling 
 extension View {
     func roundedButton() -> some View {
         modifier(RoundedButtonViewModifier())

@@ -105,6 +105,7 @@ struct SideMenuView: View {
     }
 }
 
+//TODO: - Refactor and modularise the current SideMenuView ContentView
 // MARK: - MenuContentView
 struct MenuContentsView: View {
     var menuItems = [MenuItem]()

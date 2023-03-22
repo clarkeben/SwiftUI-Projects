@@ -89,8 +89,6 @@ struct ChatView: View {
             
         }
         .onChange(of: selectedConversation) { _ in
-            print("CHATVIEW SAVED CHAT CALLED 💪")
-            print(selectedConversation)
             viewModel.updatedSelectedMessage(selectedConversation)
         }
         .alert("Error fetching data", isPresented: $viewModel.showErrorAlert, actions: {
@@ -135,10 +133,10 @@ class ChatViewModel: ObservableObject {
     
     init(context: NSManagedObjectContext) {
         self.context = context
-        print("CHATVIEWMODEL BEING INIT!!!!")
     }
     
-    // Methods
+    //MARK: - Methods
+    //TODO: - Add markup for the methods explaining what each one does
     func inspirationRequest(_ question: String) {
         userQuery = question
         sendRequest()
