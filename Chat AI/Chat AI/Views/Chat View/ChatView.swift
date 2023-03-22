@@ -36,6 +36,8 @@ struct ChatView: View {
                                 .roundedButton()
                                 .padding()
                             }
+                        }.onTapGesture {
+                            endEditing()
                         }
                     } else {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
@@ -43,6 +45,9 @@ struct ChatView: View {
                                 ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
                             }
                             .padding([.top], 5)
+                            .onTapGesture {
+                                endEditing()
+                            }
                             
                             if viewModel.chat.count >= 2 {
                                 Divider().padding(.horizontal, 5)

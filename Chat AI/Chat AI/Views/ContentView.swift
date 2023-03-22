@@ -30,10 +30,12 @@ struct ContentView: View {
                         ToolbarItem(placement: .navigationBarLeading, content: {
                             if !viewModel.menuClicked {
                                 IconButton(imageName: "rectangle.on.rectangle") {
+                                    endEditing()
                                     viewModel.toggleMenu()
                                 }
                             } else {
                                 IconButton(imageName: "xmark") {
+                                    endEditing()
                                     viewModel.toggleMenu()
                                 }
                             }
