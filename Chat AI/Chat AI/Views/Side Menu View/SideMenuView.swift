@@ -105,46 +105,6 @@ struct SideMenuView: View {
     }
 }
 
-//TODO: - Refactor and modularise the current SideMenuView ContentView
-// MARK: - MenuContentView
-struct MenuContentsView: View {
-    var menuItems = [MenuItem]()
-    
-    var body: some View {
-        ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
-            
-            VStack {
-                Text("Chat History")
-                    .bold()
-                    .font(.title2)
-                    .foregroundColor(.gray)
-                
-                Divider()
-                
-                ScrollView {
-                    ForEach(menuItems) { menuItem in
-                        HStack {
-                            Image(systemName: "message")
-                            Text(menuItem.name)
-                                .font(.system(size: 12))
-                                .lineLimit(2)
-                                .foregroundColor(.black)
-                                .multilineTextAlignment(.leading)
-                            Spacer()
-                        }.padding(10)
-                    }.onDelete { indexSet in
-                        print(indexSet)
-                        //menuItems.remove(atOffsets: indexSet)
-                    }
-                }
-                Spacer()
-            }
-        }
-    }
-}
-
-
 //struct SideMenuView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        let items = Binding.constant([MenuItem(name: "Test 12345", date: Date())])

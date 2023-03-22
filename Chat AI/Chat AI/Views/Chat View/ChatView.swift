@@ -51,6 +51,12 @@ struct ChatView: View {
                                     viewModel.saveChat()
                                 }
                                 
+                                if viewModel.showingSavedChat {
+                                    ActionButton(systemIcon: "xmark.bin", title: "Delete Chat") {
+                                        viewModel.deleteSavedChat()
+                                    }
+                                }
+                                
                                 ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
                                     viewModel.shareChat()
                                 }
@@ -87,6 +93,9 @@ struct ChatView: View {
                 CustomModalPopup(icon: "checkmark.circle.fill", iconColour: .green, title: "Saved", isShowing: $viewModel.showSavedModal)
             }
             
+            if viewModel.showDeletedModal {
+                CustomModalPopup(icon: "checkmark.circle.fill", iconColour: .green, title: "Deleted", isShowing: $viewModel.showDeletedModal)
+            }
         }
         .onChange(of: selectedConversation) { _ in
             viewModel.updatedSelectedMessage(selectedConversation)
@@ -128,6 +137,9 @@ class ChatViewModel: ObservableObject {
     @Published var showSavedModal = false
     @Published var convoSaved = false
     @Published var chatConvo: Chat?
+    
+    @Published var showingSavedChat = false
+    @Published var showDeletedModal = false
     
     private let newMessageText = "You've started a new conversation, please ask me something..."
     
@@ -180,6 +192,7 @@ class ChatViewModel: ObservableObject {
         
         convoSaved = false
         chatConvo = nil
+        showingSavedChat = false
     }
     
     func saveChat() {
@@ -249,14 +262,30 @@ class ChatViewModel: ObservableObject {
         
         self.chatConvo = chatConvo
         
-        //chat.removeAll()
-        
         chat = convo.messageArray.map { message in
-            if message.unwrappedSender == Response.aiBot.rawValue {
-                return ChatModel(responder: .aiBot, message: message.unwrappedMessage, date: message.unwrappedDate)
-            } else {
+            if message.unwrappedSender == Response.user.rawValue {
                 return ChatModel(responder: .user, message: message.unwrappedMessage, date: message.unwrappedDate)
+            } else {
+                return ChatModel(responder: .aiBot, message: message.unwrappedMessage, date: message.unwrappedDate)
             }
+        }
+        
+        chat.sort(by: { $0.date < $1.date })
+        
+        showingSavedChat = true
+    }
+    
+    func deleteSavedChat() {
+        guard let convo = chatConvo else { return }
+        
+        context.delete(convo)
+        PersistenceController.shared.save()
+        
+        showDeletedModal = true
+        showingSavedChat = false
+        
+        withAnimation {
+            chat.removeAll()
         }
     }
 }
