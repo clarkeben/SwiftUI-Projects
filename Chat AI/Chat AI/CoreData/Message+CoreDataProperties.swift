@@ -20,7 +20,18 @@ extension Message {
     @NSManaged public var message: String?
     @NSManaged public var sender: String?
     @NSManaged public var chat: Chat?
+    
+    public var unwrappedDate: Date {
+        date ?? Date()
+    }
 
+    public var unwrappedMessage: String {
+        message ?? "Unkown message"
+    }
+    
+    public var unwrappedSender: String {
+        sender ?? "Unkown message"
+    }
 }
 
 extension Message : Identifiable {

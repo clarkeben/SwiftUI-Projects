@@ -15,12 +15,14 @@ struct ContentView: View {
     var chat: FetchedResults<Chat>
     
     @StateObject private var viewModel = ContentViewModal()
+    
+    @State var selectedConversation: Chat? = nil
         
     // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
-                ChatView(viewModel: ChatViewModel(context: viewContext), savedChat: viewModel.selectedConversation)
+                ChatView(viewModel: ChatViewModel(context: viewContext), selectedConversation: $selectedConversation)
                     .environment(\.managedObjectContext, viewContext)
                     .navigationTitle(viewModel.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -43,7 +45,7 @@ struct ContentView: View {
                             .buttonStyle(PlainButtonStyle())
                         })
                     }
-                SideMenuView(context: viewContext, chatConvos: chat, width: viewModel.width/1.8, menuClicked: viewModel.menuClicked,  selectedConversation: $viewModel.selectedConversation, messageDeleted: $viewModel.itemDeleted, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
+                SideMenuView(context: viewContext, chatConvos: chat, width: viewModel.width/1.8, menuClicked: viewModel.menuClicked,  selectedConversation: $selectedConversation, messageDeleted: $viewModel.itemDeleted, toggleMenu: viewModel.toggleMenu, deleteBtnClicked: {
                     viewModel.showAlert.toggle()
                 })
                 
@@ -56,17 +58,10 @@ struct ContentView: View {
             }
             .transition(.scale)
             .animation(.easeInOut, value: viewModel.showOnboarding)
-//            .onChange(of: selectedMenuItem) { _ in
-//                guard let menuItem = selectedMenuItem else { return }
-//                viewModel.toggleMenu()
-//
-//                for convo in chat {
-//                    if menuItem.name == convo.title {
-//                        selectedChat = convo
-//                        print(selectedChat)
-//                    }
-//                }
-//            }
+            .onChange(of: selectedConversation) { _ in
+                print(selectedConversation, "Change function called ⚡️")
+                viewModel.toggleMenu()
+            }
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(title: Text("Delete all"),
                       message: Text("Would you like to delete all saved conversations, doing this is irreversible"), primaryButton: .cancel(),
@@ -95,7 +90,7 @@ class ContentViewModal: ObservableObject {
     @Published var menuClicked = false
     @Published var showAlert = false
     @Published var itemDeleted = false
-    @Published var selectedConversation: Chat? = nil
+    //@Published var selectedConversation: Chat? = nil
     
     //MARK: - Methods
      func toggleMenu() {

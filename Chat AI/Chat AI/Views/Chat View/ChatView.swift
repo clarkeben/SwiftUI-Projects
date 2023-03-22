@@ -14,10 +14,7 @@ struct ChatView: View {
     
     private let screenWidth = UIScreen.main.bounds.width
     
-    @State var savedChat: Chat? = nil
-    
-    //TODO: - Update view if there are conversations saved
-    // Consider breaking viewModel into two seperate vms - one for core data
+    @Binding var selectedConversation: Chat?
     
     // MARK: - Body
     var body: some View {
@@ -41,35 +38,25 @@ struct ChatView: View {
                             }
                         }
                     } else {
-                        // TODO: - The current logic is incorrect please update
-                        // ViewModel Chat Array needs to be updated rather than checking if there is an item
-                        if let chat = savedChat {
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
-                                ForEach(chat.messageArray) { message in
-                                    Text("\(message)")
-                                }
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
+                            ForEach(viewModel.chat) { chat in
+                                ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
                             }
-                        } else {
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
-                                ForEach(viewModel.chat) { chat in
-                                    ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
-                                }
-                                .padding([.top], 5)
+                            .padding([.top], 5)
+                            
+                            if viewModel.chat.count >= 2 {
+                                Divider().padding(.horizontal, 5)
                                 
-                                if viewModel.chat.count >= 2 {
-                                    Divider().padding(.horizontal, 5)
-                                    
-                                    ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
-                                        viewModel.saveChat()
-                                    }
-                                    
-                                    ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
-                                        viewModel.shareChat()
-                                    }
-                                    
-                                    ActionButton(systemIcon: "xmark", title: "Clear Chat") {
-                                        viewModel.clearChat()
-                                    }
+                                ActionButton(systemIcon: "square.and.arrow.down", title: "Save Chat") {
+                                    viewModel.saveChat()
+                                }
+                                
+                                ActionButton(systemIcon: "square.and.arrow.up", title: "Share Chat") {
+                                    viewModel.shareChat()
+                                }
+                                
+                                ActionButton(systemIcon: "xmark", title: "Clear Chat") {
+                                    viewModel.clearChat()
                                 }
                             }
                         }
@@ -100,6 +87,11 @@ struct ChatView: View {
                 CustomModalPopup(icon: "checkmark.circle.fill", iconColour: .green, title: "Saved", isShowing: $viewModel.showSavedModal)
             }
             
+        }
+        .onChange(of: selectedConversation) { _ in
+            print("CHATVIEW SAVED CHAT CALLED 💪")
+            print(selectedConversation)
+            viewModel.updatedSelectedMessage(selectedConversation)
         }
         .alert("Error fetching data", isPresented: $viewModel.showErrorAlert, actions: {
             Button("OK", role: .cancel, action: {})
@@ -143,6 +135,7 @@ class ChatViewModel: ObservableObject {
     
     init(context: NSManagedObjectContext) {
         self.context = context
+        print("CHATVIEWMODEL BEING INIT!!!!")
     }
     
     // Methods
@@ -243,12 +236,29 @@ class ChatViewModel: ObservableObject {
         let activityVC = UIActivityViewController(activityItems: messages, applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
+    
+    func updatedSelectedMessage(_ chatConvo: Chat?) {
+        guard let convo = chatConvo else { return }
+        
+        self.chatConvo = chatConvo
+        
+        //chat.removeAll()
+        
+        chat = convo.messageArray.map { message in
+            if message.unwrappedSender == Response.aiBot.rawValue {
+                return ChatModel(responder: .aiBot, message: message.unwrappedMessage, date: message.unwrappedDate)
+            } else {
+                return ChatModel(responder: .user, message: message.unwrappedMessage, date: message.unwrappedDate)
+            }
+        }
+    }
 }
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         let viewModel = ChatViewModel(context: context)
-        return ChatView(viewModel: viewModel)
+        let chat = Chat(context: context)
+        return ChatView(viewModel: viewModel, selectedConversation: .constant(chat))
     }
 }
