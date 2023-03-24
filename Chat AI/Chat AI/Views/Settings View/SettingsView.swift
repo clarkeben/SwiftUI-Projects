@@ -99,10 +99,10 @@ struct SettingsView: View {
                 }
             }
             
-            Button("Save") {
+            RegularButton("Save") {
                 viewModel.persistSettings()
                 dismiss()
-            }.roundedButton()
+            }
         }
         .navigationTitle("Chat AI Settings")
         .onAppear() {

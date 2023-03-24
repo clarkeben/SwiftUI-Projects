@@ -50,10 +50,10 @@ struct OnboardingView: View {
                 .dropShadowRoundView()
                 .padding(10)
             
-            Button("Submit") {
+            RegularButton("Submit") {
                 //TODO: - Handle error message!
                 viewModel.showOnboarding = viewModel.saveAPIKey()
-            }.roundedButton()
+            }
             
             Link("Click to generate API Key", destination: URL(string: K.URLs.findAPIKey)!)
                 .font(.subheadline)

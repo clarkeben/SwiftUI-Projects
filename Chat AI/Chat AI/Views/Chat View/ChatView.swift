@@ -30,10 +30,9 @@ struct ChatView: View {
                                 .padding()
                             
                             ForEach(0...4, id: \.self) { index in
-                                Button(viewModel.dummyQuestions[index]) {
+                                RegularButton(viewModel.dummyQuestions[index]) {
                                     viewModel.inspirationRequest(viewModel.dummyQuestions[index])
                                 }
-                                .roundedButton()
                                 .padding()
                             }
                         }.onTapGesture {

@@ -22,6 +22,7 @@
 		145E676029AA06A60045C47F /* MessageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 145E675E29AA06A60045C47F /* MessageDataModel.xcdatamodeld */; };
 		145E676329AA071B0045C47F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E676229AA071B0045C47F /* PersistenceController.swift */; };
 		14816EEE29CD1D6D00B826B1 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14816EED29CD1D6D00B826B1 /* NetworkMonitor.swift */; };
+		14816EF029CDACF000B826B1 /* RegularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14816EEF29CDACF000B826B1 /* RegularButton.swift */; };
 		1498DDD4299E6642003C328D /* ChatNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD3299E6642003C328D /* ChatNetworkManager.swift */; };
 		1498DDD7299F801D003C328D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1498DDD6299F801D003C328D /* OpenAISwift */; };
 		1498DDDA29A2950A003C328D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD929A2950A003C328D /* SettingsView.swift */; };
@@ -56,6 +57,7 @@
 		145E675F29AA06A60045C47F /* Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chat.xcdatamodel; sourceTree = "<group>"; };
 		145E676229AA071B0045C47F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		14816EED29CD1D6D00B826B1 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		14816EEF29CDACF000B826B1 /* RegularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButton.swift; sourceTree = "<group>"; };
 		1498DDD3299E6642003C328D /* ChatNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNetworkManager.swift; sourceTree = "<group>"; };
 		1498DDD929A2950A003C328D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		149E580E29A4CADA00D8705E /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				1444891729A78CB900B800EC /* TypingTextView.swift */,
 				1407F78629AEA6090027D32D /* ActionButton.swift */,
 				140F0DA129C09A76003840DE /* CustomModalPopup.swift */,
+				14816EEF29CDACF000B826B1 /* RegularButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				145E676029AA06A60045C47F /* MessageDataModel.xcdatamodeld in Sources */,
 				14A5A6B2299BC4610081FCBA /* KeychainItemAccessibility.swift in Sources */,
 				14A5A6B1299BC4610081FCBA /* KeychainWrapper.swift in Sources */,
+				14816EF029CDACF000B826B1 /* RegularButton.swift in Sources */,
 				1444891E29A8EB4700B800EC /* ViewExtensions.swift in Sources */,
 				14A1085429BFD3E400367EC7 /* Chat+CoreDataClass.swift in Sources */,
 				149E580F29A4CADA00D8705E /* UserPreferences.swift in Sources */,
