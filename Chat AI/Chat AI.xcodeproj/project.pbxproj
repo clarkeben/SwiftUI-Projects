@@ -21,6 +21,7 @@
 		1449CB8229928B1300F5BB73 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449CB8129928B1300F5BB73 /* IconButton.swift */; };
 		145E676029AA06A60045C47F /* MessageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 145E675E29AA06A60045C47F /* MessageDataModel.xcdatamodeld */; };
 		145E676329AA071B0045C47F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E676229AA071B0045C47F /* PersistenceController.swift */; };
+		14816EEE29CD1D6D00B826B1 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14816EED29CD1D6D00B826B1 /* NetworkMonitor.swift */; };
 		1498DDD4299E6642003C328D /* ChatNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD3299E6642003C328D /* ChatNetworkManager.swift */; };
 		1498DDD7299F801D003C328D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1498DDD6299F801D003C328D /* OpenAISwift */; };
 		1498DDDA29A2950A003C328D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498DDD929A2950A003C328D /* SettingsView.swift */; };
@@ -54,6 +55,7 @@
 		1449CB8129928B1300F5BB73 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		145E675F29AA06A60045C47F /* Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chat.xcdatamodel; sourceTree = "<group>"; };
 		145E676229AA071B0045C47F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		14816EED29CD1D6D00B826B1 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		1498DDD3299E6642003C328D /* ChatNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNetworkManager.swift; sourceTree = "<group>"; };
 		1498DDD929A2950A003C328D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		149E580E29A4CADA00D8705E /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				14A5A6AC299B8C650081FCBA /* Constants.swift */,
 				14A5A6B0299BC4610081FCBA /* KeychainItemAccessibility.swift */,
 				14A5A6AF299BC4610081FCBA /* KeychainWrapper.swift */,
+				14816EED29CD1D6D00B826B1 /* NetworkMonitor.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				14A5A6AB299AE85D0081FCBA /* OnboardingView.swift in Sources */,
 				1444891B29A8EB0600B800EC /* ChatModel.swift in Sources */,
 				14A5A6AD299B8C650081FCBA /* Constants.swift in Sources */,
+				14816EEE29CD1D6D00B826B1 /* NetworkMonitor.swift in Sources */,
 				14A5A6B4299D7E320081FCBA /* ViewModifiers.swift in Sources */,
 				14A1085229BFD3E400367EC7 /* Message+CoreDataClass.swift in Sources */,
 				145E676329AA071B0045C47F /* PersistenceController.swift in Sources */,

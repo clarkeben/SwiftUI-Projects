@@ -101,6 +101,11 @@ struct ChatView: View {
             if viewModel.showDeletedModal {
                 CustomModalPopup(icon: "checkmark.circle.fill", iconColour: .green, title: "Deleted", isShowing: $viewModel.showDeletedModal)
             }
+            
+            /* ---- Testing required for the NetworkConnectionManager
+             if viewModel.hasNoNetworkConnection {
+                CustomModalPopup(icon: "wifi.slash", iconColour: .red, title: "No Service", isShowing: $viewModel.hasNoNetworkConnection)
+            }*/
         }
         .onChange(of: selectedConversation) { _ in
             viewModel.updatedSelectedMessage(selectedConversation)
@@ -146,6 +151,8 @@ class ChatViewModel: ObservableObject {
     @Published var showingSavedChat = false
     @Published var showDeletedModal = false
     
+    @Published var hasNoNetworkConnection = false
+    
     private let newMessageText = "You've started a new conversation, please ask me something..."
     
     let networkManager: ChatNetworkManager = ChatNetworkManager()
@@ -155,7 +162,6 @@ class ChatViewModel: ObservableObject {
     }
     
     //MARK: - Methods
-    //TODO: - Add markup for the methods explaining what each one does
     func inspirationRequest(_ question: String) {
         userQuery = question
         sendRequest()
@@ -169,6 +175,9 @@ class ChatViewModel: ObservableObject {
         fetchingData = true
         
         chat.append(ChatModel(responder: .user, message: userQuery, date: Date.now))
+        
+        //TODO: - Further testing required
+        //checkNetworkStatus()
         
         networkManager.request(userQuery) { [weak self] result in
             guard let self = self else { return }
@@ -229,6 +238,7 @@ class ChatViewModel: ObservableObject {
         convoSaved = true
     }
     
+    /// Private method for updating the current conversation if the user has already saved it using CoreData
     private func updateSavedChat() {
         guard let conversation = chatConvo else {
             return
@@ -248,6 +258,7 @@ class ChatViewModel: ObservableObject {
         PersistenceController.shared.save()
     }
     
+    /// Method for when a user wants to share the current conversation
     func shareChat() {
         var messages = [String]()
         
@@ -262,6 +273,7 @@ class ChatViewModel: ObservableObject {
         UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
+    /// Update if the user has selected a prior conversation using the sidebar
     func updatedSelectedMessage(_ chatConvo: Chat?) {
         guard let convo = chatConvo else { return }
         
@@ -280,6 +292,7 @@ class ChatViewModel: ObservableObject {
         showingSavedChat = true
     }
     
+    /// Delete the current saved Chat in CoreData
     func deleteSavedChat() {
         guard let convo = chatConvo else { return }
         
@@ -291,6 +304,17 @@ class ChatViewModel: ObservableObject {
         
         withAnimation {
             chat.removeAll()
+        }
+    }
+    
+    /// Private Method to check the current Network Status of the app updating a boolean value to true if there is no connection
+    private func checkNetworkStatus() {
+        let networkManager = NetworkMonitorManager.shared
+        
+        networkManager.startMonitoring { isConnected in
+            DispatchQueue.main.async {
+                self.hasNoNetworkConnection = !isConnected
+            }
         }
     }
 }

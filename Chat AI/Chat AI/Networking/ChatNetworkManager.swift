@@ -21,7 +21,7 @@ final class ChatNetworkManager {
     }
     
     // MARK: - Methods
-    func setUpNetworkManager() {
+    private func setUpNetworkManager() {
         client = OpenAISwift(authToken: userPreferences.apiKey)
         
         switch userPreferences.model {
