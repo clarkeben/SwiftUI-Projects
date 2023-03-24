@@ -76,6 +76,7 @@ struct SettingsView: View {
                 Section("About") {
                         Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: 14))
                     LinkSettingsView(title: "OpenAI Website", urlTitle: "openai.com", url: "https://openai.com/")
+                    LinkSettingsView(title: "Generate API Key", urlTitle: "openai.com/account", url: "https://platform.openai.com/account/api-keys")
                     LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction")
                     LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat")
                 }
@@ -169,6 +170,7 @@ class SettingsViewModel: ObservableObject {
     func persistSettings() {
         let defaults = UserDefaults.standard
         KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
+        ChatNetworkManager.shared.updateClient(with: apiKey)
         defaults.set(maxTokens, forKey: K.userDefaultKeys.settings.maxToken)
         defaults.set(model, forKey: K.userDefaultKeys.settings.model)
         defaults.set(userIcon, forKey: K.userDefaultKeys.settings.userIcon)

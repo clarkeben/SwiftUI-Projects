@@ -25,7 +25,7 @@ struct UserPreferences {
         guard let model = userDefaults.string(forKey: K.userDefaultKeys.settings.model) else { return "davinci" }
         return model
     }
-        
+    
     var maxTokens: Int {
         let maxTokens = userDefaults.integer(forKey: K.userDefaultKeys.settings.maxToken)
         if maxTokens == 0 {

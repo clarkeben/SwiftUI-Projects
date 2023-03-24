@@ -78,6 +78,7 @@ class OnboardingViewModel: ObservableObject {
     func saveAPIKey() -> Bool {
         if apiKey != "" {
             KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
+            ChatNetworkManager.shared.updateClient(with: apiKey)
             return false
         } else {
             return true

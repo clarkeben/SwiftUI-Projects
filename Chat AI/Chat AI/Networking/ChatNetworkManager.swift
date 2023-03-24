@@ -15,6 +15,8 @@ final class ChatNetworkManager {
     
     private let userPreferences = UserPreferences.shared
     private var selectedModel = OpenAIModelType.GPT3.davinci
+    
+    static let shared = ChatNetworkManager()
 
     init() {
        setUpNetworkManager()
@@ -31,6 +33,10 @@ final class ChatNetworkManager {
         case "ada": selectedModel = OpenAIModelType.GPT3.ada
         default: selectedModel = OpenAIModelType.GPT3.davinci
         }
+    }
+    
+    func updateClient(with apiKey: String) {
+        client = OpenAISwift(authToken: apiKey)
     }
     
     func request(_ text: String, completion: @escaping (Result<String, Error>) -> Void) {

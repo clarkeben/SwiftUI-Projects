@@ -155,7 +155,7 @@ class ChatViewModel: ObservableObject {
     
     private let newMessageText = "You've started a new conversation, please ask me something..."
     
-    let networkManager: ChatNetworkManager = ChatNetworkManager()
+    let networkManager: ChatNetworkManager = ChatNetworkManager.shared
     
     init(context: NSManagedObjectContext) {
         self.context = context
