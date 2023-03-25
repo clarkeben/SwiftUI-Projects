@@ -161,8 +161,11 @@ class SettingsViewModel: ObservableObject {
         for range in emojiRanges {
             for i in range {
                 guard let scalar = UnicodeScalar(i) else { continue }
-                let emoji = String(scalar)
-                emojiIcons.append(emoji)
+                
+                if scalar.properties.isEmoji && scalar.properties.isEmojiPresentation {
+                    let emoji = String(scalar)
+                    emojiIcons.append(emoji)
+                }
             }
         }
     }
