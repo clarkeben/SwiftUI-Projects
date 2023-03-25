@@ -70,6 +70,11 @@ struct SettingsView: View {
                         }
                         .labelsHidden()
                     }
+                    
+                    HStack {
+                        Stepper("Font Size: \(viewModel.userFontSize)", value: $viewModel.userFontSize, in: 10...24)
+                            .font(.system(size: 14))
+                    }
                 }
                 
                 // About
@@ -138,6 +143,7 @@ class SettingsViewModel: ObservableObject {
     @Published var maxTokens = 500
     @Published var model = "ada"
     @Published var userIcon = ""
+    @Published var userFontSize = 14
     
     var models = ["davinci", "curie", "babbage", "ada"]
     var emojiIcons = [String]()
@@ -149,6 +155,11 @@ class SettingsViewModel: ObservableObject {
         maxTokens = userSettings.maxTokens
         model = userSettings.model
         userIcon = userSettings.userIcon
+        userFontSize = userSettings.fontSize
+        
+        if userFontSize <= 13 {
+            userFontSize = 14
+        }
         
         // Emoji Setup
         let emojiRanges = [
@@ -177,6 +188,7 @@ class SettingsViewModel: ObservableObject {
         defaults.set(maxTokens, forKey: K.userDefaultKeys.settings.maxToken)
         defaults.set(model, forKey: K.userDefaultKeys.settings.model)
         defaults.set(userIcon, forKey: K.userDefaultKeys.settings.userIcon)
+        defaults.set(userFontSize, forKey: K.userDefaultKeys.settings.fontSize)
     }
 }
 

@@ -17,12 +17,16 @@ struct UserPreferences {
     
     // Computed Properties
     var apiKey: String {
-        guard let apiKey = keychain.string(forKey: K.Keychain.apiKey) else { return "" }
+        guard let apiKey = keychain.string(forKey: K.Keychain.apiKey) else {
+            return ""
+        }
         return apiKey
     }
     
     var model: String {
-        guard let model = userDefaults.string(forKey: K.userDefaultKeys.settings.model) else { return "davinci" }
+        guard let model = userDefaults.string(forKey: K.userDefaultKeys.settings.model) else {
+            return "davinci"
+        }
         return model
     }
     
@@ -36,7 +40,13 @@ struct UserPreferences {
     }
     
     var userIcon: String {
-        guard let userIcon = userDefaults.string(forKey: K.userDefaultKeys.settings.userIcon) else { return "😎" }
+        guard let userIcon = userDefaults.string(forKey: K.userDefaultKeys.settings.userIcon) else {
+            return "😎"
+        }
         return userIcon
+    }
+    
+    var fontSize: Int {
+      return userDefaults.integer(forKey: K.userDefaultKeys.settings.fontSize)
     }
 }
