@@ -20,7 +20,7 @@ struct SettingsView: View {
                 Section("Chat Settings") {
                     VStack(alignment: .leading) {
                         Text("API Key")
-                            .font(.system(size: 14))
+                            .font(.system(size: CGFloat(viewModel.userFontSize)))
                         HStack {
                             if viewModel.showAPIKey {
                                 TextField("API Key", text: $viewModel.apiKey)
@@ -35,22 +35,22 @@ struct SettingsView: View {
                     
                     VStack(alignment: .leading) {
                         Text("Max tokens: \(viewModel.maxTokens)")
-                            .font(.system(size: 14))
+                            .font(.system(size: CGFloat(viewModel.userFontSize)))
                         HStack {
-                            Text("100").font(.system(size: 10))
+                            Text("100").font(.system(size: CGFloat(viewModel.userFontSize)-2))
                             Slider(value: $sliderValue, in: 100...2000, step: 10)
                                 .tint(.black)
                                 .onChange(of: sliderValue) { _ in
                                     viewModel.maxTokens = Int(sliderValue)
                                 }
-                            Text("2000").font(.system(size: 10))
+                            Text("2000").font(.system(size: CGFloat(viewModel.userFontSize)-2))
                         }
                         
                     }
                     
                     HStack {
                         Text("Model")
-                            .font(.system(size: 14))
+                            .font(.system(size: CGFloat(viewModel.userFontSize)))
                         Spacer()
                         Picker("Select Model", selection: $viewModel.model) {
                             ForEach(viewModel.models, id: \.self) {
@@ -61,7 +61,7 @@ struct SettingsView: View {
                     
                     HStack {
                         Text("User Icon")
-                            .font(.system(size: 14))
+                            .font(.system(size: CGFloat(viewModel.userFontSize)))
                         Spacer()
                         Picker("Select emoji icon", selection: $viewModel.userIcon) {
                             ForEach(viewModel.emojiIcons, id: \.self) {
@@ -73,17 +73,17 @@ struct SettingsView: View {
                     
                     HStack {
                         Stepper("Font Size: \(viewModel.userFontSize)", value: $viewModel.userFontSize, in: 10...24)
-                            .font(.system(size: 14))
+                            .font(.system(size: CGFloat(viewModel.userFontSize)))
                     }
                 }
                 
                 // About
                 Section("About") {
-                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: 14))
-                    LinkSettingsView(title: "OpenAI Website", urlTitle: "openai.com", url: "https://openai.com/")
-                    LinkSettingsView(title: "Generate API Key", urlTitle: "openai.com/account", url: "https://platform.openai.com/account/api-keys")
-                    LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction")
-                    LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat")
+                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: CGFloat(viewModel.userFontSize)))
+                    LinkSettingsView(title: "OpenAI Website", urlTitle: "openai.com", url: "https://openai.com/", fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "Generate API Key", urlTitle: "openai.com/account", url: "https://platform.openai.com/account/api-keys", fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction", fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat", fontSize: viewModel.userFontSize)
                 }
                 
                 // Credits
@@ -91,15 +91,14 @@ struct SettingsView: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Ben Clarke")
-                                .font(.system(size: 14))
+                                .font(.system(size: CGFloat(viewModel.userFontSize)))
                             Text("👨🏼‍💻 Developer")
-                                .font(.system(size: 10))
+                                .font(.system(size: CGFloat(viewModel.userFontSize)-2))
                         }
                         Spacer()
                         Link("Github", destination: URL(string: K.URLs.github)!)
                             .foregroundColor(.black)
-                            .font(.system(size: 14))
-
+                            .font(.system(size: CGFloat(viewModel.userFontSize)))
                     }
                 }
             }
@@ -121,17 +120,18 @@ struct LinkSettingsView: View {
     let title: String
     let urlTitle: String
     let url: String
+    let fontSize: Int
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(title)
-                    .font(.system(size: 14))
+                    .font(.system(size: CGFloat(fontSize)))
             }
             Spacer()
             Link(urlTitle, destination: (URL(string: url) ?? URL(string: "https://openai.com/"))!)
                 .foregroundColor(.black)
-                .font(.system(size: 14))
+                .font(.system(size: CGFloat(fontSize)))
         }
     }
 }
@@ -156,10 +156,6 @@ class SettingsViewModel: ObservableObject {
         model = userSettings.model
         userIcon = userSettings.userIcon
         userFontSize = userSettings.fontSize
-        
-        if userFontSize <= 13 {
-            userFontSize = 14
-        }
         
         // Emoji Setup
         let emojiRanges = [
@@ -189,6 +185,7 @@ class SettingsViewModel: ObservableObject {
         defaults.set(model, forKey: K.userDefaultKeys.settings.model)
         defaults.set(userIcon, forKey: K.userDefaultKeys.settings.userIcon)
         defaults.set(userFontSize, forKey: K.userDefaultKeys.settings.fontSize)
+        print(userFontSize, "THE CURRENT SAVED FONT SIZE")
     }
 }
 

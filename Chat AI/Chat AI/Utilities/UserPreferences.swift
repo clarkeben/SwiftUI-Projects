@@ -47,6 +47,11 @@ struct UserPreferences {
     }
     
     var fontSize: Int {
-      return userDefaults.integer(forKey: K.userDefaultKeys.settings.fontSize)
+        let savedUserFontSize = userDefaults.integer(forKey: K.userDefaultKeys.settings.fontSize)
+        if savedUserFontSize <= 9 {
+            return 14
+        } else {
+            return savedUserFontSize
+        }
     }
 }
