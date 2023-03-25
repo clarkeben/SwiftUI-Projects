@@ -78,16 +78,32 @@ struct SettingsView: View {
                 }
                 
                 // About
-                Section("About") {
-                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: CGFloat(viewModel.userFontSize)))
+                Section("Useful links") {
+//                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: CGFloat(viewModel.userFontSize)))
                     LinkSettingsView(title: "OpenAI Website", urlTitle: "openai.com", url: "https://openai.com/", fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Generate API Key", urlTitle: "openai.com/account", url: "https://platform.openai.com/account/api-keys", fontSize: viewModel.userFontSize)
-                    LinkSettingsView(title: "OpenAI API", urlTitle: "openai.com/docs", url: "https://platform.openai.com/docs/introduction", fontSize: viewModel.userFontSize)
-                    LinkSettingsView(title: "Chat GPT", urlTitle: "chat.openai.com", url: "https://chat.openai.com/chat", fontSize: viewModel.userFontSize)
                 }
                 
+                // Contact
+                Section("Tell me what you think") {
+                    LinkSettingsIconCell(icon: "star.fill", cellLabel: "Review", buttonText: "Rate the app", fontSize: viewModel.userFontSize) {
+                        rateApp()
+                    }
+                    LinkSettingsIconCell(icon: "envelope.fill", cellLabel: "Provide feedback", buttonText: "Contact me", fontSize: viewModel.userFontSize) {
+                        openURL(url: K.Links.contactURL)
+                    }
+                }
+                
+                // Other
+                Section("Other") {
+                    LinkSettingsView(title: "Buy me a coffee", urlTitle: "buymeacoffee.com", url: K.Links.butMeACoffeeURL, fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "Instagram", urlTitle: "@vikingskullapps", url: K.Links.instagramURL, fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "Website", urlTitle: "vikingskullapps.com", url: K.Links.websiteURL, fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "Get Motivated", urlTitle: "Quoto App", url: K.Links.quotoURL, fontSize: viewModel.userFontSize)
+                }
+                                
                 // Credits
-                Section("Credits") {
+                /*Section("Credits") {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Ben Clarke")
@@ -100,7 +116,7 @@ struct SettingsView: View {
                             .foregroundColor(.black)
                             .font(.system(size: CGFloat(viewModel.userFontSize)))
                     }
-                }
+                }*/
             }
             
             RegularButton("Save") {
@@ -131,9 +147,38 @@ struct LinkSettingsView: View {
             Spacer()
             Link(urlTitle, destination: (URL(string: url) ?? URL(string: "https://openai.com/"))!)
                 .foregroundColor(.black)
-                .font(.system(size: CGFloat(fontSize)))
+                .font(.system(size: CGFloat(fontSize)-2))
         }
     }
+}
+
+//MARK: - IconCell
+struct LinkSettingsIconCell: View {
+    
+    var icon: String
+    var cellLabel: String
+    var buttonText: String
+    let fontSize: Int
+    var buttonTapped: (() -> Void)
+    
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "\(icon)")
+                Text(cellLabel)
+                    .font(.system(size: CGFloat(fontSize)))
+                Spacer()
+                Button {
+                    buttonTapped()
+                } label: {
+                    Text("\(buttonText)")
+                        .font(.system(size: CGFloat(fontSize)-2))
+                }
+            }
+        }
+    }
+    
 }
 
 //MARK: - SettingsViewModel
