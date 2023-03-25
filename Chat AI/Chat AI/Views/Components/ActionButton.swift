@@ -14,6 +14,8 @@ struct ActionButton: View {
     var title: String
     var action: () -> Void
     
+    @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize = 10
+    
     var body: some View {
         Button {
             action()
@@ -23,7 +25,7 @@ struct ActionButton: View {
                     .foregroundColor(.black)
                     .padding(10)
                 Text(title)
-                    .font(.system(size: 10))
+                    .font(.system(size: CGFloat(fontSize)))
                     .foregroundColor(.black)
                     .padding(10)
             }
