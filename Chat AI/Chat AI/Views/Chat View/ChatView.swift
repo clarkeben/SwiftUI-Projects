@@ -152,6 +152,8 @@ class ChatViewModel: ObservableObject {
     
     @Published var hasNoNetworkConnection = false
     
+    @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize = 14
+    
     private let newMessageText = "You've started a new conversation, please ask me something..."
     
     let networkManager: ChatNetworkManager = ChatNetworkManager.shared

@@ -10,12 +10,13 @@ import SwiftUI
 // MARK: - ViewModifiers
 struct RoundedButtonViewModifier: ViewModifier {
     private let width = UIScreen.main.bounds.width
+    let size: Int
     
     func body(content: Content) -> some View {
         content
             .frame(width: width-80, height: 40)
             .foregroundColor(.white)
-            .font(.system(size: 12, weight: .semibold))
+            .font(.system(size: CGFloat(size), weight: .semibold))
             .background(.black)
             .cornerRadius(10)
             .background(
@@ -40,8 +41,8 @@ struct TextfieldShadowModifier: ViewModifier {
 // MARK: -  View Extensions
 //TODO: - Add markup for the viewModifiers explaining the styling 
 extension View {
-    func roundedButton() -> some View {
-        modifier(RoundedButtonViewModifier())
+    func roundedButton(size: Int) -> some View {
+        modifier(RoundedButtonViewModifier(size: size))
     }
     
     func dropShadowRoundView() -> some View {

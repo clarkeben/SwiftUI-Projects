@@ -13,6 +13,8 @@ struct ChatCell: View {
     let message: String
     let date: Date
     
+    @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize: Int = 13
+    
     private let userSettings = UserPreferences.shared
     
     @State private var animateView = false
@@ -37,7 +39,7 @@ struct ChatCell: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("User: \(message)")
-                            .font(.system(size: 13))
+                            .font(.system(size: CGFloat(fontSize)-1))
                             .foregroundColor(.black)
                             .multilineTextAlignment(.leading)
                             .padding(10)
@@ -68,7 +70,7 @@ struct ChatCell: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("AI Bot: \(message)")
-                            .font(.system(size: 13))
+                            .font(.system(size: CGFloat(fontSize)-1))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.leading)
                             .padding(10)

@@ -11,6 +11,8 @@ struct RegularButton: View {
     let title: String
     let action: () -> Void
     
+    @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize: Int = 13
+    
     init(_ title: String, action: @escaping () -> Void) {
         self.title = title
         self.action = action
@@ -21,7 +23,7 @@ struct RegularButton: View {
             action()
         } label: {
             Text(title)
-                .roundedButton()
+                .roundedButton(size: fontSize)
         }
     }
 }
