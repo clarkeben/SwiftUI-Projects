@@ -18,6 +18,7 @@ enum K {
         enum settings {
             static let maxToken = "maxTokens"
             static let model = "model"
+            static let enabledRelatedChat = "relatedChatSetting"
             static let userIcon = "userIcon"
             static let fontSize = "fontSize"
         }

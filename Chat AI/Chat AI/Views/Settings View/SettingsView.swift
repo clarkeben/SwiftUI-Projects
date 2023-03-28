@@ -49,6 +49,19 @@ struct SettingsView: View {
                     }
                     
                     HStack {
+                        VStack(alignment: .leading) {
+                            Text("Enable related chat")
+                                .font(.system(size: CGFloat(viewModel.userFontSize)))
+                            Text("Enabling this feeds the prior messages in the current conversation to the API.")
+                                .font(.system(size: CGFloat(viewModel.userFontSize-2)))
+                        }
+                       
+                        Spacer()
+                        Toggle("Enable related chat", isOn: $viewModel.enabledRelatedChat)
+                            .labelsHidden()
+                    }
+                    
+                    HStack {
                         Text("Model")
                             .font(.system(size: CGFloat(viewModel.userFontSize)))
                         Spacer()
@@ -187,6 +200,7 @@ class SettingsViewModel: ObservableObject {
     @Published var showAPIKey = false
     @Published var maxTokens = 500
     @Published var model = "ada"
+    @Published var enabledRelatedChat = true
     @Published var userIcon = ""
     @Published var userFontSize = 14
     
@@ -199,6 +213,7 @@ class SettingsViewModel: ObservableObject {
         apiKey = userSettings.apiKey
         maxTokens = userSettings.maxTokens
         model = userSettings.model
+        enabledRelatedChat = userSettings.enabledRelatedChat
         userIcon = userSettings.userIcon
         userFontSize = userSettings.fontSize
         
@@ -228,6 +243,7 @@ class SettingsViewModel: ObservableObject {
         ChatNetworkManager.shared.updateClient(with: apiKey)
         defaults.set(maxTokens, forKey: K.userDefaultKeys.settings.maxToken)
         defaults.set(model, forKey: K.userDefaultKeys.settings.model)
+        defaults.set(enabledRelatedChat, forKey: K.userDefaultKeys.settings.enabledRelatedChat)
         defaults.set(userIcon, forKey: K.userDefaultKeys.settings.userIcon)
         defaults.set(userFontSize, forKey: K.userDefaultKeys.settings.fontSize)
         print(userFontSize, "THE CURRENT SAVED FONT SIZE")

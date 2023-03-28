@@ -39,6 +39,10 @@ struct UserPreferences {
         }
     }
     
+    var enabledRelatedChat: Bool {
+        return userDefaults.bool(forKey: K.userDefaultKeys.settings.enabledRelatedChat)
+    }
+    
     var userIcon: String {
         guard let userIcon = userDefaults.string(forKey: K.userDefaultKeys.settings.userIcon) else {
             return "😎"

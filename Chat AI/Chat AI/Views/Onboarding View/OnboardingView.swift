@@ -79,10 +79,16 @@ class OnboardingViewModel: ObservableObject {
         if apiKey != "" {
             KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
             ChatNetworkManager.shared.updateClient(with: apiKey)
+            updateRelatedChat()
             return false
         } else {
             return true
         }
+    }
+    
+    /// Method to set the related chat userdefault value as true when the app loads for the first time - doing this feeds in the previous conversation to GPT so users have a related conversation
+    private func updateRelatedChat() {
+        UserDefaults.standard.set(true, forKey: K.userDefaultKeys.settings.enabledRelatedChat)
     }
 }
 
