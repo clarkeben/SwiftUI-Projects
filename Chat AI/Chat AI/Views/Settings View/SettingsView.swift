@@ -138,6 +138,15 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Chat AI Settings")
+        .alert("Disable related chat",
+               isPresented: Binding<Bool>(get: { !viewModel.enabledRelatedChat },
+                                          set: { _ in }
+                                         ),
+               actions: {
+            Button("OK", role: .cancel, action: {})
+        }, message: {
+            Text("By disabling related chat, this will mean all messages in the current conversation are not related.")
+        })
         .onAppear() {
             sliderValue = Double(viewModel.maxTokens)
         }

@@ -11,6 +11,10 @@ import SwiftUI
 struct Chat_AIApp: App {
     let persistenceController = PersistenceController.shared
     
+    init() {
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .black
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
