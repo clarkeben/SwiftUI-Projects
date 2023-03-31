@@ -153,6 +153,8 @@ class ChatViewModel: ObservableObject {
     @Published var hasNoNetworkConnection = false
     
     @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize = 14
+    @AppStorage(K.userDefaultKeys.settings.enabledRelatedChat) var enabledRelatedChat = true
+
     
     private let newMessageText = "You've started a new conversation, please ask me something..."
     
@@ -177,10 +179,23 @@ class ChatViewModel: ObservableObject {
         
         chat.append(ChatModel(responder: .user, message: userQuery, date: Date.now))
         
+        var query = userQuery
+        
         //TODO: - Further testing required
         //checkNetworkStatus()
         
-        networkManager.request(userQuery) { [weak self] result in
+        //TODO: - Update the userquery with the previous questions and answers
+        if enabledRelatedChat && chat.count > 2 {
+            var questionString = "Hello there! As part of this conversation, we have a prior exchange between you (the AI Bot) and the User (asking the questions). Please refer to the messages below to refresh your memory. Additionally, we have a follow-up question for you that pertains to the previous messages. We kindly request that you answer the question in the context of the previous conversation. \n Here is the prior conversation:\n"
+            for message in chat {
+                questionString += "\(message.responder): \(message.message)\n"
+            }
+            questionString += "Here is the latest question: \(userQuery)"
+            
+            query = questionString
+        }
+        
+        networkManager.request(query) { [weak self] result in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
