@@ -25,11 +25,12 @@ struct ActionButton: View {
                     .foregroundColor(.black)
                     .padding(10)
                 Text(title)
-                    .font(.system(size: CGFloat(fontSize)))
+                    .font(.system(size: CGFloat(fontSize-2)))
+                    .lineLimit(nil)
                     .foregroundColor(.black)
                     .padding(10)
             }
-            .frame(width: width, height: 40)
+            .frame(width: width)
             .background(Color.white)
             .cornerRadius(10)
             .overlay(

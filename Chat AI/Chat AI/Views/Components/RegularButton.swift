@@ -23,6 +23,7 @@ struct RegularButton: View {
             action()
         } label: {
             Text(title)
+                .padding(5)
                 .roundedButton(size: fontSize)
         }
     }

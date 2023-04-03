@@ -14,9 +14,9 @@ struct RoundedButtonViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .frame(width: width-80, height: 40)
+            .frame(maxWidth: width-80, minHeight: 40)
             .foregroundColor(.white)
-            .font(.system(size: CGFloat(size), weight: .semibold))
+            .font(.system(size: CGFloat(size-2), weight: .semibold))
             .background(.black)
             .cornerRadius(10)
             .background(
