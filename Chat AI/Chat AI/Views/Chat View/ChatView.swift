@@ -164,7 +164,7 @@ class ChatViewModel: ObservableObject {
         self.context = context
     }
     
-    //MARK: - Methods
+    //MARK: - Public Methods
     func inspirationRequest(_ question: String) {
         userQuery = question
         sendRequest()
@@ -183,44 +183,10 @@ class ChatViewModel: ObservableObject {
         
         //TODO: - Further testing required
         //checkNetworkStatus()
-
-        networkManager.request(query) { [weak self] result in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                defer {
-                    self.userQuery = ""
-                    self.fetchingData = false
-                }
-                
-                switch result {
-                case .success(let response):
-                    self.chat.append(ChatModel(responder: .aiBot, message: response, date: Date.now))
-                case .failure(let error):
-                    self.showErrorAlert = true
-                    self.errorMessage = "Please check your network connection, if that does not work please try generating a new API key. 🤖"
-                    print(error.localizedDescription, "⚡️⚡️⚡️")
-                }
-            }
-        }
+        
+        makeRequest(with: query)
     }
     
-    ///Check if the user has enabled related mssaged and is so updated the query string
-    private func returnRelatedMessages(userQuery: String) -> String{
-        if enabledRelatedChat && chat.count > 2 {
-            var questionString = "Hello there! As part of this conversation, we have a prior exchange between you (the AI Bot) and the User (asking the questions). Please refer to the messages below to refresh your memory. Additionally, we have a follow-up question for you that pertains to the previous messages. We kindly request that you answer the question in the context of the previous conversation. \n Here is the prior conversation:\n"
-            
-            for message in chat {
-                questionString += "\(message.responder): \(message.message)\n"
-            }
-            
-            questionString += "Here is the latest question: \(userQuery)"
-            
-            return questionString
-        } else {
-            return userQuery
-        }
-    }
     
     func clearChat() {
         chat.removeAll()
@@ -258,26 +224,6 @@ class ChatViewModel: ObservableObject {
         
         showSavedModal = true
         convoSaved = true
-    }
-    
-    /// Private method for updating the current conversation if the user has already saved it using CoreData
-    private func updateSavedChat() {
-        guard let conversation = chatConvo else {
-            return
-        }
-        
-        conversation.message = []
-        
-        for i in 0..<chat.count {
-            let newMessage = Message(context: context)
-            newMessage.message = chat[i].message
-            newMessage.sender = chat[i].responder.rawValue
-            newMessage.date = chat[i].date
-            
-            conversation.addToMessage(newMessage)
-        }
-        
-        PersistenceController.shared.save()
     }
     
     /// Method for when a user wants to share the current conversation
@@ -327,6 +273,66 @@ class ChatViewModel: ObservableObject {
         withAnimation {
             chat.removeAll()
         }
+    }
+    
+    //MARK: - Private Methods
+    private func makeRequest(with query: String) {
+        networkManager.request(query) { [weak self] result in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                defer {
+                    self.userQuery = ""
+                    self.fetchingData = false
+                }
+                
+                switch result {
+                case .success(let response):
+                    self.chat.append(ChatModel(responder: .aiBot, message: response, date: Date.now))
+                case .failure(let error):
+                    self.showErrorAlert = true
+                    self.errorMessage = "Please check your network connection, if that does not work please try generating a new API key. 🤖"
+                    print(error.localizedDescription, "⚡️⚡️⚡️")
+                }
+            }
+        }
+    }
+    
+    ///Check if the user has enabled related mssaged and is so updated the query string
+    private func returnRelatedMessages(userQuery: String) -> String{
+        if enabledRelatedChat && chat.count > 2 {
+            var questionString = "Hello there! As part of this conversation, we have a prior exchange between you (the AI Bot) and the User (asking the questions). Please refer to the messages below to refresh your memory. Additionally, we have a follow-up question for you that pertains to the previous messages. We kindly request that you answer the question in the context of the previous conversation. \n Here is the prior conversation:\n"
+            
+            for message in chat {
+                questionString += "\(message.responder): \(message.message)\n"
+            }
+            
+            questionString += "Here is the latest question: \(userQuery)"
+            
+            return questionString
+        } else {
+            return userQuery
+        }
+    }
+    
+    /// Private method for updating the current conversation if the user has already saved it using CoreData
+    private func updateSavedChat() {
+        guard let conversation = chatConvo else {
+            return
+        }
+        
+        conversation.message = []
+        
+        for i in 0..<chat.count {
+            let newMessage = Message(context: context)
+            newMessage.message = chat[i].message
+            newMessage.sender = chat[i].responder.rawValue
+            newMessage.date = chat[i].date
+            
+            conversation.addToMessage(newMessage)
+        }
+        
+        PersistenceController.shared.save()
     }
     
     /// Private Method to check the current Network Status of the app updating a boolean value to true if there is no connection

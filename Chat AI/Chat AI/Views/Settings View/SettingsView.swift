@@ -85,7 +85,7 @@ struct SettingsView: View {
                     }
                     
                     HStack {
-                        Stepper("Font Size: \(viewModel.userFontSize)", value: $viewModel.userFontSize, in: 10...24)
+                        Stepper("Font Size: \(viewModel.userFontSize)", value: $viewModel.userFontSize, in: 10...20)
                             .font(.system(size: CGFloat(viewModel.userFontSize)))
                     }
                 }
