@@ -93,6 +93,8 @@ struct SettingsView: View {
                 // About
                 Section("Useful links") {
 //                        Text("The app uses GPT-3 API to generate high-quality text content from user prompts or keywords.").font(.system(size: CGFloat(viewModel.userFontSize)))
+                    LinkSettingsView(title: "Privacy Policy", urlTitle: "vikingskullapps.com/privacy-policy", url: "https://vikingskullapps.com/apps/chat-ai-app/privacy/", fontSize: viewModel.userFontSize)
+                    LinkSettingsView(title: "Terms of Service", urlTitle: "vikingskullapps.com/terms-conditions", url: "https://vikingskullapps.com/apps/chat-ai-app/terms-conditions/", fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "OpenAI Website", urlTitle: "openai.com", url: "https://openai.com/", fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Generate API Key", urlTitle: "openai.com/account", url: "https://platform.openai.com/account/api-keys", fontSize: viewModel.userFontSize)
                 }
