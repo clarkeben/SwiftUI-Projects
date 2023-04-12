@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import UniformTypeIdentifiers
 
 struct ChatView: View {
     //MARK: - Properties
@@ -239,6 +240,11 @@ class ChatViewModel: ObservableObject {
         
         let activityVC = UIActivityViewController(activityItems: messages, applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+    }
+    
+    /// Method for copying a selected message to the paste board
+    func copySelectedMessage(_ message: String) {
+        UIPasteboard.general.setValue(message, forPasteboardType: "public.plain-text")
     }
     
     /// Update if the user has selected a prior conversation using the sidebar

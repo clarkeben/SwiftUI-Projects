@@ -12,7 +12,7 @@ struct ChatCell: View {
     let sender: Response
     let message: String
     let date: Date
-    
+        
     @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize: Int = 13
     
     private let userSettings = UserPreferences.shared
