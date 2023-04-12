@@ -116,22 +116,6 @@ struct SettingsView: View {
                     LinkSettingsView(title: "Website", urlTitle: "vikingskullapps.com", url: K.Links.websiteURL, fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Get Motivated", urlTitle: "Quoto App", url: K.Links.quotoURL, fontSize: viewModel.userFontSize)
                 }
-                                
-                // Credits
-                /*Section("Credits") {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Ben Clarke")
-                                .font(.system(size: CGFloat(viewModel.userFontSize)))
-                            Text("👨🏼‍💻 Developer")
-                                .font(.system(size: CGFloat(viewModel.userFontSize)-2))
-                        }
-                        Spacer()
-                        Link("Github", destination: URL(string: K.URLs.github)!)
-                            .foregroundColor(.black)
-                            .font(.system(size: CGFloat(viewModel.userFontSize)))
-                    }
-                }*/
             }
             
             RegularButton("Save") {

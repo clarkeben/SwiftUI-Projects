@@ -51,7 +51,6 @@ struct OnboardingView: View {
                 .padding(10)
             
             RegularButton("Submit") {
-                //TODO: - Handle error message!
                 viewModel.showOnboarding = viewModel.saveAPIKey()
             }
             
@@ -60,6 +59,11 @@ struct OnboardingView: View {
                 .foregroundColor(.black)
                 .padding(.vertical, 10)
         }
+        .alert("Error 🤖", isPresented: $viewModel.showErrorAlert, actions: {
+            Button("OK", role: .cancel, action: {})
+        }, message: {
+            Text("Please ensure that you have added your API key, if not you can obtain a new key by clicking the link below!")
+        })
         .onAppear() {
             viewModel.animateView = true
         }
@@ -71,6 +75,7 @@ class OnboardingViewModel: ObservableObject {
     // Properties
     @Published var apiKey = ""
     @Published var animateView = false
+    @Published var showErrorAlert = false
     
     @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
     
@@ -82,6 +87,7 @@ class OnboardingViewModel: ObservableObject {
             updateRelatedChat()
             return false
         } else {
+            showErrorAlert = true
             return true
         }
     }
