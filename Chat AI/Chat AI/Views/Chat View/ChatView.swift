@@ -48,7 +48,7 @@ struct ChatView: View {
                                             viewModel.copySelectedMessage(chat.message)
                                         }
                                         ActionButton(systemIcon: "xmark.bin", title: "Delete Message") {
-                                            
+                                            viewModel.deleteSelectedMessage(chat.message)
                                         }
                                     }
                             }
@@ -248,6 +248,15 @@ class ChatViewModel: ObservableObject {
         
         let activityVC = UIActivityViewController(activityItems: messages, applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+    }
+    
+    ///Method to delete selected message when a message is long pressed 
+    func deleteSelectedMessage(_ message: String) {
+        for i in 0..<chat.count {
+            if message == chat[i].message {
+                chat.remove(at: i)
+            }
+        }
     }
     
     /// Method for copying a selected message to the paste board
