@@ -43,6 +43,14 @@ struct ChatView: View {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: screenWidth - 20))]) {
                             ForEach(viewModel.chat) { chat in
                                 ChatCell(sender: chat.responder, message: chat.message, date: chat.date)
+                                    .contextMenu {
+                                        ActionButton(systemIcon: "square.and.arrow.down", title: "Copy Message") {
+                                            viewModel.copySelectedMessage(chat.message)
+                                        }
+                                        ActionButton(systemIcon: "xmark.bin", title: "Delete Message") {
+                                            
+                                        }
+                                    }
                             }
                             .padding([.top], 5)
                             .onTapGesture {
