@@ -39,4 +39,8 @@ enum K {
         static let privacyPolicyURL = "https://vikingskullapps.com/apps/muay-thai-app/privacy-policy/"
         static let termsConditionsURL = "https://vikingskullapps.com/apps/muay-thai-app/terms-conditions/"
     }
+    
+    enum images {
+        static let logo = "robot-logo2"
+    }
 }

@@ -111,7 +111,7 @@ struct SettingsView: View {
                 
                 // Other
                 Section("Other") {
-                    LinkSettingsView(title: "Buy me a coffee", urlTitle: "buymeacoffee.com", url: K.Links.butMeACoffeeURL, fontSize: viewModel.userFontSize)
+                    //LinkSettingsView(title: "Buy me a coffee", urlTitle: "buymeacoffee.com", url: K.Links.butMeACoffeeURL, fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Instagram", urlTitle: "@vikingskullapps", url: K.Links.instagramURL, fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Website", urlTitle: "vikingskullapps.com", url: K.Links.websiteURL, fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Get Motivated", urlTitle: "Quoto App", url: K.Links.quotoURL, fontSize: viewModel.userFontSize)

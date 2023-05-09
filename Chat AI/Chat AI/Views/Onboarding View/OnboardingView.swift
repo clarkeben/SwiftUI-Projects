@@ -16,7 +16,7 @@ struct OnboardingView: View {
     var body: some View {
         VStack {
             Spacer()
-            Image("robot-logo2")
+            Image(K.images.logo)
                 .resizable()
                 .frame(width: 200, height: 180)
                 .aspectRatio(contentMode: .fit)
