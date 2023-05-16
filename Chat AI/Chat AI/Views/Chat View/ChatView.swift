@@ -146,7 +146,11 @@ class ChatViewModel: ObservableObject {
         "How many pounds are in a ton?",
         "What animal’s nickname is 'sea cow'?",
         "What animal breathes through its butt?",
-        "Where are cricket’s ears located?"
+        "Where are cricket’s ears located?",
+        "Who is the highest grossing actor?",
+        "Where are the hearts of an octopus located?",
+        "What is the origins of Hello World?",
+        "Who invented the internet?"
     ].shuffled()
     
     @Published var showErrorAlert = false
