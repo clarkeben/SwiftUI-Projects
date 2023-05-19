@@ -18,14 +18,17 @@ struct ContentView: View {
             if isLoading {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Loading...")
-                        .offset(y:counter >= 5 ? 0 : -40)
-                        .animation(.easeOut(duration: 0.5).repeatForever(), value: isLoading)
+                        .offset(y: counter >= 6 ? 0 : -40)
+                        .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                     LoadingBar(isLoading: $isLoading, width: 100)
-                        .offset(y:counter >= 5 ? 0 : -40)
+                        .offset(y: counter >= 5 ? 0 : -40)
+                        .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                     LoadingBar(isLoading: $isLoading, width: 80)
-                        .offset(y:counter >= 4 ? 0 : -40)
+                        .offset(y: counter >= 4 ? 0 : -40)
+                        .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                     LoadingBar(isLoading: $isLoading, width: 60)
-                        .offset(y:counter >= 3 ? 0 : -40)
+                        .offset(y: counter >= 3 ? 0 : -40)
+                        .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                 }
                 .transition(.slide)
                 .animation(.easeInOut(duration: 0.7), value: isLoading)
@@ -41,7 +44,10 @@ struct ContentView: View {
         .onReceive(timer) { timer in
             counter += 1
             
-            print(counter)
+            if counter == 10 {
+                counter = 0
+                isLoading = false
+            }
         }
     }
 }
@@ -56,6 +62,8 @@ struct LoadingBar: View {
     private let darkGrey: Color = Color("DarkGrey")
     private let lightGrey: Color = Color("LightGrey")
     
+    @State private var barScale: CGFloat = 1.0
+    
     var body: some View {
         Rectangle()
             .foregroundColor(.clear)
@@ -68,8 +76,18 @@ struct LoadingBar: View {
                 .mask(Rectangle())
                 .animation(Animation.linear(duration: 0.6).repeatForever(), value: isLoading)
             )
+            .scaleEffect(x: 1.0, y: barScale)
             .frame(width: width, height: height)
             .cornerRadius(10)
+            .animation(.easeInOut(duration: 0.5), value: isLoading)
+            .onAppear {
+                withAnimation(Animation.easeInOut(duration: 0.5).repeatForever()) {
+                    barScale = 0.2
+                }
+            }
+            .onDisappear {
+                barScale = 1.0
+            }
     }
 }
 
