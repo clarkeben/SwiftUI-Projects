@@ -9,29 +9,34 @@ import SwiftUI
 
 // MARK: - ViewModifiers
 struct RoundedButtonViewModifier: ViewModifier {
+    //MARK: - Properties
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModeEnabled = false
+    
     private let width = UIScreen.main.bounds.width
     let size: Int
     
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: width-80, minHeight: 40)
-            .foregroundColor(.white)
+            .foregroundColor(darkModeEnabled ? .black : .white)
             .font(.system(size: CGFloat(size-2), weight: .semibold))
-            .background(.black)
+            .background(darkModeEnabled ? .white : .black)
             .cornerRadius(10)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(.black)
+                    .fill(darkModeEnabled ? .white : .black)
                     .shadow(color: .gray, radius: 2, x: 0, y: 2)
             )
     }
 }
 
 struct TextfieldShadowModifier: ViewModifier {
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModeEnabled = false
+
     func body(content: Content) -> some View {
         content
             .padding()
-            .background(.white)
+            .background(darkModeEnabled ? .black : .white)
             .cornerRadius(16)
             .clipped()
             .shadow(color: .gray, radius: 4)

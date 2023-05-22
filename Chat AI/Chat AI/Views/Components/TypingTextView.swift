@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TypingTextView: View {
+    // MARK: - Properties
     let text: String
     @State var animateView = false
     

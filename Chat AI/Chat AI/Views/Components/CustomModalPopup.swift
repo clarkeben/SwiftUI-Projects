@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CustomModalPopup: View {
+    //MARK : - Properties
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModeEnabled = false
+    
     let icon: String
     var iconColour: Color
     let title: String
@@ -27,12 +30,12 @@ struct CustomModalPopup: View {
                 
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(darkModeEnabled ? .white : .black)
                 
             }
             .frame(width: 150)
             .padding()
-            .background(Color.white)
+            .background(darkModeEnabled ? .black : .white)
             .cornerRadius(20)
             .shadow(radius: 20)
         }

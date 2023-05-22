@@ -16,7 +16,7 @@ enum K {
         static let showOnboarding = "showOnboarding"
         
         enum settings {
-            static let darkModelEnabled = "darkModeEnabled"
+            static let darkModeEnabled = "darkModeEnabled"
             static let maxToken = "maxTokens"
             static let model = "model"
             static let enabledRelatedChat = "relatedChatSetting"

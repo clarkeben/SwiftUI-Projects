@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct IconButton: View {
-    
     //MARK: - Properties
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModelEnabled = false
+
     let imageName: String
     
     var width = 20
@@ -25,13 +26,15 @@ struct IconButton: View {
             Image(systemName: imageName)
                 .resizable()
                 .frame(width: CGFloat(width), height: CGFloat(height))
-                .foregroundColor(.black)
+                .foregroundColor(darkModelEnabled ?  .white : .black)
         }
     }
 }
 
 struct NavigationIconLinkButton: View {
     //MARK: - Properties
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModelEnabled = false
+
     let imageName: String
     var width = 20
     var height = 20
@@ -42,7 +45,7 @@ struct NavigationIconLinkButton: View {
         Image(systemName: imageName)
             .resizable()
             .frame(width: CGFloat(width), height: CGFloat(height))
-            .foregroundColor(.black)
+            .foregroundColor(darkModelEnabled ? .white : .black)
     }
 }
 

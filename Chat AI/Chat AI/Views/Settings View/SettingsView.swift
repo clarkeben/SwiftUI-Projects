@@ -113,6 +113,19 @@ struct SettingsView: View {
                 
                 // Other
                 Section("Other") {
+//                    LinkSettingsIconCell(icon: "camera", cellLabel: "Instagram", buttonText: "@vikingSkullApps", fontSize: viewModel.userIcon) {
+//                        openURL(url: K.Links.instagramURL)
+//                    }
+//                    LinkSettingsIconCell(icon: "link", cellLabel: "Website", buttonText: "vikingskullapps.com", fontSize: viewModel.userIcon) {
+//                        openURL(url: K.Links.websiteURL)
+//                    }
+//                    LinkSettingsIconCell(icon: "cup.and.saucer", cellLabel: "Website", buttonText: "vikingskullapps.com", fontSize: viewModel.userIcon) {
+//                        openURL(url: K.Links.websiteURL)
+//                    }
+//                    LinkSettingsIconCell(icon: "star.bubble", cellLabel: "Get motivated", buttonText: "Quoto App", fontSize: viewModel.userIcon) {
+//                        openURL(url: K.Links.quotoURL)
+//                    }
+                    
                     //LinkSettingsView(title: "Buy me a coffee", urlTitle: "buymeacoffee.com", url: K.Links.butMeACoffeeURL, fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Instagram", urlTitle: "@vikingskullapps", url: K.Links.instagramURL, fontSize: viewModel.userFontSize)
                     LinkSettingsView(title: "Website", urlTitle: "vikingskullapps.com", url: K.Links.websiteURL, fontSize: viewModel.userFontSize)
@@ -242,7 +255,7 @@ class SettingsViewModel: ObservableObject {
         let defaults = UserDefaults.standard
         KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
         ChatNetworkManager.shared.updateClient(with: apiKey)
-        defaults.set(darkModeEnabled, forKey: K.userDefaultKeys.settings.darkModelEnabled)
+        defaults.set(darkModeEnabled, forKey: K.userDefaultKeys.settings.darkModeEnabled)
         defaults.set(maxTokens, forKey: K.userDefaultKeys.settings.maxToken)
         defaults.set(model, forKey: K.userDefaultKeys.settings.model)
         defaults.set(enabledRelatedChat, forKey: K.userDefaultKeys.settings.enabledRelatedChat)

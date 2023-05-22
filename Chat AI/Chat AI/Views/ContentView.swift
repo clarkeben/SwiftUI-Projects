@@ -68,7 +68,9 @@ struct ContentView: View {
                       message: Text("Would you like to delete all saved conversations, doing this is irreversible"), primaryButton: .cancel(),
                       secondaryButton: .default(Text("Yes!"), action: deleteAllSavedConvos))
             }
-        }.accentColor(.black)
+        }
+        .accentColor(viewModel.darkModelEnabled ? .white : .black)
+        .preferredColorScheme(viewModel.darkModelEnabled ? .dark : .light)
     }
     
     //MARK: - Methods
@@ -85,6 +87,7 @@ struct ContentView: View {
 class ContentViewModal: ObservableObject {
     // MARK: - Properties
     @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModelEnabled = false
     
     @Published var width = UIScreen.main.bounds.width
     @Published var title = "Chat"

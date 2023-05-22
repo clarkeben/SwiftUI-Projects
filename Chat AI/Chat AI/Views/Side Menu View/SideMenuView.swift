@@ -10,6 +10,9 @@ import SwiftUI
 
 // MARK: - SideMenuView
 struct SideMenuView: View {
+    //MARK: - Properties
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModeEnabled = false
+
     let context: NSManagedObjectContext
     var chatConvos: FetchedResults<Chat>
     
@@ -37,7 +40,11 @@ struct SideMenuView: View {
             
             HStack {
                 ZStack {
-                    Color.white.edgesIgnoringSafeArea(.all)
+                    if darkModeEnabled {
+                        Color.black.edgesIgnoringSafeArea(.all)
+                    } else {
+                        Color.white.edgesIgnoringSafeArea(.all)
+                    }
                     
                     VStack {
                         Text("Chat History")
@@ -60,7 +67,7 @@ struct SideMenuView: View {
                                             Text(menuItem.unwrappedTitle)
                                                 .font(.system(size: 12))
                                                 .lineLimit(2)
-                                                .foregroundColor(.black)
+                                                .foregroundColor(darkModeEnabled ? .white : .black)
                                                 .multilineTextAlignment(.leading)
                                             Spacer()
                                         }

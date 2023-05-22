@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ActionButton: View {
     //MARK: - Properties
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModeEnabled = false
+
     var width: CGFloat = 150
     var systemIcon: String
     var title: String
@@ -22,20 +24,20 @@ struct ActionButton: View {
         } label: {
             HStack {
                 Image(systemName: systemIcon)
-                    .foregroundColor(.black)
+                    .foregroundColor(darkModeEnabled ? .white : .black)
                     .padding(10)
                 Text(title)
                     .font(.system(size: CGFloat(fontSize-2)))
                     .lineLimit(nil)
-                    .foregroundColor(.black)
+                    .foregroundColor(darkModeEnabled ? .white : .black)
                     .padding(10)
             }
             .frame(width: width)
-            .background(Color.white)
+            .background(darkModeEnabled ? .black : .white)
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.black, lineWidth: 2)
+                    .stroke(darkModeEnabled ? .white : .black, lineWidth: 2)
             )
         }
     }

@@ -67,6 +67,8 @@ struct OnboardingView: View {
         .onAppear() {
             viewModel.animateView = true
         }
+        .accentColor(viewModel.darkModelEnabled ? .white : .black)
+        .preferredColorScheme(viewModel.darkModelEnabled ? .dark : .light)
     }
 }
 
@@ -78,6 +80,7 @@ class OnboardingViewModel: ObservableObject {
     @Published var showErrorAlert = false
     
     @AppStorage(K.userDefaultKeys.showOnboarding) var showOnboarding = true
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModelEnabled = false
     
     // Methods
     func saveAPIKey() -> Bool {

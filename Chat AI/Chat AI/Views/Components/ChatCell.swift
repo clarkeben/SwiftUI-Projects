@@ -14,7 +14,8 @@ struct ChatCell: View {
     let date: Date
         
     @AppStorage(K.userDefaultKeys.settings.fontSize) var fontSize: Int = 13
-    
+    @AppStorage(K.userDefaultKeys.settings.darkModeEnabled) var darkModeEnabled = false
+
     private let userSettings = UserPreferences.shared
     
     @State private var animateView = false
@@ -30,7 +31,7 @@ struct ChatCell: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.gray)
                             .shadow(radius: 3)
-                            .opacity(0.2)
+                            .opacity(darkModeEnabled ? 0.4 : 0.2)
                     )
                     .padding(5)
                     .opacity(animateView ? 1 : 0)
@@ -40,7 +41,7 @@ struct ChatCell: View {
                     HStack {
                         Text("User: \(message)")
                             .font(.system(size: CGFloat(fontSize)-1))
-                            .foregroundColor(.black)
+                            .foregroundColor(darkModeEnabled ? .white : .black)
                             .multilineTextAlignment(.leading)
                             .padding(10)
                         Spacer()
@@ -50,7 +51,7 @@ struct ChatCell: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.gray)
                             .shadow(radius: 2)
-                            .opacity(0.1)
+                            .opacity(darkModeEnabled ? 0.4 : 0.2)
                     )
                     Text(date, style: .date)
                         .font(.system(size: 10))
@@ -71,7 +72,7 @@ struct ChatCell: View {
                     HStack {
                         Text("AI Bot: \(message)")
                             .font(.system(size: CGFloat(fontSize)-1))
-                            .foregroundColor(.white)
+                            .foregroundColor(darkModeEnabled ? .black : .white)
                             .multilineTextAlignment(.leading)
                             .padding(10)
                         Spacer()
@@ -81,7 +82,7 @@ struct ChatCell: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.gray)
                             .shadow(radius: 3)
-                            .opacity(0.7)
+                            .opacity(darkModeEnabled ? 1.0 : 0.7)
                     )
                     Text(date, style: .date)
                         .font(.system(size: 10))
@@ -97,7 +98,7 @@ struct ChatCell: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.gray)
                             .shadow(radius: 5)
-                            .opacity(0.7)
+                            .opacity(darkModeEnabled ? 1.0 : 0.7)
                     )
                     .padding(5)
                     .opacity(animateView ? 1 : 0)
