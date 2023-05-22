@@ -18,6 +18,8 @@ struct SettingsView: View {
         VStack {
             Form {
                 Section("Chat Settings") {
+                    Toggle("Enable Dark Mode", isOn: $viewModel.darkModeEnabled)
+                        .font(.system(size: CGFloat(viewModel.userFontSize)))
                     VStack(alignment: .leading) {
                         Text("API Key")
                             .font(.system(size: CGFloat(viewModel.userFontSize)))
@@ -136,6 +138,7 @@ struct SettingsView: View {
         .onAppear() {
             sliderValue = Double(viewModel.maxTokens)
         }
+        .preferredColorScheme(viewModel.darkModeEnabled ? .dark : .light)
     }
 }
 
@@ -191,6 +194,7 @@ struct LinkSettingsIconCell: View {
 
 //MARK: - SettingsViewModel
 class SettingsViewModel: ObservableObject {
+    @Published var darkModeEnabled = false
     @Published var apiKey = ""
     @Published var showAPIKey = false
     @Published var maxTokens = 500
@@ -205,6 +209,8 @@ class SettingsViewModel: ObservableObject {
     init() {
         // Userdefaults
         let userSettings = UserPreferences.shared
+        
+        darkModeEnabled = userSettings.darkModeEnabled
         apiKey = userSettings.apiKey
         maxTokens = userSettings.maxTokens
         model = userSettings.model
@@ -236,6 +242,7 @@ class SettingsViewModel: ObservableObject {
         let defaults = UserDefaults.standard
         KeychainWrapper.standard.set(apiKey, forKey: K.Keychain.apiKey)
         ChatNetworkManager.shared.updateClient(with: apiKey)
+        defaults.set(darkModeEnabled, forKey: K.userDefaultKeys.settings.darkModelEnabled)
         defaults.set(maxTokens, forKey: K.userDefaultKeys.settings.maxToken)
         defaults.set(model, forKey: K.userDefaultKeys.settings.model)
         defaults.set(enabledRelatedChat, forKey: K.userDefaultKeys.settings.enabledRelatedChat)

@@ -16,6 +16,14 @@ struct UserPreferences {
     private let userDefaults = UserDefaults.standard
     
     // Computed Properties
+    var darkModeEnabled: Bool {
+        guard let darkModelEnabled = keychain.bool(forKey: K.userDefaultKeys.settings.darkModelEnabled)  else {
+            return false
+        }
+        
+        return darkModelEnabled
+    }
+    
     var apiKey: String {
         guard let apiKey = keychain.string(forKey: K.Keychain.apiKey) else {
             return ""
