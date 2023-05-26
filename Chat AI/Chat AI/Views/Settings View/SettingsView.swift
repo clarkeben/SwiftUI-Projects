@@ -230,7 +230,7 @@ class SettingsViewModel: ObservableObject {
         enabledRelatedChat = userSettings.enabledRelatedChat
         userIcon = userSettings.userIcon
         userFontSize = userSettings.fontSize
-        
+
         // Emoji Setup
         let emojiRanges = [
             0x1F601...0x1F64F,
