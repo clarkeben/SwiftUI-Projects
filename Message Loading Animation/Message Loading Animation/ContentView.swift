@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoading = false
-    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @State private var isLoading = false
     @State private var counter = 0
+    @State private var endAnimation = false
     
     var body: some View {
         VStack {
@@ -31,6 +32,7 @@ struct ContentView: View {
                         .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                 }
                 .transition(.slide)
+                .opacity(endAnimation ? 0 : 1)
                 .animation(.easeInOut(duration: 0.7), value: isLoading)
             }
         }
@@ -44,9 +46,11 @@ struct ContentView: View {
         .onReceive(timer) { timer in
             counter += 1
             
-            if counter == 10 {
-                counter = 0
-                isLoading = false
+            if counter == 6 {
+                withAnimation {
+                    endAnimation = true
+                    counter = 0
+                }
             }
         }
     }
@@ -78,7 +82,7 @@ struct LoadingBar: View {
             )
             .scaleEffect(x: 1.0, y: barScale)
             .frame(width: width, height: height)
-            .cornerRadius(10)
+            .cornerRadius(20)
             .animation(.easeInOut(duration: 0.5), value: isLoading)
             .onAppear {
                 withAnimation(Animation.easeInOut(duration: 0.5).repeatForever()) {
