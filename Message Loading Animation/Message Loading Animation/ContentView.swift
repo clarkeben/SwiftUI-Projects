@@ -8,27 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    //Properties
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State private var isLoading = false
+    @State private var finishedLoading = false
     @State private var counter = 0
     @State private var endAnimation = false
     
+    // Body
     var body: some View {
         VStack {
             if isLoading {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Loading...")
-                        .offset(y: counter >= 6 ? 0 : -40)
-                        .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
-                    LoadingBar(isLoading: $isLoading, width: 100)
                         .offset(y: counter >= 5 ? 0 : -40)
                         .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
-                    LoadingBar(isLoading: $isLoading, width: 80)
+                    LoadingBarView(isLoading: $isLoading, width: 100)
                         .offset(y: counter >= 4 ? 0 : -40)
                         .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
-                    LoadingBar(isLoading: $isLoading, width: 60)
+                    LoadingBarView(isLoading: $isLoading, width: 80)
                         .offset(y: counter >= 3 ? 0 : -40)
+                        .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
+                    LoadingBarView(isLoading: $isLoading, width: 60)
+                        .offset(y: counter >= 2 ? 0 : -40)
                         .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                 }
                 .transition(.slide)
@@ -56,8 +59,9 @@ struct ContentView: View {
     }
 }
 
-struct LoadingBar: View {
-    
+// MARK: - LoadingBarView
+struct LoadingBarView: View {
+    // properties
     @Binding var isLoading: Bool
     
     let width: CGFloat
@@ -68,6 +72,7 @@ struct LoadingBar: View {
     
     @State private var barScale: CGFloat = 1.0
     
+    // Body
     var body: some View {
         Rectangle()
             .foregroundColor(.clear)
@@ -86,7 +91,7 @@ struct LoadingBar: View {
             .animation(.easeInOut(duration: 0.5), value: isLoading)
             .onAppear {
                 withAnimation(Animation.easeInOut(duration: 0.5).repeatForever()) {
-                    barScale = 0.2
+                    barScale = 0.4
                 }
             }
             .onDisappear {
