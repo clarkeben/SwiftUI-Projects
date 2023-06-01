@@ -71,6 +71,7 @@ struct LoadingBarView: View {
     private let lightGrey: Color = Color("LightGrey")
     
     @State private var barScale: CGFloat = 1.0
+    @State private var animateGradient = false
     
     // Body
     var body: some View {
@@ -79,19 +80,20 @@ struct LoadingBarView: View {
             .background(
                 LinearGradient(
                     gradient: Gradient(colors: [darkGrey, lightGrey]),
-                    startPoint: .leading,
-                    endPoint: .trailing
+                    startPoint: animateGradient ? .leading : .trailing,
+                    endPoint: animateGradient ? .trailing : .leading
                 )
                 .mask(Rectangle())
-                .animation(Animation.linear(duration: 0.6).repeatForever(), value: isLoading)
+                .animation(.linear(duration: 1.0).repeatForever(autoreverses: true), value: animateGradient)
             )
             .scaleEffect(x: 1.0, y: barScale)
             .frame(width: width, height: height)
             .cornerRadius(20)
             .animation(.easeInOut(duration: 0.5), value: isLoading)
             .onAppear {
-                withAnimation(Animation.easeInOut(duration: 0.5).repeatForever()) {
+                withAnimation(.easeInOut(duration: 0.5).repeatForever()) {
                     barScale = 0.4
+                    animateGradient = true
                 }
             }
             .onDisappear {
