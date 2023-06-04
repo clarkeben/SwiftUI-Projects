@@ -22,21 +22,22 @@ struct ContentView: View {
             if isLoading {
                 VStack {
                     Text("Loading...")
-                        .offset(y: counter >= 4 ? 0 : -40)
+                        .font(.title)
+                        .offset(y: counter >= 4 ? 0 : -20)
                         .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                     HStack(alignment: .top) {
                         AvatarCellView()
-                            .offset(y: counter >= 3 ? 0 : -40)
+                            .offset(y: counter >= 3 ? 0 : -20)
                             .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                         VStack(alignment: .leading, spacing: 10) {
                             LoadingBarView(isLoading: $isLoading, width: 100)
-                                .offset(y: counter >= 3 ? 0 : -40)
+                                .offset(y: counter >= 3 ? 0 : -20)
                                 .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                             LoadingBarView(isLoading: $isLoading, width: 80)
-                                .offset(y: counter >= 2 ? 0 : -40)
+                                .offset(y: counter >= 2 ? 0 : -20)
                                 .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                             LoadingBarView(isLoading: $isLoading, width: 60)
-                                .offset(y: counter >= 1 ? 0 : -40)
+                                .offset(y: counter >= 1 ? 0 : -20)
                                 .animation(.easeOut(duration: 0.5).repeatForever(), value: counter)
                         }
                     }
@@ -63,77 +64,6 @@ struct ContentView: View {
                 }
             }
         }
-    }
-}
-
-// MARK: - LoadingBarView
-struct LoadingBarView: View {
-    // properties
-    @Binding var isLoading: Bool
-    
-    let width: CGFloat
-    let height: CGFloat = 20
-    
-    private let darkGrey: Color = Color("DarkGrey")
-    private let lightGrey: Color = Color("LightGrey")
-    
-    @State private var barScale: CGFloat = 1.0
-    @State private var animateGradient = false
-    
-    // Body
-    var body: some View {
-        Rectangle()
-            .foregroundColor(.clear)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [darkGrey, lightGrey]),
-                    startPoint: animateGradient ? .leading : .trailing,
-                    endPoint: animateGradient ? .trailing : .leading
-                )
-                .mask(Rectangle())
-                .animation(.linear(duration: 1.5).repeatForever(autoreverses: true), value: animateGradient)
-            )
-            .scaleEffect(x: 1.0, y: barScale)
-            .frame(width: width, height: height)
-            .cornerRadius(20)
-            .animation(.easeInOut(duration: 0.5), value: isLoading)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.5).repeatForever()) {
-                    barScale = 0.4
-                    animateGradient = true
-                }
-            }
-            .onDisappear {
-                barScale = 1.0
-            }
-    }
-}
-
-struct AvatarCellView: View {
-    private let darkGrey: Color = Color("DarkGrey")
-    private let lightGrey: Color = Color("LightGrey")
-    
-    @State private var animateGradient = false
-    
-    var body: some View {
-        Rectangle()
-            .foregroundColor(.clear)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [darkGrey, lightGrey]),
-                    startPoint: animateGradient ? .leading : .trailing,
-                    endPoint: animateGradient ? .trailing : .leading
-                )
-                .mask(Rectangle())
-                .animation(.linear(duration: 1.0).repeatForever(autoreverses: true), value: animateGradient)
-            )
-            .frame(width: 60, height: 60)
-            .cornerRadius(20)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.5).repeatForever()) {
-                    animateGradient = true
-                }
-            }
     }
 }
 
