@@ -261,7 +261,6 @@ class SettingsViewModel: ObservableObject {
         defaults.set(enabledRelatedChat, forKey: K.userDefaultKeys.settings.enabledRelatedChat)
         defaults.set(userIcon, forKey: K.userDefaultKeys.settings.userIcon)
         defaults.set(userFontSize, forKey: K.userDefaultKeys.settings.fontSize)
-        print(userFontSize, "THE CURRENT SAVED FONT SIZE")
     }
 }
 

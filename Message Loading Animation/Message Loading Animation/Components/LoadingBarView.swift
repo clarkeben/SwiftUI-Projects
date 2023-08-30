@@ -35,7 +35,7 @@ struct LoadingBarView: View {
             )
             .scaleEffect(x: 1.0, y: barScale)
             .frame(width: width, height: height)
-            .cornerRadius(20)
+            .cornerRadius(10)
             .animation(.easeInOut(duration: 0.5), value: isLoading)
             .onAppear {
                 withAnimation(.easeInOut(duration: 0.5).repeatForever()) {

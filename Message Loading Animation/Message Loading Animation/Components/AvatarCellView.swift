@@ -28,7 +28,7 @@ struct AvatarCellView: View {
                 .animation(.linear(duration: 1.0).repeatForever(autoreverses: true), value: animateGradient)
             )
             .frame(width: 60, height: 60)
-            .cornerRadius(20)
+            .cornerRadius(10)
             .onAppear {
                 withAnimation(.easeInOut(duration: 0.5).repeatForever()) {
                     animateGradient = true
