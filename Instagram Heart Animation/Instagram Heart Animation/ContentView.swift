@@ -10,10 +10,13 @@ import SwiftUI
 struct ContentView: View {
     @State private var showHeart = false
     @State private var heartSize: CGFloat = 0
-    @State private var heartOffset: CGFloat = 0
+    //@State private var heartOffset: CGFloat = 0
+    @State private var heartOffset: CGSize = CGSize.zero
+    @State private var tapLocation: CGPoint = CGPoint.zero
+
     
     var yAxis: Int = Int.random(in: -50...50)
-
+    
     var body: some View {
         ZStack {
             VStack {
@@ -35,40 +38,37 @@ struct ContentView: View {
                     .scaledToFit()
             }
             
-            
             if showHeart {
                 HeartView(size: heartSize)
                     .offset(x: 0, y: CGFloat(yAxis))
-                    .animation(.easeInOut(duration: 1))
+                    .animation(.easeInOut(duration: 1), value: showHeart)
                     .onAppear {
                         heartSize = 1.2
                     }
                     .rotationEffect(.degrees(45))
-                    .offset(x: 0, y: heartOffset)
-                    .animation(
-                        Animation.easeInOut(duration: 1)
-                            .delay(1.5)
-                    )
-                    .onDisappear {
-                        resetAnimation()
-                    }
+                    .offset(x: heartOffset.width, y: heartOffset.height)
+                    .animation(Animation.easeInOut(duration: 1).delay(1.5), value: showHeart)
             }
         }
-        .gesture(
-            TapGesture(count: 2)
-                .onEnded {
-                    showHeart = true
-                    withAnimation {
-                        heartOffset = -500
-                    }
-                }
-        )
+        .onTapGesture(count: 2) { location in
+            tapLocation = location
+            
+            showHeart = true
+            
+            withAnimation {
+                heartOffset = CGSize(width: tapLocation.x - UIScreen.main.bounds.width / 2, height: tapLocation.y - UIScreen.main.bounds.height / 2)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                resetAnimation()
+            }
+        }
     }
     
     func resetAnimation() {
         showHeart = false
         heartSize = 0
-        heartOffset = 0
+        heartOffset = CGSize.zero
     }
 }
 
