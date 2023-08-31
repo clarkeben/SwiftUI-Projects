@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var imageLiked = false
     @State private var showHeart = false
     @State private var heartSize: CGFloat = 0
-    //@State private var heartOffset: CGFloat = 0
-    @State private var heartOffset: CGSize = CGSize.zero
+    @State private var heartOffset: CGFloat = 0
     @State private var tapLocation: CGPoint = CGPoint.zero
 
-    
     var yAxis: Int = Int.random(in: -50...50)
     
     var body: some View {
@@ -33,9 +32,31 @@ struct ContentView: View {
                         .resizable()
                         .frame(width: 10, height: 3)
                 }
+                
                 Image("IG-image")
                     .resizable()
                     .scaledToFit()
+                
+                HStack {
+                    Button {
+                        // Action
+                    } label: {
+                        Image(systemName: imageLiked ? "heart.fill" : "heart")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(imageLiked ? .red : .primary)
+                        Text(imageLiked ? "1" : "0")
+                            .foregroundColor(.primary)
+                    }
+                    .padding(3)
+                    
+                    Image(systemName: "message")
+                        .padding(3)
+                    
+                    Image(systemName: "paperplane")
+                        .padding(3)
+                    Spacer()
+                }
             }
             
             if showHeart {
@@ -46,17 +67,17 @@ struct ContentView: View {
                         heartSize = 1.2
                     }
                     .rotationEffect(.degrees(45))
-                    .offset(x: heartOffset.width, y: heartOffset.height)
+                    .offset(x: tapLocation.x - UIScreen.main.bounds.width / 2, y: heartOffset)
                     .animation(Animation.easeInOut(duration: 1).delay(1.5), value: showHeart)
             }
         }
         .onTapGesture(count: 2) { location in
             tapLocation = location
-            
             showHeart = true
             
             withAnimation {
-                heartOffset = CGSize(width: tapLocation.x - UIScreen.main.bounds.width / 2, height: tapLocation.y - UIScreen.main.bounds.height / 2)
+                imageLiked = true
+                heartOffset = -500
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
@@ -68,7 +89,7 @@ struct ContentView: View {
     func resetAnimation() {
         showHeart = false
         heartSize = 0
-        heartOffset = CGSize.zero
+        heartOffset = 0
     }
 }
 
