@@ -18,8 +18,13 @@ struct CustomModalPopup: View {
         
     var body: some View {
         ZStack {
-            Color.black.opacity(0.4)
-                .edgesIgnoringSafeArea(.all)
+            if darkModeEnabled {
+                Color.gray.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+            } else {
+                Color.black.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+            }
             
             VStack(spacing: 20) {
                 Image(systemName: icon)
