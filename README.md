@@ -35,6 +35,10 @@ Click on the image to view a video demo
 ### Message animation
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Message%20Loading%20Animation)
 
+### IG Heart animation
+[Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Instagram%20Heart%20Animation)
+
+
 ## 🙋‍♂️ Credits
 ### Socials
 * [Instagram](https://www.instagram.com/vikingskullapps)
