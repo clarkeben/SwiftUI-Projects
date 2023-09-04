@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var heartSize: CGFloat = 0
     @State private var heartOffset: CGFloat = 0
     @State private var tapLocation: CGPoint = CGPoint.zero
-    @State private var tapCount: Double = 1
+    @State private var tapCount: CGFloat = 1
     
     var yAxis: Int = Int.random(in: -50...50)
     
@@ -40,7 +40,7 @@ struct ContentView: View {
                 
                 HStack {
                     Button {
-                        // Action
+                        imageLiked.toggle()
                     } label: {
                         Image(systemName: imageLiked ? "heart.fill" : "heart")
                             .resizable()
@@ -58,7 +58,7 @@ struct ContentView: View {
                         .padding(3)
                     Spacer()
                 }
-            }
+            }.padding(.horizontal, 5)
             
             if showHeart {
                 HeartView(size: heartSize, tapCount: $tapCount)
@@ -74,13 +74,8 @@ struct ContentView: View {
         }
         .onTapGesture(count: 2) { location in
             tapLocation = location
-            showHeart = true
             
-            withAnimation {
-                imageLiked = true
-                heartOffset = -500
-                tapCount += 0.5
-            }
+            imageTapped()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                 resetAnimation()
@@ -88,7 +83,21 @@ struct ContentView: View {
         }
     }
     
-    func resetAnimation() {
+    private func imageTapped() {
+        showHeart = true
+        
+        withAnimation {
+            imageLiked = true
+            heartOffset = -500
+            tapCount += 0.5
+            
+            if tapCount >= 2.5 {
+                tapCount = 2.5
+            }
+        }
+    }
+    
+    private func resetAnimation() {
         showHeart = false
         heartSize = 0
         heartOffset = 0
@@ -99,14 +108,14 @@ struct ContentView: View {
 struct HeartView: View {
     var size: CGFloat
     
-    @Binding var tapCount: Double
+    @Binding var tapCount: CGFloat
     
     var body: some View {
         Image(systemName: "heart.fill")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .foregroundColor(.red)
-            .frame(width: 50 * size * CGFloat(tapCount), height: 50 * size * CGFloat(tapCount))
+            .frame(width: 50 * size * tapCount, height: 50 * size * tapCount)
     }
 }
 
