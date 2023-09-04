@@ -13,7 +13,8 @@ struct ContentView: View {
     @State private var heartSize: CGFloat = 0
     @State private var heartOffset: CGFloat = 0
     @State private var tapLocation: CGPoint = CGPoint.zero
-
+    @State private var tapCount: Double = 1
+    
     var yAxis: Int = Int.random(in: -50...50)
     
     var body: some View {
@@ -60,7 +61,7 @@ struct ContentView: View {
             }
             
             if showHeart {
-                HeartView(size: heartSize)
+                HeartView(size: heartSize, tapCount: $tapCount)
                     .offset(x: 0, y: CGFloat(yAxis))
                     .animation(.easeInOut(duration: 1), value: showHeart)
                     .onAppear {
@@ -78,6 +79,7 @@ struct ContentView: View {
             withAnimation {
                 imageLiked = true
                 heartOffset = -500
+                tapCount += 0.5
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
@@ -97,18 +99,20 @@ struct ContentView: View {
 struct HeartView: View {
     var size: CGFloat
     
+    @Binding var tapCount: Double
+    
     var body: some View {
         Image(systemName: "heart.fill")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .foregroundColor(.red)
-            .frame(width: 50 * size, height: 50 * size)
+            .frame(width: 50 * size * CGFloat(tapCount), height: 50 * size * CGFloat(tapCount))
     }
 }
 
 struct HeartView_Previews: PreviewProvider {
     static var previews: some View {
-        HeartView(size: 1.0)
+        HeartView(size: 1.0, tapCount: .constant(1))
     }
 }
 
