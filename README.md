@@ -30,12 +30,21 @@ Click on the image to view a video demo
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Heart%20Buttons)
 
 ### AI Chat
+https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/627dfa27-c56b-4b70-bf6b-b3c2d795e569
+
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Chat%20AI)
 
+**Project Dependencies:** [OpenAISwift](https://github.com/adamrushy/OpenAISwift)
+
 ### Message animation
+https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/19171fa3-34d7-4bc7-aa07-db2e4a2b04e6
+
+
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Message%20Loading%20Animation)
 
 ### IG Heart animation
+https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/b376068f-8123-4df9-9c4e-cb7bc4c053bf
+
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Instagram%20Heart%20Animation)
 
 
