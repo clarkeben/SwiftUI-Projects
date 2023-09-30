@@ -11,6 +11,7 @@
 		0082A3D52AC761C600E44A3D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0082A3D42AC761C600E44A3D /* ContentView.swift */; };
 		0082A3D72AC761C900E44A3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0082A3D62AC761C900E44A3D /* Assets.xcassets */; };
 		0082A3DA2AC761C900E44A3D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0082A3D92AC761C900E44A3D /* Preview Assets.xcassets */; };
+		0082A3E12AC8142000E44A3D /* PainScaleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0082A3E02AC8142000E44A3D /* PainScaleSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		0082A3D42AC761C600E44A3D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0082A3D62AC761C900E44A3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0082A3D92AC761C900E44A3D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0082A3E02AC8142000E44A3D /* PainScaleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PainScaleSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				0082A3D22AC761C600E44A3D /* Pain_Scale_SliderApp.swift */,
 				0082A3D42AC761C600E44A3D /* ContentView.swift */,
+				0082A3E02AC8142000E44A3D /* PainScaleSlider.swift */,
 				0082A3D62AC761C900E44A3D /* Assets.xcassets */,
 				0082A3D82AC761C900E44A3D /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0082A3E12AC8142000E44A3D /* PainScaleSlider.swift in Sources */,
 				0082A3D52AC761C600E44A3D /* ContentView.swift in Sources */,
 				0082A3D32AC761C600E44A3D /* Pain_Scale_SliderApp.swift in Sources */,
 			);
