@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PainScaleSlider: View {
-    
     //MARK: - Properties
     let gradient = Gradient(colors: [.blue, .green, .yellow, .orange, .pink, .red])
     
@@ -59,7 +58,6 @@ struct PainScaleSlider: View {
                                             
                 }).onEnded({ value in
                     lastDragValue = sliderWidth
-                    
                 }))
                 
                 Text("😖").font(.title)

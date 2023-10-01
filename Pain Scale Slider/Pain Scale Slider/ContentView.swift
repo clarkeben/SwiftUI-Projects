@@ -3,6 +3,7 @@
 //  Pain Scale Slider
 //
 //  Created by Benjamin Clarke on 29/09/2023.
+//  Instagram: @VikingSkullApps
 //
 
 import SwiftUI
