@@ -10,7 +10,7 @@ If you like this repo feel free to give it a ⭐️
 Click on the image to view a video demo
 
 ### Space Traveller Onboarding 
-[<img width="680" alt="space traveller onboarding view swiftUI xcode Swift tutorial" src="https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/0ebec704-1da3-4ae0-a409-89e3eeb6a3c5">](https://github-production-user-asset-6210df.s3.amazonaws.com/40464267/216782405-967ede4e-2f92-4e8e-9151-85f214adc2dc.mp4)
+https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/982f336d-38fe-4e7a-a631-9849b5f1cfb5
 
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Space%20Traveller%20Onboarding)
 
@@ -47,6 +47,10 @@ https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/b376068f-8123-4df9
 
 [Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Instagram%20Heart%20Animation)
 
+### Pain Scale Slider
+https://github.com/clarkeben/SwiftUI-Projects/assets/40464267/56d22a8a-3269-4f9c-a982-4afaf7fed10a
+
+[Project link](https://github.com/clarkeben/SwiftUI-Projects/tree/main/Pain%20Scale%20Slider)
 
 ## 🙋‍♂️ Credits
 ### Socials
