@@ -14,6 +14,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text(viewModel.coin?.symbol ?? "😫")
+            Text(viewModel.errorMessage)
         }
         .padding()
     }

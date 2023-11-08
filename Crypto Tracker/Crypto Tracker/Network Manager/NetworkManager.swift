@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum NetworkRequestError: Error {
-    case invalidURL
-    case errorFetchingData
-    case fetchFailed
-    case invalidStatusCode(Int)
-}
-
 //MARK: - Network Manager
 final class NetworkManager {
     enum SupportedCurrencies: String {
@@ -23,7 +16,7 @@ final class NetworkManager {
     
     enum CoinTicker: String {
         case bitcoin = "btc"
-        case etherum = "eth"
+        case ethereum = "eth"
     }
     
     //MARK: - Methods
@@ -38,18 +31,21 @@ final class NetworkManager {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkRequestError.fetchFailed
+                throw NetworkRequestError.requestFailed
             }
             
             guard httpResponse.statusCode == 200 else {
-                throw NetworkRequestError.invalidStatusCode(httpResponse.statusCode)
+                throw NetworkRequestError.invalidStatusCode(statusCode: httpResponse.statusCode)
+            }
+            do {
+                let coins = try JSONDecoder().decode([Coin].self, from: data)
+                return coins
+            } catch {
+                throw NetworkRequestError.parsingFailed
             }
             
-            let coins = try JSONDecoder().decode([Coin].self, from: data)
-            return coins
-            
         } catch {
-            throw NetworkRequestError.errorFetchingData
+            throw NetworkRequestError.requestFailed
         }
     }
     
@@ -62,19 +58,19 @@ final class NetworkManager {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkRequestError.fetchFailed
+                throw NetworkRequestError.requestFailed
             }
             
             guard httpResponse.statusCode == 200 else {
-                throw NetworkRequestError.invalidStatusCode(httpResponse.statusCode)
+                throw NetworkRequestError.invalidStatusCode(statusCode: httpResponse.statusCode)
             }
             
             let coin = try JSONDecoder().decode(Coin.self, from: data)
             return coin
             
         } catch {
-            throw NetworkRequestError.errorFetchingData
+            throw NetworkRequestError.requestFailed
         }
     }
-    
+        
 }

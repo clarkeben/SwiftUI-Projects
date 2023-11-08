@@ -20,6 +20,8 @@ class AllCoinsViewModel: ObservableObject {
 
 class CoinViewModel: ObservableObject {
     @Published var coin: Coin?
+    @Published var searchedCoin = "Bitcoin"
+    @Published var errorMessage = ""
     
     private let coinManager = NetworkManager()
     
@@ -31,16 +33,25 @@ class CoinViewModel: ObservableObject {
     
     func fetchCoin() async throws {
         do {
-            self.coin = try await coinManager.fetchCoin(coinName: "Bitcoin")
-        } catch NetworkRequestError.errorFetchingData {
-            print("DEBUG: Error fetching coins")
-        } catch NetworkRequestError.fetchFailed {
-            print("DEBUG: fetch failed")
-        } catch NetworkRequestError.invalidURL {
-            print("DEBUG: invalid URL")
-        } catch NetworkRequestError.invalidStatusCode(_) {
-            print("DEBUG: invalid status code")
+            let fetchedCoin = try await coinManager.fetchCoin(coinName: searchedCoin)
+            
+            DispatchQueue.main.async {
+                self.coin = fetchedCoin
+            }
+            
+        } catch let error as NetworkRequestError {
+            DispatchQueue.main.async {
+                self.handleError(error: error)
+            }
+        } catch {
+            DispatchQueue.main.async {
+                self.errorMessage = "An unexpected error occurred, please try again!"
+            }
         }
+    }
+    
+    private func handleError(error: NetworkRequestError) {
+        self.errorMessage = error.description
     }
     
 }
