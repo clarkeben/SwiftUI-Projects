@@ -7,19 +7,9 @@
 
 import SwiftUI
 
-class AllCoinsViewModel: ObservableObject {
-    
-    @Published var coins = [Coin]()
-    
-    init() {
-        
-    }
-    
-}
-
-
 class CoinViewModel: ObservableObject {
-    @Published var coin: Coin?
+    @Published var coins = [Coin]()
+    @Published var currencyCode: NetworkManager.SupportedCurrencies = .gbp
     @Published var searchedCoin = "Bitcoin"
     @Published var errorMessage = ""
     
@@ -33,10 +23,10 @@ class CoinViewModel: ObservableObject {
     
     func fetchCoin() async throws {
         do {
-            let fetchedCoin = try await coinManager.fetchCoin(coinName: searchedCoin)
+            let fetchedCoins = try await coinManager.fetchAllCoins(currencyCode: currencyCode, numberOfResults: 100)
             
             DispatchQueue.main.async {
-                self.coin = fetchedCoin
+                self.coins = fetchedCoins
             }
             
         } catch let error as NetworkRequestError {

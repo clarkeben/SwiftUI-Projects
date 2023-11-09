@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @StateObject var viewModel = CoinViewModel()
-    
     var body: some View {
-        VStack {
-            Text(viewModel.coin?.symbol ?? "😫")
-            Text(viewModel.errorMessage)
+        TabView {
+            CoinsView()
+                .tabItem {
+                    Label("Menu", systemImage: "list.dash")
+                }
         }
-        .padding()
     }
 }
 
