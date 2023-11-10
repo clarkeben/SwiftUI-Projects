@@ -11,22 +11,39 @@ struct CoinsView: View {
     
     //MARK: - Properties
     @StateObject var viewModel = CoinViewModel()
+    
+    @State private var searchedCoin = ""
+    @State private var searchIsActive = false
 
     //MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
                 if viewModel.coins.isEmpty {
-                    Text("ARRAY LOADING")
+                    ProgressView {
+                        Label {
+                            Text("Loading")
+                        } icon: {
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                        }
+
+                    }
                 } else {
-                    Text(viewModel.coins[0].id)
-                    Text(viewModel.coins[0].symbol)
-                    Text(viewModel.coins[0].name)
+                    List {
+                        ForEach(viewModel.coins) { coins in
+                            Text(coins.name)
+                        }
+                    }
                 }
             }
             .navigationTitle("All Coins")
+            .searchable(text: $searchedCoin, isPresented: $searchIsActive)
         }
     }
+    
+//    var searchResults: [Coin] {
+//        return viewModel.coins.filter { $0.name.lowercased() .contains(searchedCoin) }
+//    }
 }
 
 #Preview {

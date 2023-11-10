@@ -14,6 +14,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Menu", systemImage: "list.dash")
                 }
+            
+            FavouritesView()
+                .tabItem {
+                    Label("Faviroutes", systemImage: "heart")
+                }
         }
     }
 }
