@@ -86,8 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				001102C82AF1BBD4004B5596 /* ContentView.swift */,
-				0025FB5A2AFCD1690056BD48 /* CoinsView.swift */,
-				002137292AFEAD10001ADB75 /* FavouritesView.swift */,
+				00CEB5FE2B041EA40059B2D3 /* CoinsView */,
+				00CEB5FF2B041EB20059B2D3 /* FavouritesView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,6 +115,30 @@
 				00AC9A932AF55F2C00811798 /* NetworkManager.swift */,
 			);
 			path = "Network Manager";
+			sourceTree = "<group>";
+		};
+		00CEB5FE2B041EA40059B2D3 /* CoinsView */ = {
+			isa = PBXGroup;
+			children = (
+				0025FB5A2AFCD1690056BD48 /* CoinsView.swift */,
+				00CEB6002B041EBC0059B2D3 /* Components */,
+			);
+			path = CoinsView;
+			sourceTree = "<group>";
+		};
+		00CEB5FF2B041EB20059B2D3 /* FavouritesView */ = {
+			isa = PBXGroup;
+			children = (
+				002137292AFEAD10001ADB75 /* FavouritesView.swift */,
+			);
+			path = FavouritesView;
+			sourceTree = "<group>";
+		};
+		00CEB6002B041EBC0059B2D3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

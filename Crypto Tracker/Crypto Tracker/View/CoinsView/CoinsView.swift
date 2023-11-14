@@ -30,10 +30,28 @@ struct CoinsView: View {
                     }
                 } else {
                     List {
-                        ForEach(viewModel.coins) { coins in
-                            Text(coins.name)
-                        }
-                    }
+                        ForEach(viewModel.coins) { coin in
+                            HStack {
+                                Text("\(coin.rank)")
+                                
+                                AsyncImage(url: URL(string: coin.image)) { image in
+                                    image.resizable()
+                                } placeholder: {
+                                    
+                                }.frame(width: 40, height: 40, alignment: .center)
+                                
+                                VStack {
+                                    Text("\(coin.name) (\(coin.symbol))")
+                                }
+                                
+                                Spacer()
+                                
+                                VStack {
+                                    Text(coin.price, format: .currency(code: "USD"))
+                                }
+                            }.padding([.top, .bottom], 5)
+                        }.listRowSeparator(.hidden)
+                    }.listStyle(.insetGrouped)
                 }
             }
             .navigationTitle("All Coins")
