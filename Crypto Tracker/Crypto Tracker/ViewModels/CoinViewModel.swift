@@ -9,11 +9,12 @@ import SwiftUI
 
 class CoinViewModel: ObservableObject {
     @Published var coins = [Coin]()
-    @Published var currencyCode: NetworkManager.SupportedCurrencies = .gbp
-    @Published var searchedCoin = "Bitcoin"
+    @Published var currencyCode: NetworkManager.Currency = .gbp
+    @Published var searchedCoin = ""
+    @Published var searchIsActive = false
     @Published var errorMessage = ""
     
-    private let coinManager = NetworkManager()
+    let coinManager = NetworkManager()
     
     init() {
         Task {

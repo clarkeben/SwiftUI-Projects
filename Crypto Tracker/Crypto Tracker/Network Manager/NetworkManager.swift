@@ -9,18 +9,26 @@ import Foundation
 
 //MARK: - Network Manager
 final class NetworkManager {
-    enum SupportedCurrencies: String {
+    enum Currency: String, CaseIterable {        
         case usd = "usd"
+        case eur = "eur"
+        case jpy = "jpy"
         case gbp = "gbp"
+        case aud = "aud"
+        case cad = "cad"
+        case chf = "chf"
+        case cny = "cny"
+        case sek = "sek"
+        case nzd = "nzd"
     }
-    
+
     enum CoinTicker: String {
         case bitcoin = "btc"
         case ethereum = "eth"
     }
     
     //MARK: - Methods
-    func fetchAllCoins(currencyCode: SupportedCurrencies, numberOfResults: Int) async throws -> [Coin] {
+    func fetchAllCoins(currencyCode: Currency, numberOfResults: Int) async throws -> [Coin] {
         let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(currencyCode.rawValue)&order=market_cap_desc&per_page=\(numberOfResults)&page=1&sparkline=false&price_change_percentage=24h&locale=en"
         
         guard let url = URL(string: urlString) else {

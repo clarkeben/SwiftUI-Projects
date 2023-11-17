@@ -12,13 +12,20 @@ struct CoinsView: View {
     //MARK: - Properties
     @StateObject var viewModel = CoinViewModel()
     
-    @State private var searchedCoin = ""
-    @State private var searchIsActive = false
-
     //MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
+                Picker("", selection: $viewModel.currencyCode) {
+                    ForEach(NetworkManager.Currency.allCases, id: \.self) { currency in
+                        Text(currency.rawValue)
+                    }
+                }.onChange(of: viewModel.currencyCode) { 
+                    Task {
+                        try await viewModel.fetchCoin()
+                    }
+                }
+                
                 if viewModel.coins.isEmpty {
                     ProgressView {
                         Label {
@@ -47,7 +54,7 @@ struct CoinsView: View {
                                 Spacer()
                                 
                                 VStack {
-                                    Text(coin.price, format: .currency(code: "USD"))
+                                    Text(coin.price, format: .currency(code: viewModel.currencyCode.rawValue))
                                 }
                             }.padding([.top, .bottom], 5)
                         }.listRowSeparator(.hidden)
@@ -55,7 +62,7 @@ struct CoinsView: View {
                 }
             }
             .navigationTitle("All Coins")
-            .searchable(text: $searchedCoin, isPresented: $searchIsActive)
+            .searchable(text: $viewModel.searchedCoin, isPresented: $viewModel.searchIsActive)
         }
     }
     
