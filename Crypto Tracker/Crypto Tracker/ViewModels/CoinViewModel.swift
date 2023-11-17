@@ -10,9 +10,16 @@ import SwiftUI
 class CoinViewModel: ObservableObject {
     @Published var coins = [Coin]()
     @Published var currencyCode: NetworkManager.Currency = .gbp
-    @Published var searchedCoin = ""
-    @Published var searchIsActive = false
+    @Published var searchedText = ""
     @Published var errorMessage = ""
+    
+    var searchedCoinResults: [Coin] {
+        if searchedText.isEmpty {
+            return coins
+        } else {
+            return coins.filter { $0.name.lowercased().contains(searchedText.lowercased()) }
+        }
+    }
     
     let coinManager = NetworkManager()
     

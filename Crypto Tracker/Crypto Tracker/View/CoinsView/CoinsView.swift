@@ -20,7 +20,7 @@ struct CoinsView: View {
                     ForEach(NetworkManager.Currency.allCases, id: \.self) { currency in
                         Text(currency.rawValue)
                     }
-                }.onChange(of: viewModel.currencyCode) { 
+                }.onChange(of: viewModel.currencyCode) {
                     Task {
                         try await viewModel.fetchCoin()
                     }
@@ -37,7 +37,7 @@ struct CoinsView: View {
                     }
                 } else {
                     List {
-                        ForEach(viewModel.coins) { coin in
+                        ForEach(viewModel.searchedCoinResults) { coin in
                             HStack {
                                 Text("\(coin.rank)")
                                 
@@ -62,13 +62,9 @@ struct CoinsView: View {
                 }
             }
             .navigationTitle("All Coins")
-            .searchable(text: $viewModel.searchedCoin, isPresented: $viewModel.searchIsActive)
+            .searchable(text: $viewModel.searchedText)
         }
     }
-    
-//    var searchResults: [Coin] {
-//        return viewModel.coins.filter { $0.name.lowercased() .contains(searchedCoin) }
-//    }
 }
 
 #Preview {
