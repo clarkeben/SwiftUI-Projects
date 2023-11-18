@@ -33,30 +33,19 @@ struct CoinsView: View {
                         } icon: {
                             Image(systemName: "chart.line.uptrend.xyaxis")
                         }
-
                     }
                 } else {
                     List {
                         ForEach(viewModel.searchedCoinResults) { coin in
-                            HStack {
-                                Text("\(coin.rank)")
-                                
-                                AsyncImage(url: URL(string: coin.image)) { image in
-                                    image.resizable()
-                                } placeholder: {
-                                    
-                                }.frame(width: 40, height: 40, alignment: .center)
-                                
-                                VStack {
-                                    Text("\(coin.name) (\(coin.symbol))")
-                                }
-                                
-                                Spacer()
-                                
-                                VStack {
-                                    Text(coin.price, format: .currency(code: viewModel.currencyCode.rawValue))
-                                }
-                            }.padding([.top, .bottom], 5)
+                            CoinRowItem(rank: coin.rank, 
+                                        imageURL: coin.image,
+                                        name: coin.name,
+                                        symbol: coin.symbol,
+                                        marketCap: coin.marketCap,
+                                        price: coin.price,
+                                        currency: viewModel.currencyCode.rawValue,
+                                        priceChange: coin.priceChange,
+                                        pricePercentageChange: coin.priceChangePercentage)
                         }.listRowSeparator(.hidden)
                     }.listStyle(.insetGrouped)
                 }
