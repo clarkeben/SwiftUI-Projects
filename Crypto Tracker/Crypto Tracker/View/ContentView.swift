@@ -19,7 +19,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Faviroutes", systemImage: "heart")
                 }
-        }
+        }.accentColor(.black)
     }
 }
 

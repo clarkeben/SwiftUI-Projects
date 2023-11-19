@@ -23,7 +23,7 @@ struct CoinRowItem: View {
         if priceChange > 0.0 {
             return Text("+\(priceChange, specifier: "%.2f") (+\(pricePercentageChange*100, specifier:  "%.2f")%)")
         } else {
-            return Text("-\(priceChange, specifier: "%.2f") (-\(pricePercentageChange*100, specifier:  "%.2f")%)")
+            return Text("\(priceChange, specifier: "%.2f") (\(pricePercentageChange*100, specifier:  "%.2f")%)")
         }
     }
     
@@ -43,6 +43,9 @@ struct CoinRowItem: View {
             
             VStack(alignment: .leading) {
                 Text("\(name) (\(symbol))")
+                    .fontDesign(.rounded)
+                    .bold()
+                    .foregroundColor(.black)
                 Text("\(marketCap)")
                     .font(.system(size: 10))
                     .fontWeight(.thin)

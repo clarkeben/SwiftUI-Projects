@@ -25,7 +25,7 @@ struct DropDownPicker: View {
             }
         }
         .frame(width: 80, height: 40)
-        .cornerRadius(5)
+        .cornerRadius(10)
         .shadow(radius: 5)
     }
 }
