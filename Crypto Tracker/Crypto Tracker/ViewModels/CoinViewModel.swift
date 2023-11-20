@@ -12,13 +12,12 @@ class CoinViewModel: ObservableObject {
     @Published var currencyCode: NetworkManager.Currency = .gbp
     @Published var searchedText = ""
     @Published var errorMessage = ""
+    @Published var sortAscending = true
     
     var searchedCoinResults: [Coin] {
-        if searchedText.isEmpty {
-            return coins
-        } else {
-            return coins.filter { $0.name.lowercased().contains(searchedText.lowercased()) }
-        }
+        let listToSort = searchedText.isEmpty ? coins : coins.filter { $0.name.lowercased().contains(searchedText.lowercased()) }
+
+        return listToSort.sorted { sortAscending ? $0.rank < $1.rank : $0.rank > $1.rank }
     }
     
     let coinManager = NetworkManager()
@@ -51,5 +50,5 @@ class CoinViewModel: ObservableObject {
     private func handleError(error: NetworkRequestError) {
         self.errorMessage = error.description
     }
-    
+
 }

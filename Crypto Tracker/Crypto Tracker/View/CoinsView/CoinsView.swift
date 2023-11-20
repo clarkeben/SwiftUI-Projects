@@ -17,7 +17,9 @@ struct CoinsView: View {
             VStack {
                 HStack(spacing: 10) {
                     FilterButton(title: "Rank") {
-                        
+                        withAnimation {
+                            viewModel.sortAscending.toggle()
+                        }
                     }
                     
                     FilterButton(title: "Volume", showFilterDirection: false) {
