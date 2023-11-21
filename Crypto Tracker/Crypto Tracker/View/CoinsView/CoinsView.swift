@@ -49,15 +49,18 @@ struct CoinsView: View {
                 } else {
                     List {
                         ForEach(viewModel.searchedCoinResults) { coin in
-                            CoinRowItem(rank: coin.rank,
-                                        imageURL: coin.image,
-                                        name: coin.name,
-                                        symbol: coin.symbol,
-                                        marketCap: coin.marketCap,
-                                        price: coin.price,
-                                        currency: viewModel.currencyCode.rawValue,
-                                        priceChange: coin.priceChange,
-                                        pricePercentageChange: coin.priceChangePercentage)
+                            NavigationLink(destination: CoinDetailView(coin: coin)) {
+                                CoinRowItem(rank: coin.rank,
+                                            imageURL: coin.image,
+                                            name: coin.name,
+                                            symbol: coin.symbol,
+                                            marketCap: coin.marketCap,
+                                            price: coin.price,
+                                            currency: viewModel.currencyCode.rawValue,
+                                            priceChange: coin.priceChange,
+                                            pricePercentageChange: coin.priceChangePercentage)
+                            }
+                            .buttonStyle(PlainButtonStyle())
                             .listRowBackground(
                                 RoundedRectangle(cornerRadius: 10)
                                     .background(.clear)
