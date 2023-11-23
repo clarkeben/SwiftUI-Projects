@@ -71,25 +71,18 @@ struct CoinDetailView: View {
             .frame(height: 200)
             .padding(.horizontal, 5)
             
-            Section {
-                Text("Market Statistics")
-                    .font(.system(size: 12))
-                    .fontWeight(.thin)
-                
-                VStack(alignment: .leading) {
-                    Text("Market Cap")
-                        .font(.system(size: 10))
-                        .fontWeight(.thin)
-                    
-                    Text("Subtitle")
-                        .font(.system(size: 12))
-                        .fontDesign(.rounded)
-                        .bold()
-                        .foregroundColor(.black)
-                        
-                }
-            }.padding()
-            
+            Text("Market Statistics")
+                .font(.system(size: 12))
+                .fontWeight(.thin)
+                .padding([.top, .horizontal])
+
+            //TODO: - Update Model with required values
+            CoinDetailGridView(marketCap: Double(coin.marketCap),
+                               rank: coin.rank,
+                               volume24H: coin.priceChange,
+                               priceHigh: coin.price,
+                               priceLow: coin.price,
+                               allTimeHigh: coin.price)
             
             Spacer()
         }
