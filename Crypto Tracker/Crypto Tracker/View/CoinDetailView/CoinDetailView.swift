@@ -17,7 +17,7 @@ struct DummyBitcoinDataPoint: Identifiable {
 struct CoinDetailView: View {
     //MARK: - Properties
     let coin: Coin
-    let currency: String = "usd"
+    @State var currency: String = "usd"
     
     private let data: [DummyBitcoinDataPoint] = [
         DummyBitcoinDataPoint(day: "Mon", cost: 30000.0),
@@ -38,7 +38,6 @@ struct CoinDetailView: View {
                         .font(.system(size: 10))
                         .fontWeight(.thin)
                        
-                    
                     Text(coin.price, format: .currency(code: currency))
                         .fontDesign(.rounded)
                         .bold()
@@ -72,17 +71,16 @@ struct CoinDetailView: View {
             .padding(.horizontal, 5)
             
             Text("Market Statistics")
-                .font(.system(size: 12))
+                .font(.system(size: 14))
                 .fontWeight(.thin)
                 .padding([.top, .horizontal])
 
-            //TODO: - Update Model with required values
-            CoinDetailGridView(marketCap: Double(coin.marketCap),
+            CoinDetailGridView(marketCap: coin.marketCap,
                                rank: coin.rank,
                                volume24H: coin.priceChange,
-                               priceHigh: coin.price,
-                               priceLow: coin.price,
-                               allTimeHigh: coin.price)
+                               priceHigh: coin.high24h,
+                               priceLow: coin.low24h, 
+                               currencyCode: $currency)
             
             Spacer()
         }
@@ -93,7 +91,19 @@ struct CoinDetailView: View {
 
 #Preview {
     NavigationView {
-        CoinDetailView(coin: Coin(id: "bitcoin", symbol: "btc", name: "Bitcoin", rank: 1, image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400", price: 21000.00, marketCap: 10000, priceChange: -32.23, priceChangePercentage: -0.03))
+        CoinDetailView(coin: Coin(id: "bitcoin", 
+                                  symbol: "btc",
+                                  name: "Bitcoin",
+                                  rank: 1,
+                                  marketCap: 10000,
+                                  image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+                                  price: 21000.00,
+                                  totalVolume: 120,
+                                  high24h: 0.23,
+                                  low24h: 10000,
+                                  priceChange: -32.23,
+                                  priceChangePercentage: -0.03
+                                 ))
     }
     
 }

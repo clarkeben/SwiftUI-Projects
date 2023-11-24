@@ -11,27 +11,29 @@ struct CoinDetailGridView: View {
     //MARK: - Properties
     private let items: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
-    let marketCap: Double
+    let marketCap: Int
     let rank: Int
     let volume24H: Double
     
     let priceHigh: Double
     let priceLow: Double
-    let allTimeHigh: Double
+    //let allTimeHigh: Double
+    
+    @Binding var currencyCode: String
     
     //MARK: - Body
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             LazyVGrid(columns: items, alignment: .center, spacing: 20) {
-                CoinDetailGridItem(title: "Market Cap", subtitle: "$\(marketCap)")
-                CoinDetailGridItem(title: "Volume (23 hours)", subtitle: "\(volume24H)")
-                CoinDetailGridItem(title: "Popularity", subtitle: "#\(rank)")
+                CoinDetailGridItem(title: "Market Cap", subtitle: "\(marketCap)", currencyCode: $currencyCode)
+                CoinDetailGridItem(title: "Volume (24 hours)", subtitle: "\(volume24H)", currencyCode: $currencyCode)
+                CoinDetailGridItem(title: "Popularity", subtitle: "#\(rank)", currencyCode: $currencyCode)
             }.padding()
             
             LazyVGrid(columns: items, alignment: .center, spacing: 20) {
-                CoinDetailGridItem(title: "Low (1 week)", subtitle: "$\(priceHigh)")
-                CoinDetailGridItem(title: "High (1 week)", subtitle: "\(priceLow)")
-                CoinDetailGridItem(title: "All Time High", subtitle: "\(allTimeHigh)")
+                CoinDetailGridItem(title: "Low (24 hour)", showCurrency: true, price: priceLow, currencyCode: $currencyCode)
+                CoinDetailGridItem(title: "High (24 hour)", showCurrency: true, price: priceLow, currencyCode: $currencyCode)
+                //CoinDetailGridItem(title: "All Time High", subtitle: "\(allTimeHigh)", currencyCode: <#Binding<String>#>)
             }.padding()
         }
     }
@@ -40,22 +42,35 @@ struct CoinDetailGridView: View {
 struct CoinDetailGridItem: View {
     //MARK: - Properties
     let title: String
-    let subtitle: String
+    
+    @State var showCurrency = false
+    
+    var subtitle: String = ""
+    var price: Double = 0.0
+    
+    @Binding var currencyCode: String
     
     //MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.system(size: 10))
+                .font(.system(size: 12))
                 .fontWeight(.thin)
                 .padding(.bottom, 5)
             
-            Text(subtitle)
-                .font(.system(size: 12))
-                .fontDesign(.rounded)
-                .bold()
-                .foregroundColor(.black)
-            
+            if showCurrency {
+                Text(price, format: .currency(code: currencyCode))
+                    .font(.system(size: 14))
+                    .fontDesign(.rounded)
+                    .bold()
+                    .foregroundColor(.black)
+            } else {
+                Text(subtitle)
+                    .font(.system(size: 14))
+                    .fontDesign(.rounded)
+                    .bold()
+                    .foregroundColor(.black)
+            }
         }
     }
 }

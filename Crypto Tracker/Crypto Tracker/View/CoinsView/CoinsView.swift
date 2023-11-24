@@ -49,7 +49,7 @@ struct CoinsView: View {
                 } else {
                     List {
                         ForEach(viewModel.searchedCoinResults) { coin in
-                            NavigationLink(destination: CoinDetailView(coin: coin)) {
+                            NavigationLink(destination: CoinDetailView(coin: coin, currency: viewModel.currencyCode.rawValue)) {
                                 CoinRowItem(rank: coin.rank,
                                             imageURL: coin.image,
                                             name: coin.name,
