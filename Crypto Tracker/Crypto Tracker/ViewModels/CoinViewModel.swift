@@ -20,7 +20,7 @@ class CoinViewModel: ObservableObject {
         return listToSort.sorted { sortAscending ? $0.rank < $1.rank : $0.rank > $1.rank }
     }
     
-    let coinManager = NetworkManager()
+    let networkManager = NetworkManager.shared
     
     init() {
         Task {
@@ -30,7 +30,7 @@ class CoinViewModel: ObservableObject {
     
     func fetchCoin() async throws {
         do {
-            let fetchedCoins = try await coinManager.fetchAllCoins(currencyCode: currencyCode, numberOfResults: 100)
+            let fetchedCoins = try await networkManager.fetchAllCoins(currencyCode: currencyCode, numberOfResults: 100)
             
             DispatchQueue.main.async {
                 self.coins = fetchedCoins

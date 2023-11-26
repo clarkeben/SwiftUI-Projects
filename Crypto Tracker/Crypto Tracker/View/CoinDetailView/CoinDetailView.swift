@@ -8,31 +8,19 @@
 import SwiftUI
 import Charts
 
-//todo: - refactor
-struct DummyBitcoinDataPoint: Identifiable {
-    let id = UUID()
-    let day: String
-    let cost: Double
-}
-
 struct CoinDetailView: View {
     //MARK: - Properties
     let coin: Coin
     @State var currency: String = "usd"
     
-    @StateObject private var viewModel = PriceTimelineViewModel(networkManager: NetworkManager(), coin: "bitcoin", currencyCode: "usd")
+    @StateObject private var viewModel: PriceTimelineViewModel
     
-    private let data: [DummyBitcoinDataPoint] = [
+    init(coin: Coin, currency: String) {
+        self.coin = coin
+        self.currency = currency
+        self._viewModel = StateObject(wrappedValue: PriceTimelineViewModel(coin: coin.name.lowercased() , currencyCode: currency))
+    }
         
-        DummyBitcoinDataPoint(day: "Mon", cost: 30000.0),
-        DummyBitcoinDataPoint(day: "Tue", cost: 31000.0),
-        DummyBitcoinDataPoint(day: "Wed", cost: 32000.0),
-        DummyBitcoinDataPoint(day: "Thu", cost: 33000.0),
-        DummyBitcoinDataPoint(day: "Fri", cost: 34000.0),
-        DummyBitcoinDataPoint(day: "Sat", cost: 35000.0),
-        DummyBitcoinDataPoint(day: "Sun", cost: 36000.0)
-    ]
-    
     //MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
@@ -47,9 +35,27 @@ struct CoinDetailView: View {
                         .bold()
                         .foregroundColor(.black)
                     
-                    Text("Last 24 hours: +234.548")
-                        .font(.system(size: 12))
-                        .fontWeight(.thin)
+                    if coin.priceChangePercentage > 0.0 {
+                        HStack(spacing: 0) {
+                            Text("Last 24 hours: ")
+                            Text("+\(coin.priceChangePercentage * 100, specifier: "%.2f")%")
+                                .font(.system(size: 12))
+                                .foregroundStyle(.green)
+                                .fontWeight(.thin)
+                        }
+                        
+                    } else {
+                        HStack(spacing: 0) {
+                            Text("Last 24 hours: ")
+                                .font(.system(size: 12))
+                                .fontWeight(.thin)
+                            Text("\(coin.priceChangePercentage * 100, specifier: "%.2f")%")
+                                .font(.system(size: 12))
+                                .foregroundStyle(.red)
+                                .fontWeight(.thin)
+                        }
+                    }
+                    
                 }
                 
                 Spacer()
@@ -64,7 +70,7 @@ struct CoinDetailView: View {
             }.padding()
             
             Chart {
-                ForEach(data) { dataPoint in
+                ForEach(viewModel.coinData) { dataPoint in
                     LineMark(
                         x: .value("Day", dataPoint.day),
                         y: .value("Cost (£)", dataPoint.cost)
@@ -107,7 +113,7 @@ struct CoinDetailView: View {
                                   low24h: 10000,
                                   priceChange: -32.23,
                                   priceChangePercentage: -0.03
-                                 ))
+                                 ), currency: "usd")
     }
     
 }

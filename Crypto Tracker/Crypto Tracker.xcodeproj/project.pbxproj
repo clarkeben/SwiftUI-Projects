@@ -22,6 +22,7 @@
 		0050BD162B122303006D9339 /* TrendlinePriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050BD152B122303006D9339 /* TrendlinePriceData.swift */; };
 		0050BD192B1231D0006D9339 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050BD182B1231D0006D9339 /* Extensions.swift */; };
 		0050BD1B2B12326C006D9339 /* PriceTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050BD1A2B12326C006D9339 /* PriceTimelineViewModel.swift */; };
+		0050BD1D2B136F0A006D9339 /* CoinDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050BD1C2B136F0A006D9339 /* CoinDataPoint.swift */; };
 		006F3C6E2B0C0EA900C7C777 /* CoinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006F3C6D2B0C0EA900C7C777 /* CoinDetailView.swift */; };
 		00AC9A942AF55F2C00811798 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AC9A932AF55F2C00811798 /* NetworkManager.swift */; };
 		00C99A7B2B1007FD00600F29 /* CoinDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C99A7A2B1007FD00600F29 /* CoinDetailGridView.swift */; };
@@ -44,6 +45,7 @@
 		0050BD152B122303006D9339 /* TrendlinePriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendlinePriceData.swift; sourceTree = "<group>"; };
 		0050BD182B1231D0006D9339 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0050BD1A2B12326C006D9339 /* PriceTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTimelineViewModel.swift; sourceTree = "<group>"; };
+		0050BD1C2B136F0A006D9339 /* CoinDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataPoint.swift; sourceTree = "<group>"; };
 		006F3C6D2B0C0EA900C7C777 /* CoinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailView.swift; sourceTree = "<group>"; };
 		00AC9A932AF55F2C00811798 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		00C99A7A2B1007FD00600F29 /* CoinDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailGridView.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				003E78D62AFAC5C800F7BA04 /* Coin.swift */,
 				0050BD152B122303006D9339 /* TrendlinePriceData.swift */,
 				0025FB582AFC3F510056BD48 /* NetworkRequestError.swift */,
+				0050BD1C2B136F0A006D9339 /* CoinDataPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				001102C92AF1BBD4004B5596 /* ContentView.swift in Sources */,
 				00C99A7B2B1007FD00600F29 /* CoinDetailGridView.swift in Sources */,
 				004238E62B08D7D9005265C8 /* CoinRowItem.swift in Sources */,
+				0050BD1D2B136F0A006D9339 /* CoinDataPoint.swift in Sources */,
 				0025FB5B2AFCD16A0056BD48 /* CoinsView.swift in Sources */,
 				003E78D72AFAC5C800F7BA04 /* Coin.swift in Sources */,
 				0050BD162B122303006D9339 /* TrendlinePriceData.swift in Sources */,

@@ -9,38 +9,43 @@ import Foundation
 
 class PriceTimelineViewModel: ObservableObject {
     //MARK: - Properties
-    @Published var dates = [String]()
-    @Published var price = [Double]()
+    @Published var coinData = [CoinDataPoint]()
     
-    let networkManager: NetworkManager
+    let networkManager: NetworkManager = NetworkManager.shared
+    
     let coin: String
     let currencyCode: String
     
-    init(networkManager: NetworkManager, coin: String, currencyCode: String) {
-        self.networkManager = networkManager
+    init(coin: String, currencyCode: String) {
         self.coin = coin
         self.currencyCode = currencyCode
         
         Task {
             try await fetchPriceTimelines()
         }
-        
-        print("DEBUG: \(dates)")
-        print("DEBUG: \(price)")
     }
     
     //MARK: - Methods
-    private func fetchPriceTimelines() async throws {
+     func fetchPriceTimelines() async throws {
         do {
             let fetchedTimelines = try await networkManager.getCoinPriceTimeline(coinName: coin, currencyCode: currencyCode)
-            print("DEBUG: \(fetchedTimelines) ☝️")
+            
+            let fetchedDates = fetchedTimelines.prices.map { self.convertTimestampToDate($0[0]) }
+            let formattedDates = fetchedDates.map { self.formatDate($0) }
+            
+            var coinPriceData = [CoinDataPoint]()
+            
+            for (index, data) in formattedDates.enumerated() {
+                if index < fetchedTimelines.prices.count {
+                    let date = formattedDates[index]
+                    let price = fetchedTimelines.prices[index][1] // Assuming $0[1] is the price
+                    let dataPoint = CoinDataPoint(day: date, cost: price)
+                    coinPriceData.append(dataPoint)
+                }
+            }
             
             DispatchQueue.main.async {
-                let fetchedDates = fetchedTimelines.prices.map { self.convertTimestampToDate($0[0]) }
-                let formattedDates = fetchedDates.map { self.formatDate($0) }
-                
-                self.dates = formattedDates
-                self.price = fetchedTimelines.prices.map { $0[1] }
+                self.coinData = coinPriceData
             }
             
         } catch let error as NetworkRequestError {
@@ -57,7 +62,7 @@ class PriceTimelineViewModel: ObservableObject {
     private func convertTimestampToDate(_ timestamp: Double) -> Date {
         return Date(timeIntervalSince1970: timestamp / 1000)
     }
-
+    
     private func formatDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

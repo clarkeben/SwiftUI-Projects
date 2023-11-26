@@ -9,7 +9,10 @@ import Foundation
 
 //MARK: - Network Manager
 final class NetworkManager {
-    enum Currency: String, CaseIterable {        
+    
+    static let shared = NetworkManager()
+    
+    enum Currency: String, CaseIterable {
         case usd = "usd"
         case eur = "eur"
         case jpy = "jpy"
