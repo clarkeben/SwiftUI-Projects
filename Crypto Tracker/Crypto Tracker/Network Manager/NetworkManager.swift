@@ -80,5 +80,30 @@ final class NetworkManager {
             throw NetworkRequestError.requestFailed
         }
     }
+    
+    func getCoinPriceTimeline(coinName: String, currencyCode: Currency.RawValue) async throws -> TrendlinePriceData {
+        guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/\(coinName)/market_chart?vs_currency=\(currencyCode)&days=7&interval=daily") else {
+            throw NetworkRequestError.invalidURL
+        }
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NetworkRequestError.requestFailed
+            }
+            
+            guard httpResponse.statusCode == 200 else {
+                throw NetworkRequestError.invalidStatusCode(statusCode: httpResponse.statusCode)
+            }
+            
+            let priceTimeline = try JSONDecoder().decode(TrendlinePriceData.self, from: data)
+            
+            return priceTimeline
+            
+        } catch {
+            throw NetworkRequestError.requestFailed
+        }
+    }
         
 }

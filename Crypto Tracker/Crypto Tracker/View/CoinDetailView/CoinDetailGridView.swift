@@ -25,13 +25,13 @@ struct CoinDetailGridView: View {
     var body: some View {
         VStack(alignment: .leading) {
             LazyVGrid(columns: items, alignment: .center, spacing: 20) {
-                CoinDetailGridItem(title: "Market Cap", subtitle: "\(marketCap)", currencyCode: $currencyCode)
+                CoinDetailGridItem(title: "Market Cap", subtitle: "\(marketCap.withCommas())", currencyCode: $currencyCode)
                 CoinDetailGridItem(title: "Volume (24 hours)", subtitle: "\(volume24H)", currencyCode: $currencyCode)
                 CoinDetailGridItem(title: "Popularity", subtitle: "#\(rank)", currencyCode: $currencyCode)
             }.padding()
             
             LazyVGrid(columns: items, alignment: .center, spacing: 20) {
-                CoinDetailGridItem(title: "Low (24 hour)", showCurrency: true, price: priceLow, currencyCode: $currencyCode)
+                CoinDetailGridItem(title: "Low (24 hour)", showCurrency: true, price: priceHigh, currencyCode: $currencyCode)
                 CoinDetailGridItem(title: "High (24 hour)", showCurrency: true, price: priceLow, currencyCode: $currencyCode)
                 //CoinDetailGridItem(title: "All Time High", subtitle: "\(allTimeHigh)", currencyCode: <#Binding<String>#>)
             }.padding()

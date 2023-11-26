@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 
+//todo: - refactor
 struct DummyBitcoinDataPoint: Identifiable {
     let id = UUID()
     let day: String
@@ -19,7 +20,10 @@ struct CoinDetailView: View {
     let coin: Coin
     @State var currency: String = "usd"
     
+    @StateObject private var viewModel = PriceTimelineViewModel(networkManager: NetworkManager(), coin: "bitcoin", currencyCode: "usd")
+    
     private let data: [DummyBitcoinDataPoint] = [
+        
         DummyBitcoinDataPoint(day: "Mon", cost: 30000.0),
         DummyBitcoinDataPoint(day: "Tue", cost: 31000.0),
         DummyBitcoinDataPoint(day: "Wed", cost: 32000.0),
