@@ -15,6 +15,10 @@ struct CoinDetailView: View {
     
     @StateObject private var viewModel: PriceTimelineViewModel
     
+    //TODO: - Review the API call
+    let chartTimelineFilters = ["1h", "1D", "1W", "1M", "3M", "1Y"]
+    @State private var selectedChartTimelineFilter: String = "1M"
+    
     init(coin: Coin, currency: String) {
         self.coin = coin
         self.currency = currency
@@ -55,7 +59,6 @@ struct CoinDetailView: View {
                                 .fontWeight(.thin)
                         }
                     }
-                    
                 }
                 
                 Spacer()
@@ -68,6 +71,14 @@ struct CoinDetailView: View {
                 .frame(width: 60, height: 60, alignment: .center)
                 
             }.padding()
+            
+            Picker("", selection: $selectedChartTimelineFilter) {
+                ForEach(chartTimelineFilters, id: \.self) {
+                    Text($0)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding([.horizontal], 10)
             
             Chart {
                 ForEach(viewModel.coinData) { dataPoint in
