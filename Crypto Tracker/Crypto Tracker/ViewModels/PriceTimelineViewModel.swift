@@ -8,11 +8,30 @@
 import Foundation
 
 class PriceTimelineViewModel: ObservableObject {
+    //MARK: - ChartTimeline Enum
+    enum ChartXAxisMeasure: Int, CaseIterable {
+        case daily = 1
+        case weekly = 7
+        case monthly = 30
+        case quarterly = 90
+        case yearly = 365
+        
+        var description: String {
+            switch self {
+            case .daily: return "1D"
+            case .weekly: return "1W"
+            case .monthly: return "1M"
+            case .quarterly: return "3M"
+            case .yearly: return "1Y"
+            }
+        }
+    }
+    
     //MARK: - Properties
     @Published var coinData = [CoinDataPoint]()
+    @Published var chartAxisMeasure: String = ChartXAxisMeasure.weekly.description
     
     let networkManager: NetworkManager = NetworkManager.shared
-    
     let coin: String
     let currencyCode: String
     
