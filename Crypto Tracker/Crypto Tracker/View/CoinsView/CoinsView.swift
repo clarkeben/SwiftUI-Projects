@@ -35,7 +35,6 @@ struct CoinsView: View {
                     }
                 }
                 .padding([.leading, .trailing], 10)
-                //.background(Color("lightGrey"))
                 
                 if viewModel.coins.isEmpty {
                     ProgressView {

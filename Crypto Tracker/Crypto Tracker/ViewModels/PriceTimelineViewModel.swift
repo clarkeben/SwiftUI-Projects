@@ -25,11 +25,19 @@ class PriceTimelineViewModel: ObservableObject {
             case .yearly: return "1Y"
             }
         }
+        
+        var interval: String {
+            switch self {
+            case .daily: return "hourly"
+            case .weekly, .monthly, .quarterly, .yearly: return "daily"
+            }
+        }
     }
     
     //MARK: - Properties
     @Published var coinData = [CoinDataPoint]()
-    @Published var chartAxisMeasure: String = ChartXAxisMeasure.weekly.description
+    @Published var chartAxisMeasure: ChartXAxisMeasure = .weekly
+    @Published var errorMessage = ""
     
     let networkManager: NetworkManager = NetworkManager.shared
     let coin: String
@@ -45,7 +53,7 @@ class PriceTimelineViewModel: ObservableObject {
     }
     
     //MARK: - Methods
-     func fetchPriceTimelines() async throws {
+    func fetchPriceTimelines() async throws {
         do {
             let fetchedTimelines = try await networkManager.getCoinPriceTimeline(coinName: coin, currencyCode: currencyCode)
             
@@ -54,26 +62,24 @@ class PriceTimelineViewModel: ObservableObject {
             
             var coinPriceData = [CoinDataPoint]()
             
-            for (index, data) in formattedDates.enumerated() {
+            for (index, _) in formattedDates.enumerated() {
                 if index < fetchedTimelines.prices.count {
                     let date = formattedDates[index]
-                    let price = fetchedTimelines.prices[index][1] // Assuming $0[1] is the price
+                    let price = fetchedTimelines.prices[index][1]
                     let dataPoint = CoinDataPoint(day: date, cost: price)
                     coinPriceData.append(dataPoint)
                 }
             }
             
-            DispatchQueue.main.async {
-                self.coinData = coinPriceData
-            }
+            await updateCoinData(coinPriceData)
             
         } catch let error as NetworkRequestError {
             DispatchQueue.main.async {
-                //self.handleError(error: error)
+                self.handleError(error: error)
             }
         } catch {
             DispatchQueue.main.async {
-                //self.errorMessage = "An unexpected error occurred, please try again!"
+                self.errorMessage = "An unexpected error occurred, please try again!"
             }
         }
     }
@@ -86,5 +92,15 @@ class PriceTimelineViewModel: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: date)
+    }
+    
+    private func updateCoinData(_ coinData: [CoinDataPoint]) async {
+        await MainActor.run {
+            self.coinData = coinData
+        }
+    }
+    
+    private func handleError(error: NetworkRequestError) {
+        self.errorMessage = error.description
     }
 }
