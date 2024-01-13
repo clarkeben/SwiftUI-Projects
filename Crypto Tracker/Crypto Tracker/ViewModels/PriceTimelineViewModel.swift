@@ -36,7 +36,14 @@ class PriceTimelineViewModel: ObservableObject {
     
     //MARK: - Properties
     @Published var coinData = [CoinDataPoint]()
-    @Published var chartAxisMeasure: ChartXAxisMeasure = .weekly
+    @Published var chartAxisMeasure: ChartXAxisMeasure = .weekly {
+        didSet {
+            Task {
+                try await fetchPriceTimelines()
+            }
+        }
+    }
+    
     @Published var errorMessage = ""
     
     let networkManager: NetworkManager = NetworkManager.shared
@@ -55,7 +62,7 @@ class PriceTimelineViewModel: ObservableObject {
     //MARK: - Methods
     func fetchPriceTimelines() async throws {
         do {
-            let fetchedTimelines = try await networkManager.getCoinPriceTimeline(coinName: coin, currencyCode: currencyCode)
+            let fetchedTimelines = try await networkManager.getCoinPriceTimeline(coinName: coin, currencyCode: currencyCode, days: chartAxisMeasure.rawValue, interval: chartAxisMeasure.interval)
             
             let fetchedDates = fetchedTimelines.prices.map { self.convertTimestampToDate($0[0]) }
             let formattedDates = fetchedDates.map { self.formatDate($0) }

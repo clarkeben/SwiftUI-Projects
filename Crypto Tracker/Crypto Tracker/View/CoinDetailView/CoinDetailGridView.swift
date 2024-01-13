@@ -26,7 +26,7 @@ struct CoinDetailGridView: View {
         VStack(alignment: .leading) {
             LazyVGrid(columns: items, alignment: .center, spacing: 20) {
                 CoinDetailGridItem(title: "Market Cap", subtitle: "\(marketCap.withCommas())", currencyCode: $currencyCode)
-                CoinDetailGridItem(title: "Volume (24 hours)", subtitle: "\(volume24H)", currencyCode: $currencyCode)
+                CoinDetailGridItem(title: "Volume (24 hours)", subtitle: String(format: "%.2f", volume24H), currencyCode: $currencyCode)
                 CoinDetailGridItem(title: "Popularity", subtitle: "#\(rank)", currencyCode: $currencyCode)
             }.padding()
             

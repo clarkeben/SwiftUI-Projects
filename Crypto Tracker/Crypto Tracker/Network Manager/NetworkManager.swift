@@ -84,8 +84,8 @@ final class NetworkManager {
         }
     }
     
-    func getCoinPriceTimeline(coinName: String, currencyCode: Currency.RawValue) async throws -> TrendlinePriceData {
-        guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/\(coinName)/market_chart?vs_currency=\(currencyCode)&days=7&interval=daily") else {
+    func getCoinPriceTimeline(coinName: String, currencyCode: Currency.RawValue, days: Int, interval: String) async throws -> TrendlinePriceData {
+        guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/\(coinName)/market_chart?vs_currency=\(currencyCode)&days=\(days)&interval=\(interval)") else {
             throw NetworkRequestError.invalidURL
         }
         
