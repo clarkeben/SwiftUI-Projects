@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 import Charts
 
 struct CoinDetailView: View {
     //MARK: - Properties
+    @Environment(\.modelContext) var context
     let coin: Coin
-    @State var currency: String = "usd"
     
+    @State var currency: String = "usd"
     @StateObject private var viewModel: PriceTimelineViewModel
         
     init(coin: Coin, currency: String) {
@@ -103,6 +105,19 @@ struct CoinDetailView: View {
         }
         .navigationTitle("\(coin.name) (\(coin.symbol.uppercased()))")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Button {
+                let coin = FavouriteCoin(id: coin.id, name: coin.name)
+                viewModel.persistCoin(coin: coin, context: context)
+                
+                
+                ///2. Show alert that coin has been saved
+                ///3. Delete if saved already
+            } label: {
+                Image(systemName: "heart")
+                    .foregroundStyle(Color.black)
+            }
+        }
     }
 }
 

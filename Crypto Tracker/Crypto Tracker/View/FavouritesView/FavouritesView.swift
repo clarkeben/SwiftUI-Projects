@@ -6,10 +6,26 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct FavouritesView: View {
+    //MARK: - Properties
+    @Environment(\.modelContext) var context
+
+    @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
+    
+    //MARK: - Body
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(favouriteCoins) { coin in
+                Text(coin.name)
+            }
+            .onDelete(perform: { indexSet in
+                for index in indexSet {
+                    context.delete(favouriteCoins[index])
+                }
+            })
+        }
     }
 }
 

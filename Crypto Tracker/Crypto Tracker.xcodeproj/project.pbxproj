@@ -26,6 +26,7 @@
 		006F3C6E2B0C0EA900C7C777 /* CoinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006F3C6D2B0C0EA900C7C777 /* CoinDetailView.swift */; };
 		00AC9A942AF55F2C00811798 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AC9A932AF55F2C00811798 /* NetworkManager.swift */; };
 		00C99A7B2B1007FD00600F29 /* CoinDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C99A7A2B1007FD00600F29 /* CoinDetailGridView.swift */; };
+		14839B982B53CFF500E839F5 /* FavouriteCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14839B972B53CFF500E839F5 /* FavouriteCoin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		006F3C6D2B0C0EA900C7C777 /* CoinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailView.swift; sourceTree = "<group>"; };
 		00AC9A932AF55F2C00811798 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		00C99A7A2B1007FD00600F29 /* CoinDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailGridView.swift; sourceTree = "<group>"; };
+		14839B972B53CFF500E839F5 /* FavouriteCoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				003E78D62AFAC5C800F7BA04 /* Coin.swift */,
+				14839B972B53CFF500E839F5 /* FavouriteCoin.swift */,
 				0050BD152B122303006D9339 /* TrendlinePriceData.swift */,
 				0025FB582AFC3F510056BD48 /* NetworkRequestError.swift */,
 				0050BD1C2B136F0A006D9339 /* CoinDataPoint.swift */,
@@ -256,6 +259,7 @@
 			files = (
 				003E78D92AFAC64B00F7BA04 /* CoinViewModel.swift in Sources */,
 				00AC9A942AF55F2C00811798 /* NetworkManager.swift in Sources */,
+				14839B982B53CFF500E839F5 /* FavouriteCoin.swift in Sources */,
 				006F3C6E2B0C0EA900C7C777 /* CoinDetailView.swift in Sources */,
 				0021372A2AFEAD10001ADB75 /* FavouritesView.swift in Sources */,
 				001102C92AF1BBD4004B5596 /* ContentView.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 class PriceTimelineViewModel: ObservableObject {
     //MARK: - ChartTimeline Enum
@@ -109,5 +110,18 @@ class PriceTimelineViewModel: ObservableObject {
     
     private func handleError(error: NetworkRequestError) {
         self.errorMessage = error.description
+    }
+    
+    //MARK: - SwiftData Methods
+    func persistCoin(coin: FavouriteCoin, context: ModelContext) {
+        context.insert(coin)
+    }
+    
+    func deleteSavedCoin(coin: FavouriteCoin, favouriteCoins: [FavouriteCoin], context: ModelContext) {
+        for (index, searchCoin) in favouriteCoins.enumerated() {
+            if coin.id == searchCoin.id {
+                context.delete(coin)
+            }
+        }
     }
 }
