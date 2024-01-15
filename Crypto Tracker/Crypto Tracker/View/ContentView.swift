@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    //MARK: - Body
     var body: some View {
         TabView {
             CoinsView()

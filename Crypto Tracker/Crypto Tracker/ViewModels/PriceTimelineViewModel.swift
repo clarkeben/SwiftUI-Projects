@@ -117,11 +117,7 @@ class PriceTimelineViewModel: ObservableObject {
         context.insert(coin)
     }
     
-    func deleteSavedCoin(coin: FavouriteCoin, favouriteCoins: [FavouriteCoin], context: ModelContext) {
-        for (index, searchCoin) in favouriteCoins.enumerated() {
-            if coin.id == searchCoin.id {
-                context.delete(coin)
-            }
-        }
+    func deleteSavedCoin(coin: FavouriteCoin, context: ModelContext) {
+        context.delete(coin)
     }
 }

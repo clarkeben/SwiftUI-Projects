@@ -16,6 +16,15 @@ struct CoinDetailView: View {
     
     @State var currency: String = "usd"
     @StateObject private var viewModel: PriceTimelineViewModel
+    
+    //TODO: - Refactor and move any business logic to the VM
+    //2. Rename some of the variables / improve namespace
+    @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
+
+    
+    var isCoinFavourite: Bool {
+        favouriteCoins.contains(where: { $0.name == coin.name })
+    }
         
     init(coin: Coin, currency: String) {
         self.coin = coin
@@ -107,15 +116,22 @@ struct CoinDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button {
-                let coin = FavouriteCoin(id: coin.id, name: coin.name)
-                viewModel.persistCoin(coin: coin, context: context)
-                
-                
-                ///2. Show alert that coin has been saved
-                ///3. Delete if saved already
+                if isCoinFavourite {
+                    viewModel.deleteSavedCoin(coin: FavouriteCoin(id: coin.id, name: coin.name), context: context)
+                } else {
+                    let coin = FavouriteCoin(id: coin.id, name: coin.name)
+                    viewModel.persistCoin(coin: coin, context: context)
+                    //TODO: - Show alert 
+                }
             } label: {
-                Image(systemName: "heart")
-                    .foregroundStyle(Color.black)
+                if isCoinFavourite {
+                    Image(systemName: "heart.fill")
+                        .foregroundStyle(Color.black)
+                } else {
+                    Image(systemName: "heart")
+                        .foregroundStyle(Color.black)
+                }
+                
             }
         }
     }

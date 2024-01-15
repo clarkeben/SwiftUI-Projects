@@ -13,22 +13,25 @@ struct FavouritesView: View {
     @Environment(\.modelContext) var context
 
     @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
-    
+
     //MARK: - Body
     var body: some View {
-        List {
-            ForEach(favouriteCoins) { coin in
-                Text(coin.name)
-            }
-            .onDelete(perform: { indexSet in
-                for index in indexSet {
-                    context.delete(favouriteCoins[index])
+        NavigationView {
+            List {
+                ForEach(favouriteCoins) { coin in
+                    Text(coin.name)
                 }
-            })
+                .onDelete(perform: { indexSet in
+                    for index in indexSet {
+                        context.delete(favouriteCoins[index])
+                    }
+                })
+            }
+            .navigationTitle("Favourite Coins")
         }
     }
 }
 
 #Preview {
-    FavouritesView()
+   FavouritesView()
 }
