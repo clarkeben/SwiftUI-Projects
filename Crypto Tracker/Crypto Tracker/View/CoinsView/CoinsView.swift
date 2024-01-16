@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CoinsView: View {
     //MARK: - Properties
     @StateObject var viewModel = CoinViewModel()
+    @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
     
     //MARK: - Body
     var body: some View {
@@ -46,6 +48,8 @@ struct CoinsView: View {
                         
                     }
                 } else {
+                    //TODO: - Manage state within the CoinDetailView
+                    ///Handle fetching list from the coins view
                     List {
                         ForEach(viewModel.searchedCoinResults) { coin in
                             NavigationLink(destination: CoinDetailView(coin: coin, currency: viewModel.currencyCode.rawValue)) {

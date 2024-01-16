@@ -19,7 +19,7 @@ struct ContentView: View {
             
             FavouritesView()
                 .tabItem {
-                    Label("Faviroutes", systemImage: "heart")
+                    Label("Favourites", systemImage: "heart")
                 }
         }.accentColor(.black)
     }

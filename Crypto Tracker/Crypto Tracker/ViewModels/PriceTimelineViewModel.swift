@@ -5,7 +5,7 @@
 //  Created by Benjamin Clarke on 25/11/2023.
 //
 
-import Foundation
+import SwiftUI
 import SwiftData
 
 class PriceTimelineViewModel: ObservableObject {
@@ -50,6 +50,10 @@ class PriceTimelineViewModel: ObservableObject {
     let networkManager: NetworkManager = NetworkManager.shared
     let coin: String
     let currencyCode: String
+    
+    // Swift Data
+    //@Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
+    //var favouriteCoins: [FavouriteCoin]
     
     init(coin: String, currencyCode: String) {
         self.coin = coin
@@ -114,7 +118,7 @@ class PriceTimelineViewModel: ObservableObject {
     
     //MARK: - SwiftData Methods
     func persistCoin(coin: FavouriteCoin, context: ModelContext) {
-        context.insert(coin)
+            context.insert(coin)
     }
     
     func deleteSavedCoin(coin: FavouriteCoin, context: ModelContext) {

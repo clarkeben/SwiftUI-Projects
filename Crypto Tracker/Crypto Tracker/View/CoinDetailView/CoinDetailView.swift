@@ -16,20 +16,17 @@ struct CoinDetailView: View {
     
     @State var currency: String = "usd"
     @StateObject private var viewModel: PriceTimelineViewModel
+    @State var coinIsFavourite = false
     
-    //TODO: - Refactor and move any business logic to the VM
-    //2. Rename some of the variables / improve namespace
-    @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
-
-    
-    var isCoinFavourite: Bool {
-        favouriteCoins.contains(where: { $0.name == coin.name })
-    }
+    @State var favouriteCoins = [FavouriteCoin]()
         
     init(coin: Coin, currency: String) {
         self.coin = coin
         self.currency = currency
         self._viewModel = StateObject(wrappedValue: PriceTimelineViewModel(coin: coin.name.lowercased() , currencyCode: currency))
+        
+        isCoinFavourite(coin)
+        print(coin.name, isCoinFavourite(coin), "🙌")
     }
         
     //MARK: - Body
@@ -116,24 +113,31 @@ struct CoinDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button {
-                if isCoinFavourite {
+                if coinIsFavourite {
                     viewModel.deleteSavedCoin(coin: FavouriteCoin(id: coin.id, name: coin.name), context: context)
+                    coinIsFavourite = false
                 } else {
                     let coin = FavouriteCoin(id: coin.id, name: coin.name)
                     viewModel.persistCoin(coin: coin, context: context)
-                    //TODO: - Show alert 
+                    coinIsFavourite = true
                 }
             } label: {
-                if isCoinFavourite {
-                    Image(systemName: "heart.fill")
-                        .foregroundStyle(Color.black)
-                } else {
-                    Image(systemName: "heart")
-                        .foregroundStyle(Color.black)
-                }
-                
+                Image(systemName: coinIsFavourite ? "heart.fill" : "heart")
             }
         }
+    }
+    
+    //MARK: - Methods
+    func isCoinFavourite(_ coin: Coin) {
+        coinIsFavourite = favouriteCoins.contains(where: { $0.name == coin.name })
+        
+        for coinToCheck in favouriteCoins {
+            if favouriteCoins.contains(where: { favCoin in
+                favCoin.id == coin.id
+                print("TRUE YES VERY TRUE")
+            })
+        }
+       
     }
 }
 
