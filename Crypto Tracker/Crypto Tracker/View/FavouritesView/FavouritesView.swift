@@ -12,6 +12,7 @@ struct FavouritesView: View {
     //MARK: - Properties
     @Environment(\.modelContext) var context
 
+    @ObservedObject var viewModel = CoinViewModel()
     @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
 
     //MARK: - Body
@@ -28,6 +29,9 @@ struct FavouritesView: View {
                 })
             }
             .navigationTitle("Favourite Coins")
+            .onAppear() {
+                viewModel.filterFavCoins(favouriteCoins: favouriteCoins)
+            }
         }
     }
 }

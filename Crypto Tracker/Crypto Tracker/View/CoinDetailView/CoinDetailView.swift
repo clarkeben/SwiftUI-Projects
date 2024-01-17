@@ -16,17 +16,15 @@ struct CoinDetailView: View {
     
     @State var currency: String = "usd"
     @StateObject private var viewModel: PriceTimelineViewModel
-    @State var coinIsFavourite = false
     
-    @State var favouriteCoins = [FavouriteCoin]()
+    @State var coinIsFavourite = false
+    @State var favouriteCoins: [FavouriteCoin]
         
-    init(coin: Coin, currency: String) {
+    init(coin: Coin, currency: String, favouriteCoins: [FavouriteCoin]) {
         self.coin = coin
         self.currency = currency
         self._viewModel = StateObject(wrappedValue: PriceTimelineViewModel(coin: coin.name.lowercased() , currencyCode: currency))
-        
-        isCoinFavourite(coin)
-        print(coin.name, isCoinFavourite(coin), "🙌")
+        self.favouriteCoins = favouriteCoins
     }
         
     //MARK: - Body
@@ -113,11 +111,15 @@ struct CoinDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button {
+                print("current listed coin: ID \(coin.id), NAME \(coin.name) 🙌")
+                
+                let coin = FavouriteCoin(id: coin.id, name: coin.name)
+
                 if coinIsFavourite {
-                    viewModel.deleteSavedCoin(coin: FavouriteCoin(id: coin.id, name: coin.name), context: context)
+                    viewModel.deleteSavedCoin(coin: coin, context: context)
+                    print("current coin to delete: ID \(coin.id), NAME \(coin.name) ⭐️")
                     coinIsFavourite = false
                 } else {
-                    let coin = FavouriteCoin(id: coin.id, name: coin.name)
                     viewModel.persistCoin(coin: coin, context: context)
                     coinIsFavourite = true
                 }
@@ -125,37 +127,39 @@ struct CoinDetailView: View {
                 Image(systemName: coinIsFavourite ? "heart.fill" : "heart")
             }
         }
+        .onAppear() {
+            isCoinFavourite()
+        }
     }
     
     //MARK: - Methods
-    func isCoinFavourite(_ coin: Coin) {
-        coinIsFavourite = favouriteCoins.contains(where: { $0.name == coin.name })
-        
-        for coinToCheck in favouriteCoins {
-            if favouriteCoins.contains(where: { favCoin in
-                favCoin.id == coin.id
-                print("TRUE YES VERY TRUE")
-            })
-        }
-       
+    private func isCoinFavourite() {
+        coinIsFavourite = favouriteCoins.contains(where: { $0.id == coin.id })
     }
 }
 
-#Preview {
-    NavigationView {
-        CoinDetailView(coin: Coin(id: "bitcoin", 
-                                  symbol: "btc",
-                                  name: "Bitcoin",
-                                  rank: 1,
-                                  marketCap: 10000,
-                                  image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-                                  price: 21000.00,
-                                  totalVolume: 120,
-                                  high24h: 0.23,
-                                  low24h: 10000,
-                                  priceChange: -32.23,
-                                  priceChangePercentage: -0.03
-                                 ), currency: "usd")
+//MARK: - Preview
+struct CoinDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let favCoins: [FavouriteCoin] = [
+            FavouriteCoin(id: "btc", name: "Bitcoin")
+        ]
+
+        let sampleCoin = Coin(id: "bitcoin",
+                              symbol: "btc",
+                              name: "Bitcoin",
+                              rank: 1,
+                              marketCap: 10000,
+                              image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+                              price: 21000.00,
+                              totalVolume: 120,
+                              high24h: 0.23,
+                              low24h: 10000,
+                              priceChange: -32.23,
+                              priceChangePercentage: -0.03)
+
+        NavigationView {
+            CoinDetailView(coin: sampleCoin, currency: "usd", favouriteCoins: favCoins)
+        }
     }
-    
 }

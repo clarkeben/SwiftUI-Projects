@@ -25,7 +25,7 @@ struct CoinsView: View {
                     }
                     
                     FilterButton(title: "Volume", showFilterDirection: false) {
-                        
+                        //TODO: - Update
                     }
                     
                     Spacer()
@@ -48,11 +48,9 @@ struct CoinsView: View {
                         
                     }
                 } else {
-                    //TODO: - Manage state within the CoinDetailView
-                    ///Handle fetching list from the coins view
                     List {
                         ForEach(viewModel.searchedCoinResults) { coin in
-                            NavigationLink(destination: CoinDetailView(coin: coin, currency: viewModel.currencyCode.rawValue)) {
+                            NavigationLink(destination: CoinDetailView(coin: coin, currency: viewModel.currencyCode.rawValue, favouriteCoins: favouriteCoins)) {
                                 CoinRowItem(rank: coin.rank,
                                             imageURL: coin.image,
                                             name: coin.name,

@@ -118,7 +118,7 @@ class PriceTimelineViewModel: ObservableObject {
     
     //MARK: - SwiftData Methods
     func persistCoin(coin: FavouriteCoin, context: ModelContext) {
-            context.insert(coin)
+        context.insert(coin)
     }
     
     func deleteSavedCoin(coin: FavouriteCoin, context: ModelContext) {

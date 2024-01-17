@@ -50,5 +50,21 @@ class CoinViewModel: ObservableObject {
     private func handleError(error: NetworkRequestError) {
         self.errorMessage = error.description
     }
+    
+    //TODO: - Rewrite for better efficiency 
+    func filterFavCoins(favouriteCoins: [FavouriteCoin]) {
+        let favouriteCoinNames = Set(favouriteCoins.map { $0.name })
+        coins = coins.filter { favouriteCoinNames.contains($0.name) }
+//        var coinsToReturn = [Coin]()
+//        
+//        for favCoin in favouriteCoins {
+//            for coin in coins {
+//                if coin.name == favCoin.name {
+//                    coins.append(coin)
+//                }
+//            }
+//        }
+//        coins = coinsToReturn
+    }
 
 }
