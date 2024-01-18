@@ -45,7 +45,6 @@ struct CoinsView: View {
                         } icon: {
                             Image(systemName: "chart.line.uptrend.xyaxis")
                         }
-                        
                     }
                 } else {
                     List {

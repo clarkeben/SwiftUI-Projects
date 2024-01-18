@@ -27,12 +27,16 @@ struct CoinRowItem: View {
         }
     }
     
+    @State var showCoinRank =  true
+    
     //MARK: - Body
     var body: some View {
         HStack {
-            Text("\(rank)")
-                .foregroundColor(.secondary)
-                .padding(5)
+            if showCoinRank {
+                Text("\(rank)")
+                    .foregroundColor(.secondary)
+                    .padding(5)
+            }
             
             AsyncImage(url: URL(string: imageURL)) { image in
                 image.resizable()

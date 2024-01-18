@@ -51,20 +51,9 @@ class CoinViewModel: ObservableObject {
         self.errorMessage = error.description
     }
     
-    //TODO: - Rewrite for better efficiency 
-    func filterFavCoins(favouriteCoins: [FavouriteCoin]) {
-        let favouriteCoinNames = Set(favouriteCoins.map { $0.name })
-        coins = coins.filter { favouriteCoinNames.contains($0.name) }
-//        var coinsToReturn = [Coin]()
-//        
-//        for favCoin in favouriteCoins {
-//            for coin in coins {
-//                if coin.name == favCoin.name {
-//                    coins.append(coin)
-//                }
-//            }
-//        }
-//        coins = coinsToReturn
+    /// filter the list of the current coins based on whether they are a favourite
+    func filterFavouriteCoins(_ favouriteCoins: [FavouriteCoin]) {
+        let favCoins = Set(favouriteCoins.map{ $0.name })
+        coins = coins.filter { favCoins.contains($0.name) }
     }
-
 }

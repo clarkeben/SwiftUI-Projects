@@ -11,31 +11,87 @@ import SwiftData
 struct FavouritesView: View {
     //MARK: - Properties
     @Environment(\.modelContext) var context
-
+    
     @ObservedObject var viewModel = CoinViewModel()
     @Query(sort: \FavouriteCoin.dateSave) var favouriteCoins: [FavouriteCoin]
-
+    
     //MARK: - Body
     var body: some View {
         NavigationView {
+            //TODO: - Handle if there is no content
+            //            VStack {
+            //                if favouriteCoins.isEmpty {
+            //                    Label {
+            //                        Text("No Saved Coins!")
+            //                            .foregroundStyle(.secondary)
+            //                    } icon: {
+            //                        Image(systemName: "chart.line.uptrend.xyaxis")
+            //                            .foregroundStyle(.secondary)
+            //                    }
+            //                } else {
+            //
+            //                }
+            //            }
             List {
-                ForEach(favouriteCoins) { coin in
-                    Text(coin.name)
+                ForEach(viewModel.coins) { coin in
+                    CoinRowItem(rank: coin.rank,
+                                imageURL: coin.image,
+                                name: coin.name,
+                                symbol: coin.symbol,
+                                marketCap: coin.marketCap,
+                                price: coin.price,
+                                currency: viewModel.currencyCode.rawValue,
+                                priceChange: coin.priceChange,
+                                pricePercentageChange: coin.priceChangePercentage,
+                                showCoinRank: false)
+                    .buttonStyle(PlainButtonStyle())
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 10)
+                            .background(.clear)
+                            .foregroundColor(.white)
+                            .padding(
+                                EdgeInsets(
+                                    top: 5,
+                                    leading: 10,
+                                    bottom: 5,
+                                    trailing: 10
+                                )
+                            )
+                    )
                 }
-                .onDelete(perform: { indexSet in
-                    for index in indexSet {
-                        context.delete(favouriteCoins[index])
-                    }
-                })
-            }
-            .navigationTitle("Favourite Coins")
-            .onAppear() {
-                viewModel.filterFavCoins(favouriteCoins: favouriteCoins)
-            }
+                .onDelete(perform: deleteFavouriteCoin)
+                .listRowSeparator(.hidden)
+            }.listStyle(.grouped)
+                .navigationTitle("Favourite Coins")
+                .onAppear() {
+                    viewModel.filterFavouriteCoins(favouriteCoins)
+                    print(viewModel.coins, "⚡️")
+                }
         }
     }
+    
+    //MARK: - Methods
+    func deleteFavouriteCoin(at offsets: IndexSet) {
+        withAnimation {
+            offsets.forEach { index in
+                let coinToDelete = viewModel.coins[index]
+
+                if let matchingFavouriteCoin = favouriteCoins.first(where: { $0.id == coinToDelete.id }) {
+                    context.delete(matchingFavouriteCoin)
+                }
+            }
+
+            do {
+                try context.save()
+            } catch {
+                print("Error saving context: \(error)")
+            }
+            viewModel.filterFavouriteCoins(favouriteCoins)
+        }
+    }
+
 }
 
 #Preview {
-   FavouritesView()
+    FavouritesView()
 }

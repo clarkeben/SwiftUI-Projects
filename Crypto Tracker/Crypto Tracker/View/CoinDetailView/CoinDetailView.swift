@@ -111,13 +111,10 @@ struct CoinDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button {
-                print("current listed coin: ID \(coin.id), NAME \(coin.name) 🙌")
-                
                 let coin = FavouriteCoin(id: coin.id, name: coin.name)
-
+                
                 if coinIsFavourite {
                     viewModel.deleteSavedCoin(coin: coin, context: context)
-                    print("current coin to delete: ID \(coin.id), NAME \(coin.name) ⭐️")
                     coinIsFavourite = false
                 } else {
                     viewModel.persistCoin(coin: coin, context: context)
@@ -126,6 +123,7 @@ struct CoinDetailView: View {
             } label: {
                 Image(systemName: coinIsFavourite ? "heart.fill" : "heart")
             }
+
         }
         .onAppear() {
             isCoinFavourite()
