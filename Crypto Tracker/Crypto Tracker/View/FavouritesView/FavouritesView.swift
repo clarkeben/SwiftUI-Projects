@@ -19,54 +19,50 @@ struct FavouritesView: View {
     var body: some View {
         NavigationView {
             //TODO: - Handle if there is no content
-            //            VStack {
-            //                if favouriteCoins.isEmpty {
-            //                    Label {
-            //                        Text("No Saved Coins!")
-            //                            .foregroundStyle(.secondary)
-            //                    } icon: {
-            //                        Image(systemName: "chart.line.uptrend.xyaxis")
-            //                            .foregroundStyle(.secondary)
-            //                    }
-            //                } else {
-            //
-            //                }
-            //            }
-            List {
-                ForEach(viewModel.coins) { coin in
-                    CoinRowItem(rank: coin.rank,
-                                imageURL: coin.image,
-                                name: coin.name,
-                                symbol: coin.symbol,
-                                marketCap: coin.marketCap,
-                                price: coin.price,
-                                currency: viewModel.currencyCode.rawValue,
-                                priceChange: coin.priceChange,
-                                pricePercentageChange: coin.priceChangePercentage,
-                                showCoinRank: false)
-                    .buttonStyle(PlainButtonStyle())
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 10)
-                            .background(.clear)
-                            .foregroundColor(.white)
-                            .padding(
-                                EdgeInsets(
-                                    top: 5,
-                                    leading: 10,
-                                    bottom: 5,
-                                    trailing: 10
-                                )
-                            )
+            VStack {
+                if favouriteCoins.isEmpty {
+                    ContentUnavailableView("No saved coins", 
+                                           systemImage: "bitcoinsign.arrow.circlepath",
+                                           description: Text("Please favourite a crypto currency!")
                     )
+                } else {
+                    List {
+                        ForEach(viewModel.coins) { coin in
+                            CoinRowItem(rank: coin.rank,
+                                        imageURL: coin.image,
+                                        name: coin.name,
+                                        symbol: coin.symbol,
+                                        marketCap: coin.marketCap,
+                                        price: coin.price,
+                                        currency: viewModel.currencyCode.rawValue,
+                                        priceChange: coin.priceChange,
+                                        pricePercentageChange: coin.priceChangePercentage,
+                                        showCoinRank: false)
+                            .buttonStyle(PlainButtonStyle())
+                            .listRowBackground(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .background(.clear)
+                                    .foregroundColor(.white)
+                                    .padding(
+                                        EdgeInsets(
+                                            top: 5,
+                                            leading: 10,
+                                            bottom: 5,
+                                            trailing: 10
+                                        )
+                                    )
+                            )
+                        }
+                        .onDelete(perform: deleteFavouriteCoin)
+                        .listRowSeparator(.hidden)
+                    }
+                    .listStyle(.grouped)
                 }
-                .onDelete(perform: deleteFavouriteCoin)
-                .listRowSeparator(.hidden)
-            }.listStyle(.grouped)
-                .navigationTitle("Favourite Coins")
-                .onAppear() {
-                    viewModel.filterFavouriteCoins(favouriteCoins)
-                    print(viewModel.coins, "⚡️")
-                }
+            }
+            .navigationTitle("Favourite Coins")
+            .onAppear() {
+                viewModel.filterFavouriteCoins(favouriteCoins)
+            }
         }
     }
     
@@ -75,12 +71,12 @@ struct FavouritesView: View {
         withAnimation {
             offsets.forEach { index in
                 let coinToDelete = viewModel.coins[index]
-
+                
                 if let matchingFavouriteCoin = favouriteCoins.first(where: { $0.id == coinToDelete.id }) {
                     context.delete(matchingFavouriteCoin)
                 }
             }
-
+            
             do {
                 try context.save()
             } catch {
@@ -89,7 +85,7 @@ struct FavouritesView: View {
             viewModel.filterFavouriteCoins(favouriteCoins)
         }
     }
-
+    
 }
 
 #Preview {
